@@ -1,0 +1,5 @@
+// Username; Password; User Type; Blocked User list (comma seperated); Invisible User list (comma seperated); Store list (comma seperated)
+admin;admin;seller;;;
+cust;cust;customer;;;
+agraw;12345;customer;;;
+thisIsATest;12345;seller;;;adidas,nike,reebok,purdue
