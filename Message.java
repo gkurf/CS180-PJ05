@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * This class handles the bulk end of the messaging capabilities between users
  *
  * @author Anish Agrawal, Jack Burns, Sanya Buti, Gabe Kurfman, Shubhangi Mishra
- * @version April 9, 2023
+ * @version April 19, 2023
  */
 public class Message {
 

@@ -7,7 +7,7 @@ import java.util.*;
  * impedded in this program and will be the central run command.
  *
  * @author Anish Agrawal, Jack Burns, Sanya Buti, Gabe Kurfman, Shubhangi Mishra
- * @version April 9, 2023
+ * @version April 19, 2023
  */
 public class Stride180 {
 

@@ -6,7 +6,7 @@ import java.io.PrintWriter;
  * This sets up the store object used in other classes
  *
  * @author Anish Agrawal, Jack Burns, Sanya Buti, Gabe Kurfman, Shubhangi Mishra
- * @version April 9, 2023
+ * @version April 19, 2023
  */
 public class Store {
 

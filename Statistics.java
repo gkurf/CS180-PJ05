@@ -6,7 +6,7 @@ import java.util.List;
  * This class allows for Statistics of relevent data to be displayed on request by users
  *
  * @author Anish Agrawal, Jack Burns, Sanya Buti, Gabe Kurfman, Shubhangi Mishra
- * @version April 9, 2023
+ * @version April 19, 2023
  */
 public class Statistics {
 

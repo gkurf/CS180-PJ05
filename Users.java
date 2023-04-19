@@ -13,7 +13,7 @@ import java.util.Scanner;
  * A class to store a collection of User objects and apply methods to them.
  *
  * @author Anish Agrawal, Jack Burns, Sanya Buti, Gabe Kurfman, Shubhangi Mishra
- * @version April 9, 2023
+ * @version April 19, 2023
  */
 public class Users {
 

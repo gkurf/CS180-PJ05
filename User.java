@@ -9,7 +9,7 @@ import java.io.IOException;
  * delete other users
  *
  * @author Anish Agrawal, Jack Burns, Sanya Buti, Gabe Kurfman, Shubhangi Mishra
- * @version April 9, 2023
+ * @version April 19, 2023
  */
 public class User {
 
