@@ -65,26 +65,26 @@ class Server {
 			PrintWriter out = null;
 			BufferedReader in = null;
 			try {
-
-				BufferedWriter fileWriter = new BufferedWriter(new FileWriter("miniSetUp.txt", true));
+				BufferedWriter fileWriter = new BufferedWriter(new FileWriter(filename, true));
 				BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 				PrintWriter writer = new PrintWriter(clientSocket.getOutputStream());
 				boolean stillGoing = false;
-				do {
-					String message = reader.readLine();
-					fileWriter.write(message);
-					fileWriter.flush();
-					fileWriter.newLine();
-					writer.write("Completed");
-					writer.println();
-					writer.flush(); // Ensure data is sent to the client.
-					String decision = reader.readLine();
-					if (decision.strip().equalsIgnoreCase("no")) {
-						stillGoing = false;
-					} else {
-						stillGoing = true;
+				String message = reader.readLine();
+				if (message.startsWith("/write/")) {
+					message = message.substring(7);
+					String[] arr = message.split(" {-/} ");
+					Fine newFile = new File(createFile(arr[0]));
+					try {
+						newFile.createNewFile();
+					} catch (IOException e) {
+						e.printStackTrace();
 					}
-				} while (stillGoing);
+					PrintWriter newWriter = new PrintWriter(new FileOutputStream(arr[0], true))
+				}
+				if (message.startsWith("/read/")) {
+					message = message.substring(6);
+					String[] arr = message.split(" {-/} ");
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			} finally {
