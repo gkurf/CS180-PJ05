@@ -2,6 +2,8 @@ import java.io.*;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.net.*;
+import javax.swing.JOptionPane;
 
 /**
  * This class handles the bulk end of the messaging capabilities between users
@@ -16,44 +18,62 @@ public class Message {
     private User seller;
     private String customerFileName;
     private String sellerFileName;
-
+    private Socket socket = null;
+    private OutputStream outputStream = null;
+    private PrintWriter writer = null;
+    private InputStream inputStream = null;
+    private BufferedReader reader = null;
     // setting constructor
     public Message(User user1, User user2) {
         if (user1.getUserType().equals(user2.getUserType())) { // if they are both customers or both sellers
             System.out.println("The sender and receiver cannot be both buyers or both sellers!");
         } else {
-            if (user1.getUserType().equals("customer")) {
-                this.customer = user1;
-                this.seller = user2;
-            } else {
-                this.customer = user2;
-                this.seller = user1;
-            }
+            try {
+                socket = new Socket("localhost", 1234);
+                outputStream = socket.getOutputStream();
+                writer = new PrintWriter(outputStream, true);
+                InputStream inputStream = socket.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
-            File customerSide = new File(customer.getUsername() + " messages to " + seller.getUsername());
-            try {
-                customerSide.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            File sellerSide = new File(seller.getUsername() + " messages to " + customer.getUsername());
-            try {
-                sellerSide.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            File messageHistory = new File("messageHistory");
-            try {
-                messageHistory.createNewFile();
-                PrintWriter newConvWrite = new PrintWriter(new FileOutputStream(messageHistory, true));
-                newConvWrite.println(user1.getUsername() + "," + user2.getUsername());
-                newConvWrite.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+                if (user1.getUserType().equals("customer")) {
+                    this.customer = user1;
+                    this.seller = user2;
+                } else {
+                    this.customer = user2;
+                    this.seller = user1;
+                }
+    
+                File customerSide = new File(customer.getUsername() + " messages to " + seller.getUsername());
+                try {
+                    customerSide.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                File sellerSide = new File(seller.getUsername() + " messages to " + customer.getUsername());
+                try {
+                    sellerSide.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                
+                String send = "messageHistory {-/} " + user1.getUsername() + "," + user2.getUsername();
+                writer.println(send);
 
-            this.customerFileName = customer.getUsername() + " messages to " + seller.getUsername();
-            this.sellerFileName = seller.getUsername() + " messages to " + customer.getUsername();
+                File messageHistory = new File("messageHistory");
+                try {
+                    messageHistory.createNewFile();
+                    PrintWriter newConvWrite = new PrintWriter(new FileOutputStream(messageHistory, true));
+                    newConvWrite.println(user1.getUsername() + "," + user2.getUsername());
+                    newConvWrite.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+    
+                this.customerFileName = customer.getUsername() + " messages to " + seller.getUsername();
+                this.sellerFileName = seller.getUsername() + " messages to " + customer.getUsername();
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Could not establish connection to server.");
+            }
         }
     }
 
@@ -67,6 +87,7 @@ public class Message {
                 PrintWriter customerWriter = new PrintWriter(new FileOutputStream(customerFileName, true));
                 customerWriter.println(sender.getUsername() + ": " + message + " (sent at " + timestamp + ")");
                 customerWriter.close();
+                writer.println("/write/" + customerFileName + " {-/} " + message + " (sent at " + timestamp + ")");
                 PrintWriter sellerWriter = new PrintWriter(new FileOutputStream(sellerFileName, true));
                 sellerWriter.println(sender.getUsername() + ": " + message + " (sent at " + timestamp + ")");
                 sellerWriter.close();
