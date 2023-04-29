@@ -1,16 +1,16 @@
-# Stride180 Marketplace - CS180 PROJECT 4
+# Stride180 Marketplace - CS180 PROJECT 5
 ## Project Description
-Stride 180 is an online shoe shopping system where customers and sellers can interact with each other through messaging. Customers and sellers can create new or access existing accounts, and sellers can create multiple stores. Customers can view a list of stores or search for sellers to message, while sellers can view a list of customers to message or message a specific customer. However, if a user has blocked another user or has chosen to be invisible, they cannot interact with each other. Users can also view messaging statistics, block other users, or choose to become invisible to them.
+Stride 180 is an online shoe shopping system where customers and sellers can interact with each other through messaging. This program is concurrent, utilizing network IO and a full graphical user interface (GUI). Customers and sellers can create new or access existing accounts, and sellers can create multiple stores. Customers can view a list of stores or search for sellers to message, while sellers can view a list of customers to message or message a specific customer. All users can also view messaging statistics, block other users, or choose to become invisible to them.
 
 ## Submission information
 While everyone split up and completed the work, only two people are submitting the deliverables:
-- Project 4 Report: Submitted by Sanya Buti on Brightspace
+- Project 5 Report: Submitted by Sanya Buti on Brightspace
 - All classes and README: Submitted by Gabe Kurfman on Vocareum
 
 ## Compilation information
 All of the described classes below will need to be imported and compiled as well as all necessary libraries. In terms of user interface, the only class that needs to be run is the Stride180 class. It acts as the main user interfacing class and all necessary capabilities, prompts, and outputs will be derived from that class. While all classes need to be compiled, the Stride180 class is the only one that needs to be run. 
 
-    $ cd CS180-PJ04
+    $ cd CS180-PJ05
     $ javac Stride180.java
     $ java Stride180
 
@@ -62,14 +62,6 @@ This class is responsible for storing a collection of User objects and applying 
 This class was one of the classes with the most testing during the multiple iterations of this project. The main key features of the program is in this class thus the issue was not only to test and debug functional issues but integration issues between classes and people. Like all the other code in this project, the testing and debugging was done on the grounds of error checking and functionality.
 #### Relationship with other Classes
 This class is directly related to the stride180 class as well as the User class. It utilizes both classes as well as all subsidiary classes to be the driving force for the program and project. 
-
-### RunLocalTests.java
-#### Functionality
-This class provides test cases for the program to run with the expected output in mind. The program tests this output with the given output and derives whether or not they pass each case.
-    
-    $ cd CS180-PJ04
-    $ javac RunLocalTest.java
-    $ java RunLocalTest
     
 #### Testing
 The testing for this was done by manually comparing the test cases and the output of this RunLocalTests class. Due to this the team decided to just switch to manually testing.
