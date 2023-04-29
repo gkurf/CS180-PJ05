@@ -51,7 +51,7 @@ The store class is connected to other classes such as Stride180 and the User cla
 #### Functionality
 The class contains fields such as username, password, userType, blockedUsers, invisibleUsers, and storeList. It also has a constructor and getter and setter methods for these fields. The class has methods for getting messages between the current user and another user, adding stores to a user's storeList, adding blocked users and invisible users to a user's list, converting everything to a CSV format, and welcoming the user. The class overrides the toString() method to provide a String representation of the User object. The class simulates an individual user and creates instances of other other classes to complete the capabilities which is then translated back to an output for the Stride180 class to use. 
 #### Testing
-The main testing of this class was done through the integration between this, stride180, and all specific classes with specific capabilities. Like all the other code in this project, the testing and debugging was done on the grounds of error checking and functionality.
+The main testing of this class was done through the integration between this, Stride180, and all specific classes with specific capabilities. Like all the other code in this project, the testing and debugging was done on the grounds of error checking and functionality.
 #### Relationship with other Classes:
 The user class acts as an intermediary for the Stride180 input/output class and all the subsequent functional classes that need to be called. The user information for the physical user is stored via this class and defines the customer interaction and calling of other classes. 
 
@@ -61,7 +61,7 @@ This class is responsible for storing a collection of User objects and applying 
 #### Testing
 This class was one of the classes with the most testing during the multiple iterations of this project. The main key features of the program is in this class thus the issue was not only to test and debug functional issues but integration issues between classes and people. Like all the other code in this project, the testing and debugging was done on the grounds of error checking and functionality.
 #### Relationship with other Classes
-This class is directly related to the stride180 class as well as the User class. It utilizes both classes as well as all subsidiary classes to be the driving force for the program and project. 
+This class is directly related to the Stride180 class as well as the User class. It utilizes both classes as well as all subsidiary classes to be the driving force for the program and project. 
     
 #### Testing
 The testing for this was done by manually comparing the test cases and the output of this RunLocalTests class. Due to this the team decided to just switch to manually testing.
