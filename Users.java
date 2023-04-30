@@ -39,9 +39,7 @@ public class Users {
             this.dataFilename = dataFilename;
             this.currentUser = null;
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Could not establish connection to server." +
-                                        "\nConsult the Stride180 Readme for more details.");
-            System.exit(0);
+            JOptionPane.showMessageDialog(null, "Could not establish connection to server.");
         }
         loadData(usersGUI);
     }
@@ -125,7 +123,8 @@ public class Users {
         for (User u : userList) {
             total += u.toCSV();
         }
-        String send = "/write/" + dataFilename + ",mv.." + total;
+        String send = "/write/" + dataFilename + " ,mv.. " + total;
+        System.out.println(send);
         writer.println(send);
     }
 
@@ -133,7 +132,6 @@ public class Users {
         String username;
         String password;
         loadData(usersGUI);
-
         do {
             username = usersGUI.logInUsername();
             usersGUI.message = "";
