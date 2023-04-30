@@ -130,7 +130,7 @@ public class Users {
     public void saveData(GUI usersGUI) {
         String total = "";
         for (User u : userList) {
-            total += u.toCSV() + "\n";
+            total += u.toCSV() + "..pkjm..";
         }
         String send = "/write/" + dataFilename + " ,mv.. " + total;
         System.out.println("NEW SAVE COMMAND");
