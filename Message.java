@@ -44,9 +44,9 @@ public class Message {
                     this.seller = user1;
                 }
 
-                String sendCustomer = "/write/" + customer.getUsername() + " messages to " + seller.getUsername() + "{-/} ";
+                String sendCustomer = "/write/" + customer.getUsername() + " messages to " + seller.getUsername() + " {-/} ";
                 writer.println(sendCustomer);
-                String sendSeller = "/write/" + seller.getUsername() + " messages to " + customer.getUsername();
+                String sendSeller = "/write/" + seller.getUsername() + " messages to " + customer.getUsername() + " {-/} ";
                 writer.println(sendSeller);
                 String sendHistory = "/write/ messageHistory {-/} " + user1.getUsername() + "," + user2.getUsername();
                 writer.println(sendHistory);
@@ -65,18 +65,10 @@ public class Message {
             System.out.println("User is not part of this conversation!");
         } else {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            try {
-                PrintWriter customerWriter = new PrintWriter(new FileOutputStream(customerFileName, true));
-                customerWriter.println(sender.getUsername() + ": " + message + " (sent at " + timestamp + ")");
-                customerWriter.close();
-                writer.println("/write/" + customerFileName + " {-/} " + message + " (sent at " + timestamp + ")");
-                PrintWriter sellerWriter = new PrintWriter(new FileOutputStream(sellerFileName, true));
-                sellerWriter.println(sender.getUsername() + ": " + message + " (sent at " + timestamp + ")");
-                sellerWriter.close();
-            } catch (FileNotFoundException e) {
-                System.out.println("This conversation does not exist.");
-                e.printStackTrace();
-            }
+            String sendCustomerMessage = "/write/" + customerFileName + " {-/} " + sender.getUsername() + ": " + message + " (sent at " + timestamp + ")";
+            writer.println(sendCustomerMessage);
+            String sendSellerMessage = "/write/" + sellerFileName + " {-/} " + sender.getUsername() + ": " + message + " (sent at " + timestamp + ")";
+            writer.println(sendSellerMessage);
         }
     }
 
@@ -99,6 +91,8 @@ public class Message {
                         messageList.add(line);
                         line = bfr.readLine();
                     }
+                    String readCustomerTime = "/read/" + customerFileName;
+                    writer.println(readCustomerTime);
 
                     message = messageList.get(messageNumber + 1);
                     bfr.close();
