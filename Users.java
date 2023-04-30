@@ -114,6 +114,8 @@ public class Users {
                 } catch (ArrayIndexOutOfBoundsException e) {
                     ;
                 }
+
+                this.userList.add(new User(username, password, userType, blockedUsers, invisibleUsers, storeList, usersGUI));
             }
 
         }
