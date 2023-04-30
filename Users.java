@@ -40,7 +40,7 @@ public class Users {
             this.currentUser = null;
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not establish connection to server." +
-                                        "Consult the Stride180 Readme for more details.");
+                                        "\nConsult the Stride180 Readme for more details.");
             System.exit(0);
         }
         loadData(usersGUI);
