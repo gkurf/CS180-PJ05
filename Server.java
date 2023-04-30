@@ -87,7 +87,9 @@ class Server {
 							BufferedWriter fileWriter = new BufferedWriter(new FileWriter(arr[0], false));
 							//fileWriter.newLine();
 							//arr[1] = arr[1].replaceAll("null", "");
-							fileWriter.write(arr[1]); //.trim()
+							for (String s : arr[1].split("\n")) {
+								fileWriter.write(s); //.trim()
+							}
 							fileWriter.close();
 						}
 						if (message.startsWith("/read/")) {
