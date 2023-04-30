@@ -76,7 +76,7 @@ class Server {
 					try {
 					message = reader.readLine(); 
 					} catch (SocketException e){
-						JOptionPane.showMessageDialog(null, "Client Disconnection Error"); 
+						//JOptionPane.showMessageDialog(null, "Client Disconnection Error"); 
 					}
 					if (message == null) {
 						int x = 1;

@@ -194,7 +194,6 @@ public class Stride180 {
         } while (user != null);
 
         usersGUI.closeWindow();
-        System.exit(0);
     }
 
     // helps the user log in or create an account
