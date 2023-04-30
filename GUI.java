@@ -18,10 +18,7 @@ public class GUI implements ActionListener {
     public GUI() {
     }
 
-    public static void main(String[] args) {
-        GUI.MainEntry();
-        GUI.userNameInvalid();
-    }
+  
 
     @Override
 
