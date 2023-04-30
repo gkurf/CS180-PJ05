@@ -124,9 +124,12 @@ public class Users {
     public void saveData(GUI usersGUI) {
         String total = "";
         for (User u : userList) {
-            total += u.toCSV();
+            total += u.toCSV() + "\n";
         }
         String send = "/write/" + dataFilename + " ,mv.. " + total;
+        System.out.println("NEW SAVE COMMAND");
+        System.out.println(userList);
+        System.out.println(send);
         writer.println(send);
     }
 
