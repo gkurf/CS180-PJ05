@@ -133,9 +133,6 @@ public class Users {
             total += u.toCSV() + "..pkjm..";
         }
         String send = "/write/" + dataFilename + " ,mv.. " + total;
-        System.out.println("NEW SAVE COMMAND");
-        System.out.println(userList);
-        System.out.println(send);
         writer.println(send);
     }
 
