@@ -82,18 +82,18 @@ public class Users {
         } catch (NullPointerException e) {
         } catch (IOException e) {
         }
-        System.out.println("File Content: " + fileContent);
+        fileContent.replace("null", "");
         String[] fileContentArray = fileContent.split("..pkjm..");
         String line = "";
         String[] splitLine = {""};
         String username = "";
         String password = "";
         String userType = "";
-        for (int i = 0; i < fileContentArray.length; i++) {
+        for (int i = 1; i < fileContentArray.length; i++) {
             ArrayList<String> blockedUsers = new ArrayList<>();
             ArrayList<String> invisibleUsers = new ArrayList<>();
             ArrayList<String> storeList = new ArrayList<>();
-
+            
             line = fileContentArray[i];
             if (line != null) {
                 try {
@@ -125,7 +125,6 @@ public class Users {
             total += u.toCSV();
         }
         String send = "/write/" + dataFilename + " ,mv.. " + total;
-        System.out.println(send);
         writer.println(send);
     }
 

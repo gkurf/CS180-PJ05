@@ -81,7 +81,6 @@ class Server {
 					if (message == null) {
 						int x = 1;
 					} else {
-						System.out.println(message);
 						if (message.startsWith("/write/")) {
 							message = message.substring(7);
 							String[] arr = message.split(" ,mv.. ");
