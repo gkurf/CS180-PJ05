@@ -1,5 +1,3 @@
-import com.sun.java.accessibility.util.GUIInitializedListener;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -20,13 +18,12 @@ public class Users {
 
     // private fields
     private String USER_DATA_COMMENT = "// Username; Password; User Type; Blocked User list (comma seperated); Invisible User list (comma seperated); Store list (comma seperated)";
-    private static String BLOCK_PROMPT = "Enter Username to block: ";
-    private static String INVIS_PROMPT = "Enter Username to become invisible to: ";
     private ArrayList<User> userList = new ArrayList <User>();
     private String dataFilename;
     private User currentUser;
     private GUI usersGUI;
-
+    //private static String BLOCK_PROMPT = "Enter Username to block: ";
+    //private static String INVIS_PROMPT = "Enter Username to become invisible to: ";
 
     // constructor
     public Users(String dataFilename) {
@@ -162,7 +159,7 @@ public class Users {
         String username = "";
         String password = "";
         String confirmPassword = "";
-        String userType;
+        //String userType;
         ArrayList<String> blockedUsers = new ArrayList<String>();
         ArrayList<String> invisibleUsers = new ArrayList<String>();
         ArrayList<String> storeList = new ArrayList<String>();
@@ -254,7 +251,7 @@ public class Users {
     }
 
     public boolean deleteAccount() {
-        String confirm;
+        //String confirm;
 
         int delete = usersGUI.deleteAccount();
         if (delete == 1) {
