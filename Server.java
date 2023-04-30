@@ -84,7 +84,7 @@ class Server {
 						if (message.startsWith("/write/")) {
 							message = message.substring(7);
 							String[] arr = message.split(" ,mv.. ");
-							BufferedWriter fileWriter = new BufferedWriter(new FileWriter(arr[0], true));
+							BufferedWriter fileWriter = new BufferedWriter(new FileWriter(arr[0], false));
 							fileWriter.newLine();
 							arr[1] = arr[1].replaceAll("null", "");
 							fileWriter.write(arr[1].trim());
