@@ -30,8 +30,10 @@ public class Statistics {
             customers = new ArrayList<>();
             sellers=new ArrayList<>();
             commonWords = new ArrayList<>();
-         }catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Could not establish connection to server.");
+         } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Could not establish connection to server." +
+                                        "\nConsult the Stride180 Readme for more details.");
+            System.exit(0);
         }
     }
     private String sendMessage(String message) {

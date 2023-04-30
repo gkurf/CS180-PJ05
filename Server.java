@@ -12,8 +12,6 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-//import javax.swing.JOptionPane;
-
 // Server class
 class Server {
 	public static void main(String[] args) {
