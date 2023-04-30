@@ -780,8 +780,6 @@ public class GUI implements ActionListener {
 
         label = new JLabel("How many stores do you want to add? ");
         panel.add(label);
-        text = new JTextField();
-        panel.add(text);
         
         SpinnerModel spinnerModel = new SpinnerNumberModel(1, //initial value
             1, //min
@@ -907,8 +905,6 @@ public class GUI implements ActionListener {
         panel.add(label);
         label = new JLabel(dataCustomers);
         label = new JLabel("Which Customer Number would you like to message?");
-        text = new JTextField();
-        panel.add(text);
         
         SpinnerModel spinnerModel = new SpinnerNumberModel(1, //initial value
             1, //min
@@ -949,8 +945,6 @@ public class GUI implements ActionListener {
         panel.add(label);
         label = new JLabel("Which Store Number would you like to message?");
         panel.add(label);
-        text = new JTextField();
-        panel.add(text);
 
         SpinnerModel spinnerModel = new SpinnerNumberModel(1, //initial value
             1, //min
