@@ -277,7 +277,9 @@ public class Users {
         String[] restrictedChars = {
                 ",",
                 ";",
-                "\\"
+                "\\",
+                "..pkjm..",
+                " ,mv.. "
         };
         for (int i = 0; i < restrictedChars.length; i++) {
             if (inputStr.contains(restrictedChars[i])) {
