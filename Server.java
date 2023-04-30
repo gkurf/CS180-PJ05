@@ -73,7 +73,7 @@ class Server {
 				if (message.startsWith("/write/")) {
 					message = message.substring(7);
 					String[] arr = message.split(" {-/} ");
-					Fine newFile = new File(createFile(arr[0]));
+					File newFile = new File(createFile(arr[0]));
 					try {
 						newFile.createNewFile();
 					} catch (IOException e) {

@@ -401,5 +401,5 @@ public class Stride180 {
 
         System.out.println("That customer does not exist!");
         return null;
-    }   
+    }
 }
