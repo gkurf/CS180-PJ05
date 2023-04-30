@@ -610,15 +610,25 @@ public class GUI implements ActionListener {
             panel.add(m);
         }
 
-        String newUsername = " ";
         panel.removeAll();
         label = new JLabel("Enter your new username");
         panel.add(label);
         text = new JTextField();
         panel.add(text);
-        newUsername = text.getText();
+        frame.pack();
         frame.setVisible(true);
-        return newUsername;
+        
+        textInput = "";
+        while (textInput.equals("")) {
+            text.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    textInput = text.getText();
+                }
+            });
+        }
+
+        return textInput;
     }
 
     public String changePassword() {
@@ -629,15 +639,25 @@ public class GUI implements ActionListener {
             panel.add(m);
         }
 
-        String newUsername = " ";
         panel.removeAll();
         label = new JLabel("Enter your new password");
         panel.add(label);
         text = new JTextField();
         panel.add(text);
-        newUsername = text.getText();
+        frame.pack();
         frame.setVisible(true);
-        return newUsername;
+        
+        textInput = "";
+        while (textInput.equals("")) {
+            text.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    textInput = text.getText();
+                }
+            });
+        }
+
+        return textInput;
     }
     public int deleteAccount() {
         panel.removeAll();
@@ -691,7 +711,6 @@ public class GUI implements ActionListener {
     }
 
     public String blockUser() {
-        String Username = " ";
         panel.removeAll();
         frame.setTitle("Block User");
 
@@ -704,13 +723,23 @@ public class GUI implements ActionListener {
         panel.add(label);
         text = new JTextField();
         panel.add(text);
-        Username = text.getText();
+        frame.pack();
         frame.setVisible(true);
-        return Username;
+        
+        textInput = "";
+        while (textInput.equals("")) {
+            text.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    textInput = text.getText();
+                }
+            });
+        }
+
+        return textInput;
     }
 
     public String invisUsername() {
-        String Username = " ";
         panel.removeAll();
         frame.setTitle("Invisible User");
 
@@ -723,13 +752,23 @@ public class GUI implements ActionListener {
         panel.add(label);
         text = new JTextField();
         panel.add(text);
-        Username = text.getText();
+        frame.pack();
         frame.setVisible(true);
-        return Username;
+        
+        textInput = "";
+        while (textInput.equals("")) {
+            text.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    textInput = text.getText();
+                }
+            });
+        }
+
+        return textInput;
     }
 
     public int storesAmount() {
-        int stores = 0;
         panel.removeAll();
         frame.setTitle("Create Stores");
         
@@ -742,13 +781,27 @@ public class GUI implements ActionListener {
         panel.add(label);
         text = new JTextField();
         panel.add(text);
-        stores = Integer.parseInt(text.getText());
+        frame.pack();
         frame.setVisible(true);
-        return stores;
+        
+        count = 0;
+        while (count == 0) {
+            text.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        count = Integer.parseInt(text.getText());
+                    } catch (NumberFormatException t) {
+                        message = "Store amount must be an integer!";
+                    }
+                }
+            });
+        }
+
+        return count;
     }
 
     public String registerStore(int amount) {
-        String name = " ";
         panel.removeAll();
         frame.setTitle("Search a store");
 
@@ -761,13 +814,23 @@ public class GUI implements ActionListener {
         panel.add(label);
         text = new JTextField();
         panel.add(text);
-        name = text.getText();
+        frame.pack();
         frame.setVisible(true);
-        return name;
+        
+        textInput = "";
+        while (textInput.equals("")) {
+            text.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    textInput = text.getText();
+                }
+            });
+        }
+
+        return textInput;
     }
 
     public String messageCustomer() {
-        String name = " ";
         panel.removeAll();
         frame.setTitle("Message");
 
@@ -780,13 +843,23 @@ public class GUI implements ActionListener {
         panel.add(label);
         text = new JTextField();
         panel.add(text);
-        name = text.getText();
+        frame.pack();
         frame.setVisible(true);
-        return name;
+        
+        textInput = "";
+        while (textInput.equals("")) {
+            text.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    textInput = text.getText();
+                }
+            });
+        }
+
+        return textInput;
     }
 
     public String messageSeller() {
-        String name = " ";
         panel.removeAll();
         frame.setTitle("Message");
 
@@ -799,13 +872,23 @@ public class GUI implements ActionListener {
         panel.add(label);
         text = new JTextField();
         panel.add(text);
-        name = text.getText();
+        frame.pack();
         frame.setVisible(true);
-        return name;
+        
+        textInput = "";
+        while (textInput.equals("")) {
+            text.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    textInput = text.getText();
+                }
+            });
+        }
+
+        return textInput;
     }
 
     public int numberCustomers(int customers, String dataCustomers) {
-       int customerNumber = 0;
         panel.removeAll();
         frame.setTitle("Search Customers");
 
@@ -820,13 +903,27 @@ public class GUI implements ActionListener {
         label = new JLabel("Which Customer Number would you like to message?");
         text = new JTextField();
         panel.add(text);
-        customerNumber = Integer.parseInt(text.getText());
+        frame.pack();
         frame.setVisible(true);
-        return customerNumber;
+        
+        count = 0;
+        while (count == 0) {
+            text.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        count = Integer.parseInt(text.getText());
+                    } catch (NumberFormatException t) {
+                        message = "Customer number must be an integer!";
+                    }
+                }
+            });
+        }
+
+        return count;
     }
 
     public int numberStore(int stores, String dataStores) {
-        int storeNumber = 0;
         panel.removeAll();
         frame.setTitle("Search Stores");
 
@@ -843,9 +940,25 @@ public class GUI implements ActionListener {
         panel.add(label);
         text = new JTextField();
         panel.add(text);
-        storeNumber = Integer.parseInt(text.getText());
+
+        frame.pack();
         frame.setVisible(true);
-        return storeNumber;
+        
+        count = 0;
+        while (count == 0) {
+            text.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        count = Integer.parseInt(text.getText());
+                    } catch (NumberFormatException t) {
+                        message = "Store number must be an integer!";
+                    }
+                }
+            });
+        }
+
+        return count;
     }
 
     public int sendMessageOption(String reciever, String history) {
@@ -876,6 +989,7 @@ public class GUI implements ActionListener {
 
         frame.pack();
         frame.setVisible(true);
+
         count = 0;
         while (count == 0) {
             button1.addActionListener(new ActionListener() {
@@ -932,13 +1046,23 @@ public class GUI implements ActionListener {
         panel.add(label);
         text = new JTextField();
         panel.add(text);
-        output = text.getText();
+        frame.pack();
         frame.setVisible(true);
-        return output;
+        
+        textInput = "";
+        while (textInput.equals("")) {
+            text.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    textInput = text.getText();
+                }
+            });
+        }
+
+        return textInput;
     }
 
     public String optionTwoMessage() {
-        String output = " ";
         panel.removeAll();
         frame.setTitle("Send text file");
 
@@ -951,13 +1075,23 @@ public class GUI implements ActionListener {
         panel.add(label);
         text = new JTextField();
         panel.add(text);
-        output = text.getText();
+        frame.pack();
         frame.setVisible(true);
-        return output;
+        
+        textInput = "";
+        while (textInput.equals("")) {
+            text.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    textInput = text.getText();
+                }
+            });
+        }
+
+        return textInput;
     }
 
     public String optionThreeMessage() {
-        String output = " ";
         panel.removeAll();
         frame.setTitle("Edit message");
 
@@ -970,13 +1104,23 @@ public class GUI implements ActionListener {
         panel.add(label);
         text = new JTextField();
         panel.add(text);
-        output = text.getText();
+        frame.pack();
         frame.setVisible(true);
-        return output;
+        
+        textInput = "";
+        while (textInput.equals("")) {
+            text.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    textInput = text.getText();
+                }
+            });
+        }
+
+        return textInput;
     }
 
     public String optionFiveMessage() {
-        String output = " ";
         panel.removeAll();
         frame.setTitle("Export to CSV");
 
@@ -989,9 +1133,20 @@ public class GUI implements ActionListener {
         panel.add(label);
         text = new JTextField();
         panel.add(text);
-        output = text.getText();
+        frame.pack();
         frame.setVisible(true);
-        return output;
+        
+        textInput = "";
+        while (textInput.equals("")) {
+            text.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    textInput = text.getText();
+                }
+            });
+        }
+
+        return textInput;
     }
 
     public void commonWordsSeller(String commonOnes) {
