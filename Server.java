@@ -102,7 +102,7 @@ class Server {
 							}
 							String str = null;
 							for (String part : messageList) {
-								str += part + "..pkjm..";
+								str += "..pkjm.." + part + "..pkjm..";
 							}
 							System.out.println(str);
 							writer.println(str);
