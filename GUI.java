@@ -1048,7 +1048,6 @@ public class GUI implements ActionListener {
     }
     
     public String optionOneMessage() {
-        String output = " ";
         panel.removeAll();
         frame.setTitle("Send message");
 
