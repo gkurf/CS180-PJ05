@@ -30,19 +30,11 @@ This class is the main hub of where the user can interact with the program. It c
 
 ### GUI.java
 #### Functionality:
-This class gives unique statistics and data according to if the user is a customer or a seller. For the seller dashboard, the program outputs the store name, number of messages received from each customer, and the top 10 most common words sent to the store for each store the seller has. For the customer dashboard, the program outputs The list of stores in order of the number of messages received from the customer in descending order, listing the name, the number of messages received from the customer, the number of messages sent by the store, the number of customers who sent messages to the store, and the top 5 most common words used in all messages sent to the store by all customers for each store.
+This class ultilizes Java's Swing GUI capablilities to create graphical elements for the user to interact with. It implements buttons, labels, text boxes, and spinners to provide an easy and effective user interface. It is used at any point where a graphical window is needed to display information or request input from the user. 
 #### Testing
-All testing is done through independently testing each method and then testing the overall implementation of the code into the general project. The testing included basic output and exception handling. This testing is done through testing other class capabilities as the outputs of the dashboard are dependent upon them.
+Testing of the GUI class was done through independently testing each method and then testing the overall implementation of the code into the general project. The testing included basic output and exception handling.
 #### Relationship with other Classes
-This class is reliant upon the messaging features, the store features, the user inputs and outputs, and just about every other class as it displays the statistics of the whole marketplace.
-
-### Statistics.java
-#### Functionality:
-This class gives unique statistics and data according to if the user is a customer or a seller. For the seller dashboard, the program outputs the store name, number of messages received from each customer, and the top 10 most common words sent to the store for each store the seller has. For the customer dashboard, the program outputs The list of stores in order of the number of messages received from the customer in descending order, listing the name, the number of messages received from the customer, the number of messages sent by the store, the number of customers who sent messages to the store, and the top 5 most common words used in all messages sent to the store by all customers for each store.
-#### Testing
-All testing is done through independently testing each method and then testing the overall implementation of the code into the general project. The testing included basic output and exception handling. This testing is done through testing other class capabilities as the outputs of the dashboard are dependent upon them.
-#### Relationship with other Classes
-This class is reliant upon the messaging features, the store features, the user inputs and outputs, and just about every other class as it displays the statistics of the whole marketplace.
+This class is called by Stride180.java (main), Users.java, User.java, and Statistics.java at various points during program execution. It is used at any point where a graphical window is needed to display information or request input from the user. 
 
 ### Message.java
 #### Functionality
@@ -51,6 +43,22 @@ This class does the base capabilities of the messaging feature between the custo
 All of the testing in this class was manually inputted. The first iterations of testing were with the goal of getting basic messaging capabilities fixed and securing the ability to read and write to new files with the specified naming convention. The second round of testing was done through exception handling and with the goal of not having unexpected errors that ruin the capability of the program.
 #### Relationship with other Classes
 This messaging feature is used through other classes such as User and Stride180 due to the importance that it has on the core functionality of the marketplace. 
+
+### Server.java
+#### Functionality
+This class provides the framework for Stride180 to be a network IO-based application. It utilizes Java PrintWriters and BufferedReaders to save data in a central location, which is then accessed via clients in the Stride180 main class. 
+#### Testing
+All of the testing in this class was manually inputted. The second round of testing was done through exception handling and with the goal of not having unexpected errors that ruin the capability of the program.
+#### Relationship with other Classes
+The server class is indirectly used by every other class in the Stride180 program. Specific calls to the network memory occur in the Users.java, Statistics.java, and Store.java, where data is required to be stored or accessed.
+
+### Statistics.java
+#### Functionality:
+This class gives unique statistics and data according to if the user is a customer or a seller. For the seller dashboard, the program outputs the store name, number of messages received from each customer, and the top 10 most common words sent to the store for each store the seller has. For the customer dashboard, the program outputs The list of stores in order of the number of messages received from the customer in descending order, listing the name, the number of messages received from the customer, the number of messages sent by the store, the number of customers who sent messages to the store, and the top 5 most common words used in all messages sent to the store by all customers for each store.
+#### Testing
+All testing is done through independently testing each method and then testing the overall implementation of the code into the general project. The testing included basic output and exception handling. This testing is done through testing other class capabilities as the outputs of the dashboard are dependent upon them.
+#### Relationship with other Classes
+This class is reliant upon the messaging features, the store features, the user inputs and outputs, and just about every other class as it displays the statistics of the whole marketplace.
 
 ### Store.java
 #### Functionality
@@ -74,4 +82,4 @@ This class is responsible for storing a collection of User objects and applying 
 #### Testing
 This class was one of the classes with the most testing during the multiple iterations of this project. The main key features of the program is in this class thus the issue was not only to test and debug functional issues but integration issues between classes and people. Like all the other code in this project, the testing and debugging was done on the grounds of error checking and functionality.
 #### Relationship with other Classes
-This class is directly related to the Stride180 class as well as the User class. It utilizes both classes as well as all subsidiary classes to be the driving force for the program and project. 
+This class is directly related to the Stride180 class as well as the User class. It utilizes both classes as well as all subsidiary classes to be the driving force for the program and project.
