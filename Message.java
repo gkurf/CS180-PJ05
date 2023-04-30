@@ -23,6 +23,7 @@ public class Message {
     private PrintWriter writer = null;
     private InputStream inputStream = null;
     private BufferedReader reader = null;
+    
     // setting constructor
     public Message(User user1, User user2) {
         if (user1.getUserType().equals(user2.getUserType())) { // if they are both customers or both sellers
@@ -42,32 +43,13 @@ public class Message {
                     this.customer = user2;
                     this.seller = user1;
                 }
-    
-                File customerSide = new File(customer.getUsername() + " messages to " + seller.getUsername());
-                try {
-                    customerSide.createNewFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                File sellerSide = new File(seller.getUsername() + " messages to " + customer.getUsername());
-                try {
-                    sellerSide.createNewFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                
-                String send = "messageHistory {-/} " + user1.getUsername() + "," + user2.getUsername();
-                writer.println(send);
 
-                File messageHistory = new File("messageHistory");
-                try {
-                    messageHistory.createNewFile();
-                    PrintWriter newConvWrite = new PrintWriter(new FileOutputStream(messageHistory, true));
-                    newConvWrite.println(user1.getUsername() + "," + user2.getUsername());
-                    newConvWrite.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                String sendCustomer = "/write/" + customer.getUsername() + " messages to " + seller.getUsername() + "{-/} ";
+                writer.println(sendCustomer);
+                String sendSeller = "/write/" + seller.getUsername() + " messages to " + customer.getUsername();
+                writer.println(sendSeller);
+                String sendHistory = "/write/ messageHistory {-/} " + user1.getUsername() + "," + user2.getUsername();
+                writer.println(sendHistory);
     
                 this.customerFileName = customer.getUsername() + " messages to " + seller.getUsername();
                 this.sellerFileName = seller.getUsername() + " messages to " + customer.getUsername();
