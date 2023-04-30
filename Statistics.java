@@ -34,6 +34,16 @@ public class Statistics {
             JOptionPane.showMessageDialog(null, "Could not establish connection to server.");
         }
     }
+    private String sendMessage(String message) {
+        String response = "";
+        try {
+            writer.println(message);
+            response = reader.readLine();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Error sending message to server.");
+        }
+        return response;
+    }
 
     public void addCustomer(Message customer) {
         customers.add(customer);
