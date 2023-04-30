@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 // Server class
 class Server {
@@ -62,10 +63,10 @@ class Server {
 		}
 
 		public void run() {
+			while(true){
 			PrintWriter out = null;
 			BufferedReader in = null;
 			try {
-				BufferedWriter fileWriter = new BufferedWriter(new FileWriter(filename, true));
 				BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 				PrintWriter writer = new PrintWriter(clientSocket.getOutputStream());
 				boolean stillGoing = false;
@@ -73,20 +74,15 @@ class Server {
 				if (message.startsWith("/write/")) {
 					message = message.substring(7);
 					String[] arr = message.split(" {-/} ");
-					Fine newFile = new File(createFile(arr[0]));
-					try {
-						newFile.createNewFile();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					PrintWriter newWriter = new PrintWriter(new FileOutputStream(arr[0], true))
+					BufferedWriter fileWriter = new BufferedWriter(new FileWriter(arr[0], true));
+					fileWriter.write(arr[1]);
 				}
 				if (message.startsWith("/read/")) {
 					message = message.substring(6);
 					BufferedReader bfr = new BufferedReader(new FileReader(message));
 
 					ArrayList<String> messageList = new ArrayList<String>();
-                    			String line = bfr.readLine();
+                    String line = bfr.readLine();
 					while (line != null) {
 						messageList.add(line);
 						line = bfr.readLine();
@@ -112,6 +108,6 @@ class Server {
 					e.printStackTrace();
 				}
 			}
-		}
+			}
 	}
 }
