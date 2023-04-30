@@ -1,5 +1,5 @@
 import java.io.*;
-//import java.net.*;
+import java.net.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 // Server class
 class Server {
@@ -63,37 +65,39 @@ class Server {
 		}
 
 		public void run() {
-			while(true){
+			while (true) {
 				PrintWriter out = null;
 				BufferedReader in = null;
 				try {
 					BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 					PrintWriter writer = new PrintWriter(clientSocket.getOutputStream());
-					//boolean stillGoing = false;
+					boolean stillGoing = false;
 					String message = reader.readLine();
-					if (message.startsWith("/write/")) {
-						message = message.substring(7);
-						String[] arr = message.split(" {-/} ");
-						BufferedWriter fileWriter = new BufferedWriter(new FileWriter(arr[0], true));
-						fileWriter.write(arr[1]);
-						fileWriter.close();
-					}
-					if (message.startsWith("/read/")) {
-						message = message.substring(6);
-						BufferedReader bfr = new BufferedReader(new FileReader(message));
+					if (message == null) {
+						System.out.println("Message is null");
+					} else {
+						if (message.startsWith("/write/")) {
+							message = message.substring(7);
+							String[] arr = message.split(" {-/} ");
+							BufferedWriter fileWriter = new BufferedWriter(new FileWriter(arr[0], true));
+							fileWriter.write(arr[1]);
+						}
+						if (message.startsWith("/read/")) {
+							message = message.substring(6);
+							BufferedReader bfr = new BufferedReader(new FileReader(message));
 
-						ArrayList<String> messageList = new ArrayList<String>();
-						String line = bfr.readLine();
-						while (line != null) {
-							messageList.add(line);
-							line = bfr.readLine();
+							ArrayList<String> messageList = new ArrayList<String>();
+							String line = bfr.readLine();
+							while (line != null) {
+								messageList.add(line);
+								line = bfr.readLine();
+							}
+							String str = null;
+							for (String part : messageList) {
+								str += part;
+							}
+							writer.println(str);
 						}
-						String str = null;
-						for (String part : messageList) {
-							str += part;
-						}
-						writer.println(str);
-						bfr.close();
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
