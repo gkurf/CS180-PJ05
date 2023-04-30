@@ -64,50 +64,51 @@ class Server {
 
 		public void run() {
 			while(true){
-			PrintWriter out = null;
-			BufferedReader in = null;
-			try {
-				BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-				PrintWriter writer = new PrintWriter(clientSocket.getOutputStream());
-				boolean stillGoing = false;
-				String message = reader.readLine();
-				if (message.startsWith("/write/")) {
-					message = message.substring(7);
-					String[] arr = message.split(" {-/} ");
-					BufferedWriter fileWriter = new BufferedWriter(new FileWriter(arr[0], true));
-					fileWriter.write(arr[1]);
-				}
-				if (message.startsWith("/read/")) {
-					message = message.substring(6);
-					BufferedReader bfr = new BufferedReader(new FileReader(message));
-
-					ArrayList<String> messageList = new ArrayList<String>();
-                    String line = bfr.readLine();
-					while (line != null) {
-						messageList.add(line);
-						line = bfr.readLine();
-					}
-					String str = null;
-					for (String part : messageList) {
-						str += part;
-					}
-					writer.println(str);
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			} finally {
+				PrintWriter out = null;
+				BufferedReader in = null;
 				try {
-					if (out != null) {
-						out.close();
+					BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+					PrintWriter writer = new PrintWriter(clientSocket.getOutputStream());
+					boolean stillGoing = false;
+					String message = reader.readLine();
+					if (message.startsWith("/write/")) {
+						message = message.substring(7);
+						String[] arr = message.split(" {-/} ");
+						BufferedWriter fileWriter = new BufferedWriter(new FileWriter(arr[0], true));
+						fileWriter.write(arr[1]);
 					}
-					if (in != null) {
-						in.close();
-						clientSocket.close();
+					if (message.startsWith("/read/")) {
+						message = message.substring(6);
+						BufferedReader bfr = new BufferedReader(new FileReader(message));
+
+						ArrayList<String> messageList = new ArrayList<String>();
+						String line = bfr.readLine();
+						while (line != null) {
+							messageList.add(line);
+							line = bfr.readLine();
+						}
+						String str = null;
+						for (String part : messageList) {
+							str += part;
+						}
+						writer.println(str);
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
+				} finally {
+					try {
+						if (out != null) {
+							out.close();
+						}
+						if (in != null) {
+							in.close();
+							clientSocket.close();
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 			}
-			}
+		}
 	}
 }
