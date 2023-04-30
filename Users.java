@@ -89,7 +89,7 @@ public class Users {
 
         String[] fileContentArray = fileContent.split("\n");
         String line = "";
-        String[] splitLine;
+        String[] splitLine = {""};
         String username = "";
         String password = "";
         String userType = "";
