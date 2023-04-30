@@ -21,8 +21,8 @@ public class Message {
     private Socket socket = null;
     private OutputStream outputStream = null;
     private PrintWriter writer = null;
-    //private InputStream inputStream = null;
-    //private BufferedReader reader = null;
+    private InputStream inputStream = null;
+    private BufferedReader reader = null;
     
     // setting constructor
     public Message(User user1, User user2) {
@@ -33,8 +33,8 @@ public class Message {
                 socket = new Socket("localhost", 1234);
                 outputStream = socket.getOutputStream();
                 writer = new PrintWriter(outputStream, true);
-                //InputStream inputStream = socket.getInputStream();
-                //BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                InputStream inputStream = socket.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
                 if (user1.getUserType().equals("customer")) {
                     this.customer = user1;
@@ -44,11 +44,11 @@ public class Message {
                     this.seller = user1;
                 }
 
-                String sendCustomer = "/write/" + customer.getUsername() + " messages to " + seller.getUsername() + " ,mv.. ";
+                String sendCustomer = "/write/" + customer.getUsername() + " messages to " + seller.getUsername() + " {-/} ";
                 writer.println(sendCustomer);
-                String sendSeller = "/write/" + seller.getUsername() + " messages to " + customer.getUsername() + " ,mv.. ";
+                String sendSeller = "/write/" + seller.getUsername() + " messages to " + customer.getUsername() + " {-/} ";
                 writer.println(sendSeller);
-                String sendHistory = "/write/ messageHistory ,mv.. " + user1.getUsername() + "," + user2.getUsername();
+                String sendHistory = "/write/ messageHistory {-/} " + user1.getUsername() + "," + user2.getUsername();
                 writer.println(sendHistory);
     
                 this.customerFileName = customer.getUsername() + " messages to " + seller.getUsername();
@@ -65,9 +65,9 @@ public class Message {
             System.out.println("User is not part of this conversation!");
         } else {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            String sendCustomerMessage = "/write/" + customerFileName + " ,mv.. " + sender.getUsername() + ": " + message + " (sent at " + timestamp + ")";
+            String sendCustomerMessage = "/write/" + customerFileName + " {-/} " + sender.getUsername() + ": " + message + " (sent at " + timestamp + ")";
             writer.println(sendCustomerMessage);
-            String sendSellerMessage = "/write/" + sellerFileName + " ,mv.. " + sender.getUsername() + ": " + message + " (sent at " + timestamp + ")";
+            String sendSellerMessage = "/write/" + sellerFileName + " {-/} " + sender.getUsername() + ": " + message + " (sent at " + timestamp + ")";
             writer.println(sendSellerMessage);
         }
     }

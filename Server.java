@@ -108,6 +108,7 @@ class Server {
 							System.out.println(str);
 							writer.println(str);
 							writer.flush(); 
+							System.out.println("str");
 							bfr.close();
 						}
 					}
