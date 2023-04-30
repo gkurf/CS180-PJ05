@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+
 public class GUI implements ActionListener {
     private static int count = 0;
     private static JLabel label;
@@ -24,7 +25,6 @@ public class GUI implements ActionListener {
     }
 
     @Override
-
     public void actionPerformed(ActionEvent e) {
     }
 
@@ -681,11 +681,4 @@ public class GUI implements ActionListener {
         panel.add(label);
         frame.setVisible(true);
     }
-
-
-
-
 }
-
-
-

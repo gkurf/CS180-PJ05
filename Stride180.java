@@ -10,7 +10,6 @@ import java.util.*;
  * @version April 19, 2023
  */
 public class Stride180 {
-
     // messages that will be sent to users
     private static String WELCOME_PROMPT = "Welcome to Stride180! We are a marketplace exclusively for the hottest kicks!";
     private static String OPTION_PROMPT = "\nType an option to continue";
@@ -30,8 +29,7 @@ public class Stride180 {
         User user;
         boolean userLoggedIn;
         System.out.println(WELCOME_PROMPT);
-        Statistics statistics=new Statistics();
-        
+        Statistics statistics = new Statistics();
 
         do {
             Users users = new Users("userData.txt");
@@ -404,5 +402,4 @@ public class Stride180 {
         System.out.println("That customer does not exist!");
         return null;
     }
-    
 }
