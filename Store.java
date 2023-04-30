@@ -1,5 +1,5 @@
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+//import java.io.FileNotFoundException;
+//import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.net.*;
 import java.io.*;
@@ -21,8 +21,8 @@ public class Store {
     private Socket socket = null;
     private OutputStream outputStream = null;
     private PrintWriter writer = null;
-    private InputStream inputStream = null;
-    private BufferedReader reader = null;
+    //private InputStream inputStream = null;
+    //private BufferedReader reader = null;
 
     // constructor
     public Store(User user, String nameStore) {
@@ -30,8 +30,8 @@ public class Store {
             socket = new Socket("localhost", 1234);
             outputStream = socket.getOutputStream();
             writer = new PrintWriter(outputStream, true);
-            InputStream inputStream = socket.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            //InputStream inputStream = socket.getInputStream();
+            //BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             this.user = user;
             this.nameStore = nameStore;
             String fileName = "sellerData.txt";
