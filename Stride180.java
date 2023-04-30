@@ -22,14 +22,12 @@ public class Stride180 {
         do {
             Users users = new Users("userData.txt", usersGUI);
             user = login(usersGUI, users);
-            user.welcomeUser(usersGUI);
             userLoggedIn = true;
-            usersGUI.message = "";
+        
             do {
-                if (user == null) {
-
-                } else if (user.isCustomer()) {
-                
+                if (user != null && user.isCustomer()) {
+                    user.welcomeUser(usersGUI);
+                    usersGUI.message = "";
                     do {
                         input = usersGUI.customerOptions();
                         usersGUI.message = "";
@@ -103,8 +101,7 @@ public class Stride180 {
                         }
                     } while ((input < 1 || input > 3) && userLoggedIn);
 
-                } else {
-                    
+                } else if (user != null) {
                     do {
                         input = usersGUI.SellerOptions();
                         usersGUI.message = "";
@@ -193,8 +190,10 @@ public class Stride180 {
                     } while ((input < 1 || input > 3) && userLoggedIn);
                 }
             } while (userLoggedIn && user != null);
+            
         } while (user != null);
 
+        usersGUI.closeWindow();
     }
 
     // helps the user log in or create an account

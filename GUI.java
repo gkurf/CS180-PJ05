@@ -28,6 +28,11 @@ public class GUI implements ActionListener {
     public void actionPerformed(ActionEvent e) {
     }
 
+    public void closeWindow() {
+        frame.setVisible(false);
+        frame.dispose();
+    }
+    
     public int mainEntry() {
         panel.removeAll();
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
