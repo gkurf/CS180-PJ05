@@ -8,7 +8,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
-
 public class GUI implements ActionListener {
     private static int count = 0;
     private static JLabel label;
@@ -25,18 +24,21 @@ public class GUI implements ActionListener {
     }
 
     @Override
+
     public void actionPerformed(ActionEvent e) {
     }
 
-    public static int MainEntry() {
+    public static int mainEntry() {
         frame = new JFrame();
         label = new JLabel("Welcome!");
         panel = new JPanel();
         panel.add(label);
         JButton button1 = new JButton("Would you like to login?");
         JButton button2 = new JButton("Would you like to register a new Account?");
+        JButton button3 = new JButton("Exit");
         panel.add(button1);
         panel.add(button2);
+        panel.add(button3);
         panel.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
         panel.setLayout(new GridLayout(0, 1));
         frame.add(panel, BorderLayout.CENTER);
@@ -58,8 +60,13 @@ public class GUI implements ActionListener {
                     count = 2;
                 }
             });
+            button3.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    count = 3;
+                }
+            });
         }
-        frame.setVisible(false);
         return count;
     }
 
@@ -151,7 +158,7 @@ public class GUI implements ActionListener {
         return Password;
     }
 
-    public static int CustomerOptions() {
+    public static int customerOptions() {
         panel.removeAll();
         label = new JLabel("What would you like to do?");
         JButton button1 = new JButton("Message a Seller");
@@ -185,7 +192,7 @@ public class GUI implements ActionListener {
         return count;
     }
 
-    public static int CustomerMessageOptions() {
+    public static int customerMessageOptions() {
         panel.removeAll();
         label = new JLabel("Messaging Options:");
         JButton button1 = new JButton("Search by Seller");
@@ -218,7 +225,7 @@ public class GUI implements ActionListener {
         }
         return count;
     }
-    public static int CustomerAccountOptions() {
+    public static int customerAccountOptions() {
         panel.removeAll();
         label = new JLabel("Account Options:");
         JButton button1 = new JButton("View Statistics");
@@ -317,7 +324,7 @@ public class GUI implements ActionListener {
         return count;
     }
 
-    public static int SellerMessageOptions() {
+    public static int sellerMessageOptions() {
         panel.removeAll();
         label = new JLabel("Messaging Options:");
         JButton button1 = new JButton("Search by Customer");
@@ -349,7 +356,7 @@ public class GUI implements ActionListener {
         }
         return count;
     }
-    public static int SellerAccountOptions() {
+    public static int sellerAccountOptions() {
         panel.removeAll();
         label = new JLabel("Account Options:");
         JButton button1 = new JButton("View Store Statistics");
@@ -414,71 +421,7 @@ public class GUI implements ActionListener {
         }
         return count;
     }
-    public static int MessagingOptions() {
-        panel.removeAll();
-        label = new JLabel("Messaging Options Options:");
-        JButton button1 = new JButton("Send New Message");
-        JButton button2 = new JButton("Send Text File");
-        JButton button3 = new JButton("Edit Previous Message");
-        JButton button4 = new JButton("Delete Previous Message");
-        JButton button5 = new JButton("Export conversation to CSV");
-        JButton button6 = new JButton("Exit Conversation");
-        JButton button7 = new JButton("Main Log In Menu");
-        panel.add(button1);
-        panel.add(button2);
-        panel.add(button3);
-        panel.add(button4);
-        panel.add(button5);
-        panel.add(button6);
-        panel.add(button7);
-        frame.setVisible(true);
-        count = 0;
-        while (count == 0) {
-            button1.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    count = 1;
-                }
-            });
-            button2.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    count = 2;
-                }
-            });
-            button3.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    count = 3;
-                }
-            });
-            button4.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    count = 4;
-                }
-            });
-            button5.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    count = 5;
-                }
-            });
-            button6.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    count = 6;
-                }
-            });
-            button7.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    count = 7;
-                }
-            });
-        }
-        return count;
-    }
+
     public static void BothSellerCustomer() {
         panel.removeAll();
         label = new JLabel("Error: Can't both be seller and customer");
@@ -681,4 +624,227 @@ public class GUI implements ActionListener {
         panel.add(label);
         frame.setVisible(true);
     }
+
+    public static String messageCustomer() {
+        String name = " ";
+        panel.removeAll();
+        label = new JLabel("Enter the username of the customer you want to message");
+        panel.add(label);
+        text = new JTextField();
+        panel.add(text);
+        name = text.getText();
+        frame.setVisible(true);
+        return name;
+    }
+    public static void invalidCustomer() {
+        panel.removeAll();
+        label = new JLabel("That customer does not exist");
+        panel.add(label);
+        frame.setVisible(true);
+    }
+
+    public static String messageSeller() {
+        String name = " ";
+        panel.removeAll();
+        label = new JLabel("Enter the username of the seller you want to message");
+        panel.add(label);
+        text = new JTextField();
+        panel.add(text);
+        name = text.getText();
+        frame.setVisible(true);
+        return name;
+    }
+    public static void invalidSeller() {
+        panel.removeAll();
+        label = new JLabel("That seller does not exist");
+        panel.add(label);
+        frame.setVisible(true);
+    }
+    public static void storeNotFound() {
+        panel.removeAll();
+        label = new JLabel("There are currently no registered stores");
+        panel.add(label);
+        frame.setVisible(true);
+    }
+    public static int numberCustomers(int customers, String dataCustomers) {
+       int customerNumber = 0;
+        panel.removeAll();
+        label = new JLabel("There are " + customers + " customers");
+        panel.add(label);
+        label = new JLabel(dataCustomers);
+        label = new JLabel("Which Customer Number would you like to message?");
+        text = new JTextField();
+        panel.add(text);
+        customerNumber = Integer.parseInt(text.getText());
+        frame.setVisible(true);
+        return customerNumber;
+    }
+    public static void invalidChoice() {
+        panel.removeAll();
+        label = new JLabel("That is an invalid option. Please try again");
+        panel.add(label);
+        frame.setVisible(true);
+    }
+    public static int numberStore(int stores, String dataStores) {
+        int storeNumber = 0;
+        panel.removeAll();
+        label = new JLabel("There are " + stores + " stores");
+        panel.add(label);
+        label = new JLabel(dataStores);
+        panel.add(label);
+        label = new JLabel("Which Store Number would you like to message?");
+        panel.add(label);
+        text = new JTextField();
+        panel.add(text);
+        storeNumber = Integer.parseInt(text.getText());
+        frame.setVisible(true);
+        return storeNumber;
+    }
+    public static int sendMessageOption(String reciever, String history) {
+        panel.removeAll();
+        label = new JLabel(reciever);
+        panel.add(label);
+        label = new JLabel(history);
+        panel.add(label);
+        JButton button1 = new JButton("Send New Message");
+        JButton button2 = new JButton("Send Text File");
+        JButton button3 = new JButton("Edit Previous Message");
+        JButton button4 = new JButton("Delete Previous Message");
+        JButton button5 = new JButton("Export conversation to CSV");
+        JButton button6 = new JButton("Exit Conversation");
+        panel.add(button1);
+        panel.add(button2);
+        panel.add(button3);
+        panel.add(button4);
+        panel.add(button5);
+        panel.add(button6);
+        frame.setVisible(true);
+        count = 0;
+        while (count == 0) {
+            button1.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    count = 1;
+                }
+            });
+            button2.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    count = 2;
+                }
+            });
+            button3.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    count = 3;
+                }
+            });
+            button4.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    count = 4;
+                }
+            });
+            button5.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    count = 5;
+                }
+            });
+            button6.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    count = 6;
+                }
+            });
+        }
+        return count;
+    }
+    public static String optionOneMessage() {
+        String output = " ";
+        panel.removeAll();
+        label = new JLabel("Type a message to send: ");
+        panel.add(label);
+        text = new JTextField();
+        panel.add(text);
+        output = text.getText();
+        frame.setVisible(true);
+        return output;
+    }
+    public static String optionTwoMessage() {
+        String output = " ";
+        panel.removeAll();
+        label = new JLabel("File Path: ");
+        panel.add(label);
+        text = new JTextField();
+        panel.add(text);
+        output = text.getText();
+        frame.setVisible(true);
+        return output;
+    }
+    public static String optionThreeMessage() {
+        String output = " ";
+        panel.removeAll();
+        label = new JLabel("Text to replace previous message: ");
+        panel.add(label);
+        text = new JTextField();
+        panel.add(text);
+        output = text.getText();
+        frame.setVisible(true);
+        return output;
+    }
+    public static String optionFiveMessage() {
+        String output = " ";
+        panel.removeAll();
+        label = new JLabel("File Path: ");
+        panel.add(label);
+        text = new JTextField();
+        panel.add(text);
+        output = text.getText();
+        frame.setVisible(true);
+        return output;
+    }
+    public static void welcomeMessage() {
+        String output = " ";
+        panel.removeAll();
+        label = new JLabel("Welcome to Stride180! We are a marketplace exclusively for the hottest kicks!");
+        panel.add(label);
+        frame.setVisible(true);
+    }
+    public static void commonWordsSeller(String commonOnes) {
+        String output = " ";
+        panel.removeAll();
+        label = new JLabel("Most common words used by sellers:");
+        panel.add(label);
+        label = new JLabel("commonOnes");
+        panel.add(label);
+        frame.setVisible(true);
+    }
+    public static void noCommonWordsSeller() {
+        String output = " ";
+        panel.removeAll();
+        label = new JLabel("The seller has no prior messages");
+        panel.add(label);
+        frame.setVisible(true);
+    }
+    public static void commonWordsCustomer(String commonOnes) {
+        String output = " ";
+        panel.removeAll();
+        label = new JLabel("Most common words used by customers:");
+        panel.add(label);
+        label = new JLabel("commonOnes");
+        panel.add(label);
+        frame.setVisible(true);
+    }
+    public static void noCommonWordsCustomer() {
+        String output = " ";
+        panel.removeAll();
+        label = new JLabel("The customer has no prior messages");
+        panel.add(label);
+        frame.setVisible(true);
+    }
+    
 }
+
+
+
