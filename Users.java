@@ -78,17 +78,22 @@ public class Users {
         writer.println(send);
         String fileContent = "";
         try {
-            fileContent = reader.readLine();
+            String line = reader.readLine();
+            while(line!=null){
+            fileContent += line;
+            line = reader.readLine();
+            }
         } catch (NullPointerException e) {
         } catch (IOException e) {
         }
+        System.out.println("File Content: " + fileContent);
         String[] fileContentArray = fileContent.split("\n");
         String line = "";
         String[] splitLine = {""};
         String username = "";
         String password = "";
         String userType = "";
-        for (int i = 1; i < fileContentArray.length; i++) {
+        for (int i = 0; i < fileContentArray.length; i++) {
             ArrayList<String> blockedUsers = new ArrayList<>();
             ArrayList<String> invisibleUsers = new ArrayList<>();
             ArrayList<String> storeList = new ArrayList<>();
@@ -115,14 +120,11 @@ public class Users {
                 }
             }
 
-                GUI userGUI = null;
-                this.userList.add(new User(username, password, userType, 
-                            blockedUsers, invisibleUsers, storeList, userGUI));
         }
     }
 
     public void saveData(GUI usersGUI) {
-        String total = USER_DATA_COMMENT;
+        String total = "";
         for (User u : userList) {
             total += u.toCSV();
         }
