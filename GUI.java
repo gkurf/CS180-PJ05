@@ -28,20 +28,22 @@ public class GUI implements ActionListener {
     }
 
     public int mainEntry() {
-        frame = new JFrame();
-        panel = new JPanel();
+        panel.removeAll();
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         panel.setLayout(new GridLayout(0, 1));
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setTitle("Welcome!");
         
-        JLabel m = new JLabel(message);
+        if (!message.equals("")) {
+            JLabel m = new JLabel(message);
+            panel.add(m);
+        }
+        
         label = new JLabel("Welcome to Stride 180!", SwingConstants.CENTER);
         JButton button1 = new JButton("Login");
         JButton button2 = new JButton("Create a new account");
         JButton button3 = new JButton("Exit");
 
-        panel.add(m);
         panel.add(label);
         panel.add(button1);
         panel.add(button2);
@@ -78,6 +80,11 @@ public class GUI implements ActionListener {
         panel.removeAll();
         frame.setTitle("Create an Account");
 
+        if (!message.equals("")) {
+            JLabel m = new JLabel(message);
+            panel.add(m);
+        }
+
         label = new JLabel("What type of account do you want to create?", SwingConstants.CENTER);
         JButton button1 = new JButton("Customer Account");
         JButton button2 = new JButton("Seller Account");
@@ -110,6 +117,11 @@ public class GUI implements ActionListener {
         panel.removeAll();
         frame.setTitle("Create an Account");
 
+        if (!message.equals("")) {
+            JLabel m = new JLabel(message);
+            panel.add(m);
+        }
+
         label = new JLabel("Enter your account username", SwingConstants.CENTER);
         text = new JTextField();
 
@@ -135,6 +147,11 @@ public class GUI implements ActionListener {
         panel.removeAll();
         frame.setTitle("Create an Account");
 
+        if (!message.equals("")) {
+            JLabel m = new JLabel(message);
+            panel.add(m);
+        }
+        
         label = new JLabel("Enter your account password", SwingConstants.CENTER);
         text = new JTextField();
 
@@ -159,6 +176,11 @@ public class GUI implements ActionListener {
     public String confirmPassword() {
         panel.removeAll();
         frame.setTitle("Create an Account");
+
+        if (!message.equals("")) {
+            JLabel m = new JLabel(message);
+            panel.add(m);
+        }
 
         label = new JLabel("Re-type your password", SwingConstants.CENTER);
         text = new JTextField();
@@ -185,6 +207,11 @@ public class GUI implements ActionListener {
         panel.removeAll();
         frame.setTitle("Login to Account");
 
+        if (!message.equals("")) {
+            JLabel m = new JLabel(message);
+            panel.add(m);
+        }
+
         label = new JLabel("Enter your account username", SwingConstants.CENTER);
         text = new JTextField();
 
@@ -210,6 +237,11 @@ public class GUI implements ActionListener {
         panel.removeAll();
         frame.setTitle("Login to Account");
 
+        if (!message.equals("")) {
+            JLabel m = new JLabel(message);
+            panel.add(m);
+        }
+
         label = new JLabel("Enter your account password", SwingConstants.CENTER);
         text = new JTextField();
 
@@ -234,6 +266,11 @@ public class GUI implements ActionListener {
     public int customerOptions() {
         panel.removeAll();
         frame.setTitle("Customer Options");
+
+        if (!message.equals("")) {
+            JLabel m = new JLabel(message);
+            panel.add(m);
+        }
 
         label = new JLabel("What would you like to do?");
         JButton button1 = new JButton("Message a Seller");
@@ -276,13 +313,16 @@ public class GUI implements ActionListener {
         panel.removeAll();
         frame.setTitle("Message Options");
 
-        JLabel m = new JLabel(message);
+        if (!message.equals("")) {
+            JLabel m = new JLabel(message);
+            panel.add(m);
+        }
+
         label = new JLabel("Choose a messaging option:");
         JButton button1 = new JButton("Search by Seller");
         JButton button2 = new JButton("View a list of Stores");
         JButton button3 = new JButton("Go to Main Customer Menu");
 
-        panel.add(m);
         panel.add(label);
         panel.add(button1);
         panel.add(button2);
@@ -319,7 +359,11 @@ public class GUI implements ActionListener {
         panel.removeAll();
         frame.setTitle("Account Options");
 
-        JLabel m = new JLabel(message);
+        if (!message.equals("")) {
+            JLabel m = new JLabel(message);
+            panel.add(m);
+        }
+
         label = new JLabel("Account Options:");
         JButton button1 = new JButton("View Statistics");
         JButton button2 = new JButton("Block a user");
@@ -329,7 +373,6 @@ public class GUI implements ActionListener {
         JButton button6 = new JButton("Delete Account");
         JButton button7 = new JButton("Go to Main Customer Menu");
 
-        panel.add(m);
         panel.add(label);
         panel.add(button1);
         panel.add(button2);
@@ -394,13 +437,16 @@ public class GUI implements ActionListener {
         panel.removeAll();
         frame.setTitle("Seller Options");
 
-        JLabel m = new JLabel(message);
+        if (!message.equals("")) {
+            JLabel m = new JLabel(message);
+            panel.add(m);
+        }
+
         label = new JLabel("What would you like to do?");
         JButton button1 = new JButton("Message a Customer");
         JButton button2 = new JButton("Account Settings");
         JButton button3 = new JButton("Log out");
 
-        panel.add(m);
         panel.add(label);
         panel.add(button1);
         panel.add(button2);
@@ -437,13 +483,16 @@ public class GUI implements ActionListener {
         panel.removeAll();
         frame.setTitle("Message Options");
 
-        JLabel m = new JLabel(message);
+        if (!message.equals("")) {
+            JLabel m = new JLabel(message);
+            panel.add(m);
+        }
+
         label = new JLabel("Choose a messaging option:");
         JButton button1 = new JButton("Search by Customer");
         JButton button2 = new JButton("View a list of Customer ");
         JButton button3 = new JButton("Go to main seller menu");
 
-        panel.add(m);
         panel.add(label);
         panel.add(button1);
         panel.add(button2);
@@ -478,7 +527,11 @@ public class GUI implements ActionListener {
         panel.removeAll();
         frame.setTitle("Account Options");
 
-        JLabel m = new JLabel(message);
+        if (!message.equals("")) {
+            JLabel m = new JLabel(message);
+            panel.add(m);
+        }
+        
         label = new JLabel("Account Options:");
         JButton button1 = new JButton("View Store Statistics");
         JButton button2 = new JButton("Block a user");
@@ -488,7 +541,6 @@ public class GUI implements ActionListener {
         JButton button6 = new JButton("Delete Account");
         JButton button7 = new JButton("Go to Main Seller Menu");
 
-        panel.add(m);
         panel.add(label);
         panel.add(button1);
         panel.add(button2);
@@ -671,6 +723,8 @@ public class GUI implements ActionListener {
         label = new JLabel("Are you sure you want to delete your account?");
         JButton button1 = new JButton("Yes");
         JButton button2 = new JButton("No");
+
+        panel.add(label);
         panel.add(button1);
         panel.add(button2);
         frame.setVisible(true);

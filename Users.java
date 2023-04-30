@@ -130,6 +130,7 @@ public class Users {
     public User login(GUI usersGUI) {
         String username;
         String password;
+        usersGUI.message = "";
         do {
             username = usersGUI.logInUsername();
             for (User user: userList) {
@@ -139,14 +140,15 @@ public class Users {
                 }
             }
             if (currentUser == null) {
-                usersGUI.invalidUsername();
+                usersGUI.message = "Invalid username.";
             }
         } while (currentUser == null);
 
+        usersGUI.message = "";
         do {
             password = usersGUI.logInPassword();
             if (!currentUser.getPassword().equals(password)) {
-                usersGUI.invalidPassword();
+                usersGUI.message = "Invalid password.";
             }
         } while (!currentUser.getPassword().equals(password));
 
@@ -163,6 +165,7 @@ public class Users {
         ArrayList<String> invisibleUsers = new ArrayList<String>();
         ArrayList<String> storeList = new ArrayList<String>();
 
+        usersGUI.message = "";
         do {
             username = usersGUI.CreateAccountUsername();
             for (User user: userList) {
@@ -172,19 +175,20 @@ public class Users {
                 }
             }
             if (username.equals("")) {
-                usersGUI.userNameTaken();
+                usersGUI.message = "That username is taken! Please try again.";
             } else if (!validCharacters(username)) {
-                usersGUI.userNameInvalid();
+                usersGUI.message = "That username has invalid characters!";
             }
         } while (username.equals("") || !validCharacters(username));
 
+        usersGUI.message = "";
         do {
             password = usersGUI.CreateAccountPassword();
             confirmPassword = usersGUI.confirmPassword();
             if (!password.equals(confirmPassword)) {
-               usersGUI.passwordMisMatch();
+                usersGUI.message = "Passwords do not match!";
             } else if (!validCharacters(password)) {
-               usersGUI.invalidPasswordCharacters();
+                usersGUI.message = "That password contains invalid characters!";
             }
         } while (!password.equals(confirmPassword) || !validCharacters(password));
 
@@ -205,6 +209,7 @@ public class Users {
     public User changeUsername(GUI usersGUI) {
         String username = "";
 
+        usersGUI.message = "";
         do {
             usersGUI.changeUserName();
             for (User user: userList) {
@@ -214,9 +219,9 @@ public class Users {
                 }
             }
             if (username.equals("")) {
-                usersGUI.userNameTaken();
+                usersGUI.message = "That username is taken!";
             } else if (!validCharacters(username)) {
-                usersGUI.userNameInvalid();
+                usersGUI.message = "That username is invalid!";
             }
         } while (username.equals("") || !validCharacters(username));
         userList.remove(currentUser);
@@ -230,14 +235,15 @@ public class Users {
     public User changePassword(GUI usersGUI) {
         String password = "";
         String confirmPassword = "";
-        ;
+        
+        usersGUI.message = "";
         do {
             password = usersGUI.changePassword();
             confirmPassword = usersGUI.confirmPassword();
             if (!password.equals(confirmPassword)) {
-                usersGUI.passwordMisMatch();
+                usersGUI.message = "Passwords do not match!";
             } else if (!validCharacters(password)) {
-                usersGUI.invalidPasswordCharacters();
+                usersGUI.message = "That password contains invalid characters!";
             }
         } while (!password.equals(confirmPassword) || !validCharacters(password));
 
@@ -251,13 +257,14 @@ public class Users {
     public boolean deleteAccount(GUI usersGUI) {
         //String confirm;
 
+        usersGUI.message = "";
         int delete = usersGUI.deleteAccount();
         if (delete == 1) {
             userList.remove(currentUser);
             saveData(usersGUI);
             return true;
         } else {
-            usersGUI.deletionCancelled();
+            usersGUI.message = "Account deletion cancelled.";
             return false;
         }
     }
@@ -309,7 +316,7 @@ public class Users {
         boolean invis = false;
 
         input = usersGUI.invisUsername();
-
+        usersGUI.message = "";
         for (User user: userList) {
             if (user.getUsername().equals(input)) {
                 user.addInvisUser(currentUser);
