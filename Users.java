@@ -1,6 +1,3 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
@@ -37,6 +34,8 @@ public class Users {
             socket = new Socket("localhost", 1234);
             outputStream = socket.getOutputStream();
             writer = new PrintWriter(outputStream, true);
+            InputStream inputStream = socket.getInputStream();
+            reader = new BufferedReader(new InputStreamReader(inputStream));
             this.dataFilename = dataFilename;
             this.currentUser = null;
         } catch (IOException e) {
@@ -78,9 +77,8 @@ public class Users {
         try {
             fileContent = reader.readLine();
         } catch (NullPointerException e) {
-        } catch (IOException e){
+        } catch (IOException e) {
         }
-        System.out.println("File Content"+fileContent);
         String[] fileContentArray = fileContent.split("\n");
         String line = "";
         String[] splitLine = {""};
@@ -133,7 +131,6 @@ public class Users {
         String username;
         String password;
         loadData(usersGUI);
-        System.out.println(userList);
 
         do {
             username = usersGUI.logInUsername();
