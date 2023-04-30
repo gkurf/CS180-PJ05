@@ -26,11 +26,11 @@ public class GUI implements ActionListener {
     }
 
     public int mainEntry() {
-        System.out.println("Here");
         frame = new JFrame();
         panel = new JPanel();
         panel.setLayout(new GridLayout(0, 1));
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(400, 200);
         frame.setTitle("Welcome to Stride 180");
         
         label = new JLabel("Welcome!", SwingConstants.CENTER);
@@ -43,7 +43,7 @@ public class GUI implements ActionListener {
         panel.add(button2);
         panel.add(button3);
         frame.add(panel);
-        frame.pack();
+        //frame.pack();
         frame.setVisible(true);
         
         count = 0;
@@ -72,12 +72,18 @@ public class GUI implements ActionListener {
 
     public int typeofAccount() {
         panel.removeAll();
-        label = new JLabel("What type of account do you want to create?");
+        frame.setTitle("Create an Account");
+
+        label = new JLabel("What type of account do you want to create?", SwingConstants.CENTER);
         JButton button1 = new JButton("Customer Account");
         JButton button2 = new JButton("Seller Account");
+
+        panel.add(label);
         panel.add(button1);
         panel.add(button2);
+        //frame.pack();
         frame.setVisible(true);
+
         count = 0;
         while (count == 0) {
             button1.addActionListener(new ActionListener() {
@@ -97,17 +103,18 @@ public class GUI implements ActionListener {
     }
     
     public String CreateAccountUsername() {
-        textInput = "";
         panel.removeAll();
+        frame.setTitle("Create an Account");
+
         label = new JLabel("Enter your account username", SwingConstants.CENTER);
         text = new JTextField();
 
         panel.add(label);
         panel.add(text);
-        frame.add(panel);
-        frame.pack();
+        //frame.pack();
         frame.setVisible(true);
 
+        textInput = "";
         while (textInput.equals("")) {
             text.addActionListener(new ActionListener() {
                 @Override
