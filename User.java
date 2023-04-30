@@ -24,7 +24,6 @@ public class User {
     private ArrayList<String> blockedUsers;
     private ArrayList<String> invisibleUsers;
     private ArrayList<String> storeList;
-    private GUI userGUI;
     private Socket socket = null;
     private OutputStream outputStream = null;
     private PrintWriter writer = null;
@@ -179,7 +178,7 @@ public class User {
     }
 
     // Welcomes the user
-    public void welcomeUser() {
+    public void welcomeUser(GUI userGUI) {
         String cap = getUserType().substring(0, 1).toUpperCase() + getUserType().substring(1);
         String username = getUsername();
         userGUI.WelcomeUser(cap,username);

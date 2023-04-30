@@ -9,40 +9,43 @@ import javax.swing.JPanel;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 public class GUI implements ActionListener {
-    private static int count = 0;
+    private static int count;
+    private static String textInput;
     private static JLabel label;
-    private static JFrame frame;
-    private static JPanel panel;
+    private JFrame frame;
+    private JPanel panel;
     private static JTextField text;
 
     public GUI() {
+        this.frame = new JFrame();
+        this.panel = new JPanel();
     }
 
-  
-
     @Override
-
     public void actionPerformed(ActionEvent e) {
     }
 
     public int mainEntry() {
+        System.out.println("Here");
         frame = new JFrame();
-        label = new JLabel("Welcome!");
         panel = new JPanel();
-        panel.add(label);
+        panel.setLayout(new GridLayout(0, 1));
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setTitle("Welcome to Stride 180");
+        
+        label = new JLabel("Welcome!", SwingConstants.CENTER);
         JButton button1 = new JButton("Would you like to login?");
         JButton button2 = new JButton("Would you like to register a new Account?");
         JButton button3 = new JButton("Exit");
+
+        panel.add(label);
         panel.add(button1);
         panel.add(button2);
         panel.add(button3);
-        panel.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
-        panel.setLayout(new GridLayout(0, 1));
-        frame.add(panel, BorderLayout.CENTER);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Welcome to Stride 180");
+        frame.add(panel);
         frame.pack();
         frame.setVisible(true);
+        
         count = 0;
         while (count == 0) {
             button1.addActionListener(new ActionListener() {
@@ -92,16 +95,29 @@ public class GUI implements ActionListener {
         }
         return count;
     }
+    
     public String CreateAccountUsername() {
-        String Username = " ";
+        textInput = "";
         panel.removeAll();
-        label = new JLabel("Enter your account username");
-        panel.add(label);
+        label = new JLabel("Enter your account username", SwingConstants.CENTER);
         text = new JTextField();
+
+        panel.add(label);
         panel.add(text);
-        Username = text.getText();
+        frame.add(panel);
+        frame.pack();
         frame.setVisible(true);
-        return Username;
+
+        while (textInput.equals("")) {
+            text.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    textInput = text.getText();
+                }
+            });
+        }
+        
+        return textInput;
     }
 
     public String CreateAccountPassword() {
@@ -801,12 +817,13 @@ public class GUI implements ActionListener {
         frame.setVisible(true);
         return output;
     }
+    /*
     public void welcomeMessage() {
         panel.removeAll();
         label = new JLabel("Welcome to Stride180! We are a marketplace exclusively for the hottest kicks!");
         panel.add(label);
         frame.setVisible(true);
-    }
+    }  */
     public void commonWordsSeller(String commonOnes) {
         panel.removeAll();
         label = new JLabel("Most common words used by sellers:");

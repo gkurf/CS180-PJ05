@@ -17,12 +17,12 @@ public class Stride180 {
         GUI usersGUI = new GUI();
         User user;
         boolean userLoggedIn;
-        usersGUI.welcomeMessage();
+        //usersGUI.welcomeMessage();
         Statistics statistics=new Statistics();
 
         do {
-            Users users = new Users("userData.txt");
-            user = login(usersGUI,users);
+            Users users = new Users("userData.txt", usersGUI);
+            user = login(usersGUI, users);
             userLoggedIn = true;
             do {
                 if (user == null) {
@@ -71,19 +71,19 @@ public class Stride180 {
 
                                 } else if (input == 2) {
                                     // Block User
-                                    users.blockUser();
+                                    users.blockUser(usersGUI);
                                 } else if (input == 3) {
                                     // Invisible user
-                                    users.invisUser();
+                                    users.invisUser(usersGUI);
                                 } else if (input == 4) {
                                     // Change Username
-                                    user = users.changeUsername();
+                                    user = users.changeUsername(usersGUI);
                                 } else if (input == 5) {
                                     // Change Password
-                                    user = users.changePassword();
+                                    user = users.changePassword(usersGUI);
                                 } else if (input == 6) {
                                     // Delete account
-                                    if (users.deleteAccount()) {
+                                    if (users.deleteAccount(usersGUI)) {
                                         userLoggedIn = false;
                                     }
                                 } else {
@@ -156,19 +156,19 @@ public class Stride180 {
                                     // View Store Statiscs
                                 } else if (input == 2) {
                                     // Block User
-                                    users.blockUser();
+                                    users.blockUser(usersGUI);
                                 } else if (input == 3) {
                                     // Invisible user
-                                    users.invisUser();
+                                    users.invisUser(usersGUI);
                                 } else if (input == 4) {
                                     // Change Username
-                                    user = users.changeUsername();
+                                    user = users.changeUsername(usersGUI);
                                 } else if (input == 5) {
                                     // Change Password
-                                    user = users.changePassword();
+                                    user = users.changePassword(usersGUI);
                                 } else if (input == 6) {
                                     // Delete account
-                                    if (users.deleteAccount()) {
+                                    if (users.deleteAccount(usersGUI)) {
                                         userLoggedIn = false;
                                     }
                                 } else {
@@ -195,9 +195,9 @@ public class Stride180 {
             input = usersGUI.mainEntry();
 
             if (input == 1) {
-                currentUser = users.login();
+                currentUser = users.login(usersGUI);
             } else if (input == 2) {
-                currentUser = users.newUser();
+                currentUser = users.newUser(usersGUI);
             } else if (input == 3) {
                 currentUser = null;
             } else {

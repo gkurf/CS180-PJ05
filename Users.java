@@ -21,15 +21,14 @@ public class Users {
     private ArrayList<User> userList = new ArrayList <User>();
     private String dataFilename;
     private User currentUser;
-    private GUI usersGUI;
     //private static String BLOCK_PROMPT = "Enter Username to block: ";
     //private static String INVIS_PROMPT = "Enter Username to become invisible to: ";
 
     // constructor
-    public Users(String dataFilename) {
+    public Users(String dataFilename, GUI usersGUI) {
         this.dataFilename = dataFilename;
         this.currentUser = null;
-        loadData();
+        loadData(usersGUI);
     }
 
     // setters and getters
@@ -58,7 +57,7 @@ public class Users {
     }
 
     // reading all the data from a file
-    public void loadData() {
+    public void loadData(GUI usersGUI) {
         try (BufferedReader dataFile = new BufferedReader(new FileReader(dataFilename))) {
             String line = "";
             String[] splitLine;
@@ -112,7 +111,7 @@ public class Users {
         }
     }
 
-    public void saveData() {
+    public void saveData(GUI usersGUI) {
         PrintWriter dataFile;
         try {
             dataFile = new PrintWriter(new FileOutputStream(dataFilename, false));
@@ -128,7 +127,7 @@ public class Users {
     }
 
     // We could add a password attempt limit and stuff for security
-    public User login() {
+    public User login(GUI usersGUI) {
         String username;
         String password;
         do {
@@ -151,11 +150,11 @@ public class Users {
             }
         } while (!currentUser.getPassword().equals(password));
 
-        currentUser.welcomeUser();
+        currentUser.welcomeUser(usersGUI);
         return currentUser;
     }
 
-    public User newUser() {
+    public User newUser(GUI usersGUI) {
         String username = "";
         String password = "";
         String confirmPassword = "";
@@ -195,18 +194,17 @@ public class Users {
             currentUser = new User(username, password, "customer", blockedUsers, invisibleUsers, storeList, userGUI);
         } else {
             currentUser = new User(username, password, "seller", blockedUsers, invisibleUsers, storeList, userGUI);
-            addStores(currentUser);
+            addStores(usersGUI, currentUser);
         }
-        currentUser.welcomeUser();
+        currentUser.welcomeUser(usersGUI);
         userList.add(currentUser);
-        saveData();
+        saveData(usersGUI);
         return currentUser;
     }
 
-    public User changeUsername() {
+    public User changeUsername(GUI usersGUI) {
         String username = "";
 
-        System.out.println("\nCHANGE USERNAME");
         do {
             usersGUI.changeUserName();
             for (User user: userList) {
@@ -223,13 +221,13 @@ public class Users {
         } while (username.equals("") || !validCharacters(username));
         userList.remove(currentUser);
         currentUser.setUsername(username);
-        currentUser.welcomeUser();
+        currentUser.welcomeUser(usersGUI);
         userList.add(currentUser);
-        saveData();
+        saveData(usersGUI);
         return currentUser;
     }
 
-    public User changePassword() {
+    public User changePassword(GUI usersGUI) {
         String password = "";
         String confirmPassword = "";
         ;
@@ -246,17 +244,17 @@ public class Users {
         userList.remove(currentUser);
         currentUser.setPassword(password);
         userList.add(currentUser);
-        saveData();
+        saveData(usersGUI);
         return currentUser;
     }
 
-    public boolean deleteAccount() {
+    public boolean deleteAccount(GUI usersGUI) {
         //String confirm;
 
         int delete = usersGUI.deleteAccount();
         if (delete == 1) {
             userList.remove(currentUser);
-            saveData();
+            saveData(usersGUI);
             return true;
         } else {
             usersGUI.deletionCancelled();
@@ -278,7 +276,7 @@ public class Users {
         return true;
     }
 
-    public void printUsers() {
+    public void printUsers(GUI usersGUI) {
         String totalOutput = " ";
         int count = 0;
         for (User user: userList) {
@@ -288,7 +286,7 @@ public class Users {
         }
         usersGUI.usersOutput(totalOutput);
     }
-    public void blockUser() {
+    public void blockUser(GUI usersGUI) {
         String input;
         boolean blocked = false;
         input = usersGUI.blockUser();
@@ -296,7 +294,7 @@ public class Users {
         for (User user: userList) {
             if (user.getUsername().equals(input)) {
                 user.addBlockedUser(currentUser);
-                saveData();
+                saveData(usersGUI);
                 blocked = true;
                 break;
             }
@@ -306,7 +304,7 @@ public class Users {
         }
     }
 
-    public void invisUser() {
+    public void invisUser(GUI usersGUI) {
         String input;
         boolean invis = false;
 
@@ -315,7 +313,7 @@ public class Users {
         for (User user: userList) {
             if (user.getUsername().equals(input)) {
                 user.addInvisUser(currentUser);
-                saveData();
+                saveData(usersGUI);
                 invis = true;
                 break;
             }
@@ -325,7 +323,7 @@ public class Users {
         }
     }
 
-    public void addStores(User user) {
+    public void addStores(GUI usersGUI, User user) {
         int storeCount = 0;
         String name;
 
