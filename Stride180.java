@@ -283,20 +283,11 @@ public class Stride180 {
             }
             size = dataSeller.size();
 
-            do {
-                for (int j = 1; j <= dataSeller.size(); j++) {
-                    dataStores += "Store #" + j + ": " + dataSeller.get(j - 1).getNameStore();
-                }
-                try {
-                    numberChosen = usersGUI.numberStore(size, dataStores);
-                    if (numberChosen > size) {
-                        usersGUI.message = "Invalid Option Selected!";
-                    }
-                } catch (InputMismatchException e) {
-                    usersGUI.message = "Invalid Option Selected!";
-                    numberChosen = size + 1;
-                }
-            } while (numberChosen > size);
+            for (int j = 1; j <= dataSeller.size(); j++) {
+                dataStores += "Store #" + j + ": " + dataSeller.get(j - 1).getNameStore() + "/n";
+            }
+            numberChosen = usersGUI.numberStore(size, dataStores);
+
             sellerChosen = dataSeller.get(numberChosen - 1).getUser();
             return sellerChosen;
         }

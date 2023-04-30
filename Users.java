@@ -89,6 +89,7 @@ public class Users {
         String username = "";
         String password = "";
         String userType = "";
+        userList = new ArrayList<User>();
         for (int i = 1; i < fileContentArray.length; i++) {
             ArrayList<String> blockedUsers = new ArrayList<>();
             ArrayList<String> invisibleUsers = new ArrayList<>();
@@ -116,11 +117,13 @@ public class Users {
                     } catch (ArrayIndexOutOfBoundsException e) {
                         ;
                     }
-
-                    this.userList.add(new User(username, password, userType, 
+                    
+                    userList.add(new User(username, password, userType, 
                             blockedUsers, invisibleUsers, storeList, usersGUI));
                 } catch (StringIndexOutOfBoundsException e) {
                     System.out.println("[ERROR] File format error. (Index out of bounds)");
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    //System.out.println("[ERROR] File format error. (Index out of bounds)");
                 }
             }
 
@@ -133,9 +136,6 @@ public class Users {
             total += u.toCSV() + "..pkjm..";
         }
         String send = "/write/" + dataFilename + " ,mv.. " + total;
-        System.out.println("NEW SAVE COMMAND");
-        System.out.println(userList);
-        System.out.println(send);
         writer.println(send);
     }
 
@@ -410,15 +410,16 @@ public class Users {
 
     public ArrayList<Store> storeList() {
         ArrayList<Store> stores = new ArrayList<Store>();
-
+        System.out.println("USERLIST  " + userList);
         for (User user : userList) {
             if (!user.isCustomer()) {
                 for (String name : user.getStoreList()) {
+                    System.out.println("STORE  " + user + " " + name);
                     stores.add(new Store(user, name));
                 }
             }
         }
-
+    
         return stores;
     }
 
