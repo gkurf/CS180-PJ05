@@ -22,6 +22,7 @@ public class Stride180 {
         do {
             Users users = new Users("userData.txt", usersGUI);
             user = login(usersGUI, users);
+            user.welcomeUser(usersGUI);
             userLoggedIn = true;
             usersGUI.message = "";
             do {

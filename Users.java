@@ -214,7 +214,7 @@ public class Users {
 
         
         do {
-            usersGUI.changeUserName();
+            username = usersGUI.changeUserName();
             usersGUI.message = "";
             for (User user: userList) {
                 if (user.getUsername().equals(username)) {
