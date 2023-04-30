@@ -1,9 +1,12 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-
+import java.net.*;
+import java.io.*;
+import javax.swing.*;
 /**
  * This class simulates a User in the marketplace and helps create, interact, or
  * delete other users
@@ -22,17 +25,31 @@ public class User {
     private ArrayList<String> invisibleUsers;
     private ArrayList<String> storeList;
     private GUI userGUI;
+    private Socket socket = null;
+    private OutputStream outputStream = null;
+    private PrintWriter writer = null;
+    private InputStream inputStream = null;
+    private BufferedReader reader = null;
 
     // Constructor
     public User(String username, String password, String userType, ArrayList<String> blockedUsers,
                 ArrayList<String> invisibleUsers, ArrayList<String> storeList, GUI userGUI) {
-        this.username = username;
-        this.password = password;
-        this.userType = userType;
-        this.customer = userType.equals("customer");
-        this.blockedUsers = blockedUsers;
-        this.invisibleUsers = invisibleUsers;
-        this.storeList = storeList;
+        try{
+            socket = new Socket("localhost", 1234);
+            outputStream = socket.getOutputStream();
+            writer = new PrintWriter(outputStream, true);
+            InputStream inputStream = socket.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            this.username = username;
+            this.password = password;
+            this.userType = userType;
+            this.customer = userType.equals("customer");
+            this.blockedUsers = blockedUsers;
+            this.invisibleUsers = invisibleUsers;
+            this.storeList = storeList;
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Could not establish connection to server.");
+        }
     }
 
     // setters and getters
@@ -70,39 +87,28 @@ public class User {
 
     // get messages between the current user and the inputted user
     public ArrayList<Message> getMessages(User user) {
-        File history = new File("messageHistory.txt");
+        String send = "/read/"+"messageHistory.txt";
+        writer.println(send);
+        try{
+           String fileContent = reader.readLine();
+        } catch (IOException e) {};
         ArrayList<Message> messagesWithUser = new ArrayList<Message>();
         Users users = new Users("Userdata.txt");
         ArrayList<User> arrUser = users.getUserList();
         try {
-            if (history.createNewFile()) { // if the file doesn't exist
-                history.delete();
-                userGUI.NoMessageHistory();
-            } else {
-                BufferedReader bfr = null;
-                ArrayList<String> fileText = null;
-                bfr = new BufferedReader(new FileReader(history));
-
-                fileText = new ArrayList<String>();
-                String line = bfr.readLine();
-                while (line != null) {
-                    fileText.add(line);
-                    line = bfr.readLine();
-                }
-                bfr.close();
-
-                for (String conversation: fileText) {
-                    if (conversation.contains(user.getUsername())) {
-                        conversation.replace(user.getUsername(), "");
-                        conversation.replace(",", "");
-                        for (User match: arrUser) {
-                            if (match.getUsername().equals(conversation)) {
-                                messagesWithUser.add(new Message(user, match));
+             ArrayList<String> fileText = new ArrayList<String>();
+             String[] fileContentArray = fileContent.split("\n");
+             Collections.addAll(fileText, fileContentArray);
+             for (String conversation: fileText) {
+                  if (conversation.contains(user.getUsername())) {
+                    conversation.replace(user.getUsername(), "");
+                    conversation.replace(",", "");
+                    for (User match: arrUser) {
+                        if (match.getUsername().equals(conversation)) {                                messagesWithUser.add(new Message(user, match));
                             }
                         }
                     }
                 }
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }
