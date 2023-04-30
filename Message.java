@@ -44,11 +44,11 @@ public class Message {
                     this.seller = user1;
                 }
 
-                String sendCustomer = "/write/" + customer.getUsername() + " messages to " + seller.getUsername() + " {-/} ";
+                String sendCustomer = "/write/" + customer.getUsername() + " messages to " + seller.getUsername() + " ,mv.. ";
                 writer.println(sendCustomer);
-                String sendSeller = "/write/" + seller.getUsername() + " messages to " + customer.getUsername() + " {-/} ";
+                String sendSeller = "/write/" + seller.getUsername() + " messages to " + customer.getUsername() + " ,mv.. ";
                 writer.println(sendSeller);
-                String sendHistory = "/write/ messageHistory {-/} " + user1.getUsername() + "," + user2.getUsername();
+                String sendHistory = "/write/ messageHistory ,mv.. " + user1.getUsername() + "," + user2.getUsername();
                 writer.println(sendHistory);
     
                 this.customerFileName = customer.getUsername() + " messages to " + seller.getUsername();
@@ -65,9 +65,9 @@ public class Message {
             System.out.println("User is not part of this conversation!");
         } else {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            String sendCustomerMessage = "/write/" + customerFileName + " {-/} " + sender.getUsername() + ": " + message + " (sent at " + timestamp + ")";
+            String sendCustomerMessage = "/write/" + customerFileName + " ,mv.. " + sender.getUsername() + ": " + message + " (sent at " + timestamp + ")";
             writer.println(sendCustomerMessage);
-            String sendSellerMessage = "/write/" + sellerFileName + " {-/} " + sender.getUsername() + ": " + message + " (sent at " + timestamp + ")";
+            String sendSellerMessage = "/write/" + sellerFileName + " ,mv.. " + sender.getUsername() + ": " + message + " (sent at " + timestamp + ")";
             writer.println(sendSellerMessage);
         }
     }

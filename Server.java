@@ -86,7 +86,7 @@ class Server {
 						System.out.println(message);
 						if (message.startsWith("/write/")) {
 							message = message.substring(7);
-							String[] arr = message.split("{-/}");
+							String[] arr = message.split(" ,mv.. ");
 							BufferedWriter fileWriter = new BufferedWriter(new FileWriter(arr[0], true));
 							fileWriter.write(arr[1].trim());
 							fileWriter.close();
@@ -103,11 +103,11 @@ class Server {
 							}
 							String str = null;
 							for (String part : messageList) {
-								str += part;
+								str += part + "\n";
 							}
 							System.out.println(str);
 							writer.println(str);
-							writer.flush();
+							writer.flush(); 
 							bfr.close();
 						}
 					}

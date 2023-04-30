@@ -36,7 +36,7 @@ public class Store {
             this.nameStore = nameStore;
             String fileName = "sellerData.txt";
             String sellerData = nameStore + ", " + user.getUsername();
-            String send = "/write/"+fileName + " {-/} "+ sellerData;
+            String send = "/write/"+fileName + " ,mv.. "+ sellerData;
             writer.println(send);
     } catch (IOException e) {
         JOptionPane.showMessageDialog(null, "Could not establish connection to server.");

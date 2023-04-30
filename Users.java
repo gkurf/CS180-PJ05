@@ -125,7 +125,7 @@ public class Users {
         for (User u : userList) {
             total += u.toCSV();
         }
-        String send = "/write/" + dataFilename + "{-/}" + total;
+        String send = "/write/" + dataFilename + ",mv.." + total;
         writer.println(send);
     }
 
