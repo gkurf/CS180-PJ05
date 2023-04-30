@@ -87,6 +87,7 @@ class Server {
 							String[] arr = message.split(" ,mv.. ");
 							BufferedWriter fileWriter = new BufferedWriter(new FileWriter(arr[0], true));
 							fileWriter.newLine();
+							arr[1] = arr[1].replaceAll("null", "");
 							fileWriter.write(arr[1].trim());
 							fileWriter.close();
 						}
