@@ -78,16 +78,12 @@ public class Users {
         writer.println(send);
         String fileContent = "";
         try {
-            String line = reader.readLine();
-            while(line!=null){
-            fileContent += line;
-            line = reader.readLine();
-            }
+            fileContent = reader.readLine();
         } catch (NullPointerException e) {
         } catch (IOException e) {
         }
         System.out.println("File Content: " + fileContent);
-        String[] fileContentArray = fileContent.split("\n");
+        String[] fileContentArray = fileContent.split("..pkjm..");
         String line = "";
         String[] splitLine = {""};
         String username = "";
