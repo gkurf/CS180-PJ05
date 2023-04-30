@@ -1,3 +1,5 @@
+import com.sun.java.accessibility.util.GUIInitializedListener;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -13,7 +15,7 @@ import java.util.Scanner;
  * A class to store a collection of User objects and apply methods to them.
  *
  * @author Anish Agrawal, Jack Burns, Sanya Buti, Gabe Kurfman, Shubhangi Mishra
- * @version April 19, 2023
+ * @version April 9, 2023
  */
 public class Users {
 
@@ -24,6 +26,8 @@ public class Users {
     private ArrayList<User> userList = new ArrayList <User>();
     private String dataFilename;
     private User currentUser;
+    private GUI usersGUI;
+
 
     // constructor
     public Users(String dataFilename) {
@@ -96,18 +100,18 @@ public class Users {
                             ;
                         }
 
-                        this.userList
-                            .add(new User(username, password, userType, blockedUsers, invisibleUsers, storeList));
+                        GUI userGUI = null;
+                        this.userList.add(new User(username, password, userType, blockedUsers, invisibleUsers, storeList, userGUI));
                     } catch (StringIndexOutOfBoundsException e) {
                         System.out.println("[ERROR] File format error. (Index out of bounds)");
                     }
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("[ERROR] Data file not found.");
+            usersGUI.FileError();
             e.printStackTrace();
         } catch (IOException e) {
-            System.out.println("[ERROR] File read error.");
+            usersGUI.FileError();
             e.printStackTrace();
         }
     }
@@ -122,21 +126,17 @@ public class Users {
             }
             dataFile.close();
         } catch (FileNotFoundException e) {
-            System.out.println("[ERROR] Data file not found.");
+            usersGUI.FileError();
             e.printStackTrace();
         }
     }
 
     // We could add a password attempt limit and stuff for security
-    public User login(Scanner scan) {
+    public User login() {
         String username;
         String password;
-
-        System.out.println("\nLOGIN");
-
         do {
-            System.out.print("Username: ");
-            username = scan.nextLine();
+            username = usersGUI.logInUsername();
             for (User user: userList) {
                 if (user.getUsername().equals(username)) {
                     currentUser = user;
@@ -144,15 +144,14 @@ public class Users {
                 }
             }
             if (currentUser == null) {
-                System.out.println("Invalid username! Please try again.");
+                usersGUI.invalidUsername();
             }
         } while (currentUser == null);
 
         do {
-            System.out.print("Password: ");
-            password = scan.nextLine();
+            password = usersGUI.logInPassword();
             if (!currentUser.getPassword().equals(password)) {
-                System.out.println("Incorrect password! Please try again.");
+                usersGUI.invalidPassword();
             }
         } while (!currentUser.getPassword().equals(password));
 
@@ -169,10 +168,8 @@ public class Users {
         ArrayList<String> invisibleUsers = new ArrayList<String>();
         ArrayList<String> storeList = new ArrayList<String>();
 
-        System.out.println("\nNEW USER");
         do {
-            System.out.print("Enter a Username: ");
-            username = scan.nextLine();
+            username = usersGUI.CreateAccountUsername();
             for (User user: userList) {
                 if (user.getUsername().equals(username)) {
                     username = "";
@@ -180,33 +177,30 @@ public class Users {
                 }
             }
             if (username.equals("")) {
-                System.out.println("That username is taken! Please try again.");
+                usersGUI.userNameTaken();
             } else if (!validCharacters(username)) {
-                System.out.println("Invalid characters in username! Please try again.");
+                usersGUI.userNameInvalid();
             }
         } while (username.equals("") || !validCharacters(username));
 
         do {
-            System.out.print("Enter a Password: ");
-            password = scan.nextLine();
-            System.out.print("Confirm Password: ");
-            confirmPassword = scan.nextLine();
+            password = usersGUI.CreateAccountPassword();
+            confirmPassword = usersGUI.confirmPassword();
             if (!password.equals(confirmPassword)) {
-                System.out.println("Passwords do not match! Please try again.");
+               usersGUI.passwordMisMatch();
             } else if (!validCharacters(password)) {
-                System.out.println("Invalid characters in password! Please try again.");
+               usersGUI.invalidPasswordCharacters();
             }
         } while (!password.equals(confirmPassword) || !validCharacters(password));
 
-        System.out.print("Enter a user type (\"seller\"/\"customer\"): ");
-        userType = scan.nextLine();
-        if (userType.equals("customer")) {
-            currentUser = new User(username, password, "customer", blockedUsers, invisibleUsers, storeList);
+        int userCreates = usersGUI.typeofAccount();
+        GUI userGUI = null;
+        if (userCreates == 1) {
+            currentUser = new User(username, password, "customer", blockedUsers, invisibleUsers, storeList, userGUI);
         } else {
-            currentUser = new User(username, password, "seller", blockedUsers, invisibleUsers, storeList);
+            currentUser = new User(username, password, "seller", blockedUsers, invisibleUsers, storeList, userGUI);
             addStores(scan, currentUser);
         }
-
         currentUser.welcomeUser();
         userList.add(currentUser);
         saveData();
@@ -218,8 +212,7 @@ public class Users {
 
         System.out.println("\nCHANGE USERNAME");
         do {
-            System.out.print("Enter a Username: ");
-            username = scan.nextLine();
+            usersGUI.changeUserName();
             for (User user: userList) {
                 if (user.getUsername().equals(username)) {
                     username = "";
@@ -227,9 +220,9 @@ public class Users {
                 }
             }
             if (username.equals("")) {
-                System.out.println("That username is taken! Please try again.");
+                usersGUI.userNameTaken();
             } else if (!validCharacters(username)) {
-                System.out.println("Invalid characters in username! Please try again.");
+                usersGUI.userNameInvalid();
             }
         } while (username.equals("") || !validCharacters(username));
         userList.remove(currentUser);
@@ -243,17 +236,14 @@ public class Users {
     public User changePassword(Scanner scan) {
         String password = "";
         String confirmPassword = "";
-
-        System.out.println("\nCHANGE PASSSWORD");
+        ;
         do {
-            System.out.print("Enter a Password: ");
-            password = scan.nextLine();
-            System.out.print("Confirm password: ");
-            confirmPassword = scan.nextLine();
+            password = usersGUI.changePassword();
+            confirmPassword = usersGUI.confirmPassword();
             if (!password.equals(confirmPassword)) {
-                System.out.println("Passwords do not match! Please try again.");
+                usersGUI.passwordMisMatch();
             } else if (!validCharacters(password)) {
-                System.out.println("Invalid characters in password! Please try again.");
+                usersGUI.invalidPasswordCharacters();
             }
         } while (!password.equals(confirmPassword) || !validCharacters(password));
 
@@ -267,24 +257,22 @@ public class Users {
     public boolean deleteAccount(Scanner scan) {
         String confirm;
 
-        System.out.println("\nDELETE ACCOUNT");
-        System.out.print("Are you sure you want to delete your account? (Y/N)");
-        confirm = scan.nextLine();
-        if (confirm.toLowerCase().equals("y")) {
+        int delete = usersGUI.deleteAccount();
+        if (delete == 1) {
             userList.remove(currentUser);
             saveData();
             return true;
         } else {
-            System.out.println("Deletion cancelled.");
+            usersGUI.deletionCancelled();
             return false;
         }
     }
 
     public boolean validCharacters(String inputStr) {
         String[] restrictedChars = {
-            ",",
-            ";",
-            "\\"
+                ",",
+                ";",
+                "\\"
         };
         for (int i = 0; i < restrictedChars.length; i++) {
             if (inputStr.contains(restrictedChars[i])) {
@@ -295,16 +283,19 @@ public class Users {
     }
 
     public void printUsers() {
+        String totalOutput = " ";
+        int count = 0;
         for (User user: userList) {
-            System.out.println(user.toString());
+            String output = user.toString();
+            count ++;
+            totalOutput = "User:" + count + output;
         }
+        usersGUI.usersOutput(totalOutput);
     }
-
-    public void blockUser(Scanner scan) {
+    public void blockUser() {
         String input;
         boolean blocked = false;
-        System.out.println(BLOCK_PROMPT);
-        input = scan.nextLine();
+        input = usersGUI.blockUser();
 
         for (User user: userList) {
             if (user.getUsername().equals(input)) {
@@ -315,7 +306,7 @@ public class Users {
             }
         }
         if (!blocked) {
-            System.out.println("That username does not exist and cannot be blocked!");
+            usersGUI.errorBlocked();
         }
     }
 
@@ -323,8 +314,7 @@ public class Users {
         String input;
         boolean invis = false;
 
-        System.out.println(INVIS_PROMPT);
-        input = scan.nextLine();
+        input = usersGUI.invisUsername();
 
         for (User user: userList) {
             if (user.getUsername().equals(input)) {
@@ -334,9 +324,8 @@ public class Users {
                 break;
             }
         }
-
         if (!invis) {
-            System.out.println("That username does not exist!");
+            usersGUI.errorInvis();
         }
     }
 
@@ -345,31 +334,29 @@ public class Users {
         String name;
 
         do {
-            System.out.println("How many stores would you like to own?");
             try {
-                storeCount = scan.nextInt();
+                storeCount = usersGUI.storesAmount();
                 if (storeCount < 0) {
-                    System.out.println("Invalid input, please enter a positive number.");
+                    usersGUI.errorStoreAmt();
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input, please enter a positive number.");
+                usersGUI.errorStoreAmt();
             }
-            scan.nextLine();
+
         } while (storeCount == 0);
 
         for (int i = 1; i <= storeCount; i++) {
             do {
-                System.out.println("What is the name of store #" + i + "?");
-                name = scan.nextLine();
+                name = usersGUI.registerStore(i);
                 if (!validCharacters(name)) {
-                    System.out.println("Invalid characters in store name, please try again.");
+                   usersGUI.invalidStoreName();
                 }
             } while (!validCharacters(name));
             user.addStore(name);
         }
     }
 
-    public boolean userExists(Scanner scan, String username) {
+    public boolean userExists(String username) {
         for (User user: userList) {
             if (user.getUsername().equals(username)) {
                 return true;
