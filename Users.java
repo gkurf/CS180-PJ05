@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -9,7 +8,6 @@ import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.net.*;
 import java.io.*;
-import javax.swing.*;
 import javax.swing.*;
 
 /**
@@ -31,7 +29,6 @@ public class Users {
     private Socket socket = null;
     private OutputStream outputStream = null;
     private PrintWriter writer = null;
-    private InputStream inputStream = null;
     private BufferedReader reader = null;
 
     // constructor
@@ -42,8 +39,6 @@ public class Users {
             socket = new Socket("localhost", 1234);
             outputStream = socket.getOutputStream();
             writer = new PrintWriter(outputStream, true);
-            InputStream inputStream = socket.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             this.dataFilename = dataFilename;
             this.currentUser = null;
         } catch (IOException e) {
