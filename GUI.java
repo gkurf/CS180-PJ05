@@ -819,7 +819,7 @@ public class GUI implements ActionListener {
             panel.add(m);
         }
 
-        label = new JLabel("Enter the name of store number:" + " " + amount);
+        label = new JLabel("Enter the name of a store:" + " " + amount);
         panel.add(label);
         text = new JTextField();
         panel.add(text);
@@ -953,7 +953,7 @@ public class GUI implements ActionListener {
 
         SpinnerModel spinnerModel = new SpinnerNumberModel(1, //initial value
             1, //min
-            100, //max
+            stores, //max
             1);//step
         JSpinner spinner = new JSpinner(spinnerModel);
         JButton enter = new JButton("Enter Integer");
