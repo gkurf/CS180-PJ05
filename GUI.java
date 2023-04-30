@@ -782,24 +782,29 @@ public class GUI implements ActionListener {
         panel.add(label);
         text = new JTextField();
         panel.add(text);
+        
+        SpinnerModel spinnerModel = new SpinnerNumberModel(1, //initial value
+            1, //min
+            100, //max
+            1);//step
+        JSpinner spinner = new JSpinner(spinnerModel);
+        JButton enter = new JButton("Enter Integer");
+        panel.add(spinner);
+        panel.add(enter);
         frame.pack();
         frame.setVisible(true);
-        
+
         count = 0;
         while (count == 0) {
-            text.addActionListener(new ActionListener() {
+            enter.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    try {
-                        count = Integer.parseInt(text.getText());
-                    } catch (NumberFormatException t) {
-                        message = "Store amount must be an integer!";
-                    }
+                    count = 1;
                 }
             });
         }
 
-        return count;
+        return (int)spinner.getValue();
     }
 
     public String registerStore(int amount) {
@@ -904,24 +909,29 @@ public class GUI implements ActionListener {
         label = new JLabel("Which Customer Number would you like to message?");
         text = new JTextField();
         panel.add(text);
+        
+        SpinnerModel spinnerModel = new SpinnerNumberModel(1, //initial value
+            1, //min
+            100, //max
+            1);//step
+        JSpinner spinner = new JSpinner(spinnerModel);
+        JButton enter = new JButton("Enter Integer");
+        panel.add(spinner);
+        panel.add(enter);
         frame.pack();
         frame.setVisible(true);
-        
+
         count = 0;
         while (count == 0) {
-            text.addActionListener(new ActionListener() {
+            enter.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    try {
-                        count = Integer.parseInt(text.getText());
-                    } catch (NumberFormatException t) {
-                        message = "Customer number must be an integer!";
-                    }
+                    count = 1;
                 }
             });
         }
 
-        return count;
+        return (int)spinner.getValue();
     }
 
     public int numberStore(int stores, String dataStores) {
@@ -942,24 +952,28 @@ public class GUI implements ActionListener {
         text = new JTextField();
         panel.add(text);
 
+        SpinnerModel spinnerModel = new SpinnerNumberModel(1, //initial value
+            1, //min
+            100, //max
+            1);//step
+        JSpinner spinner = new JSpinner(spinnerModel);
+        JButton enter = new JButton("Enter Integer");
+        panel.add(spinner);
+        panel.add(enter);
         frame.pack();
         frame.setVisible(true);
-        
+
         count = 0;
         while (count == 0) {
-            text.addActionListener(new ActionListener() {
+            enter.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    try {
-                        count = Integer.parseInt(text.getText());
-                    } catch (NumberFormatException t) {
-                        message = "Store number must be an integer!";
-                    }
+                    count = 1;
                 }
             });
         }
 
-        return count;
+        return (int)spinner.getValue();
     }
 
     public int sendMessageOption(String reciever, String history) {
@@ -1034,7 +1048,6 @@ public class GUI implements ActionListener {
     }
     
     public String optionOneMessage() {
-        String output = " ";
         panel.removeAll();
         frame.setTitle("Send message");
 
