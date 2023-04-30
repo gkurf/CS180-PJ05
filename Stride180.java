@@ -69,7 +69,7 @@ public class Stride180 {
                                         if (word.equals(null)) {
                                             usersGUI.message = "No common words found!";
                                         }
-                                        commonWords += "- " + word;
+                                        commonWords += word + "";
                                     }
                                     usersGUI.commonWordsSeller(commonWords);
 
@@ -143,7 +143,7 @@ public class Stride180 {
                                         {
                                             usersGUI.message = "No common words found.";
                                         }
-                                        commonWords += "- " + word;
+                                        commonWords += word + " ";
                                     }
                                     usersGUI.commonWordsCustomer(commonWords);
 
@@ -155,7 +155,7 @@ public class Stride180 {
                                         {
                                             usersGUI.message = "No common words found.";
                                         }
-                                        commonWordss = "- " + word;
+                                        commonWordss = word + "";
                                     }
                                     usersGUI.commonWordsSeller(commonWordss);
 

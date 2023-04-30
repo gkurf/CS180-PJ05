@@ -2,6 +2,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.io.IOException;
+import java.net.*;
+import java.io.*;
+import javax.swing.*;
 /**
  * This class allows for Statistics of relevent data to be displayed on request by users
  *
@@ -13,11 +17,22 @@ public class Statistics {
     private List<Message> customers;
     private List<Message> sellers;
     private List<String> commonWords;
-
+    private Socket socket = null;
+    private OutputStream outputStream = null;
+    private PrintWriter writer = null;
+    private BufferedReader reader = null;
+    
     public Statistics() {
-        customers = new ArrayList<>();
-        sellers=new ArrayList<>();
-        commonWords = new ArrayList<>();
+         try{
+            socket = new Socket("localhost", 1234);
+            outputStream = socket.getOutputStream();
+            writer = new PrintWriter(outputStream, true);
+            customers = new ArrayList<>();
+            sellers=new ArrayList<>();
+            commonWords = new ArrayList<>();
+         }catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Could not establish connection to server.");
+        }
     }
 
     public void addCustomer(Message customer) {
@@ -48,10 +63,9 @@ public class Statistics {
             for (String message : customer.getCustomer()) {
                 String[] words = message.split("\\s+");
                 for (String word : words) {
-                    if (word.equalsIgnoreCase("the seller") || word.equalsIgnoreCase("the customer")) {
-                    continue;
-                }
+                    if (!word.equalsIgnoreCase("the seller") || !word.equalsIgnoreCase("the customer") || !word.contains("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}")) {
                     allWords.add(word.toLowerCase());
+                }
                 }
             }
         }
@@ -83,10 +97,10 @@ public class Statistics {
             for (String message : seller.getSeller()) {
                 String[] words = message.split("\\s+");
                 for (String word : words) {
-                    if (word.equalsIgnoreCase("seller") || word.equalsIgnoreCase("customer")) {
-                    continue;
-                }
+                    if (!word.equalsIgnoreCase("seller") || !word.equalsIgnoreCase("customer") ||!word.equalsIgnoreCase("the")|| !word.contains("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}"))  {
                     allWords.add(word.toLowerCase());
+                }
+                    
                 }
             }
         }
