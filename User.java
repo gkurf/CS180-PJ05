@@ -181,6 +181,6 @@ public class User {
     public void welcomeUser(GUI userGUI) {
         String cap = getUserType().substring(0, 1).toUpperCase() + getUserType().substring(1);
         String username = getUsername();
-        userGUI.WelcomeUser(cap,username);
+        userGUI.message = "Welcome " + cap + " " + username + "!";
     }
 }

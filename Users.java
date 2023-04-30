@@ -103,10 +103,10 @@ public class Users {
                 }
             }
         } catch (FileNotFoundException e) {
-            usersGUI.FileError();
+            usersGUI.message = "File error.";
             e.printStackTrace();
         } catch (IOException e) {
-            usersGUI.FileError();
+            usersGUI.message = "File error.";
             e.printStackTrace();
         }
     }
@@ -121,7 +121,7 @@ public class Users {
             }
             dataFile.close();
         } catch (FileNotFoundException e) {
-            usersGUI.FileError();
+            usersGUI.message = "File error.";
             e.printStackTrace();
         }
     }
@@ -130,9 +130,10 @@ public class Users {
     public User login(GUI usersGUI) {
         String username;
         String password;
-        usersGUI.message = "";
+        
         do {
             username = usersGUI.logInUsername();
+            usersGUI.message = "";
             for (User user: userList) {
                 if (user.getUsername().equals(username)) {
                     currentUser = user;
@@ -144,9 +145,10 @@ public class Users {
             }
         } while (currentUser == null);
 
-        usersGUI.message = "";
+        
         do {
             password = usersGUI.logInPassword();
+            usersGUI.message = "";
             if (!currentUser.getPassword().equals(password)) {
                 usersGUI.message = "Invalid password.";
             }
@@ -165,9 +167,9 @@ public class Users {
         ArrayList<String> invisibleUsers = new ArrayList<String>();
         ArrayList<String> storeList = new ArrayList<String>();
 
-        usersGUI.message = "";
         do {
             username = usersGUI.CreateAccountUsername();
+            usersGUI.message = "";
             for (User user: userList) {
                 if (user.getUsername().equals(username)) {
                     username = "";
@@ -181,9 +183,10 @@ public class Users {
             }
         } while (username.equals("") || !validCharacters(username));
 
-        usersGUI.message = "";
+        
         do {
             password = usersGUI.CreateAccountPassword();
+            usersGUI.message = "";
             confirmPassword = usersGUI.confirmPassword();
             if (!password.equals(confirmPassword)) {
                 usersGUI.message = "Passwords do not match!";
@@ -209,9 +212,10 @@ public class Users {
     public User changeUsername(GUI usersGUI) {
         String username = "";
 
-        usersGUI.message = "";
+        
         do {
             usersGUI.changeUserName();
+            usersGUI.message = "";
             for (User user: userList) {
                 if (user.getUsername().equals(username)) {
                     username = "";
@@ -236,9 +240,10 @@ public class Users {
         String password = "";
         String confirmPassword = "";
         
-        usersGUI.message = "";
+        
         do {
             password = usersGUI.changePassword();
+            usersGUI.message = "";
             confirmPassword = usersGUI.confirmPassword();
             if (!password.equals(confirmPassword)) {
                 usersGUI.message = "Passwords do not match!";
@@ -297,7 +302,7 @@ public class Users {
         String input;
         boolean blocked = false;
         input = usersGUI.blockUser();
-
+        usersGUI.message = "";
         for (User user: userList) {
             if (user.getUsername().equals(input)) {
                 user.addBlockedUser(currentUser);
@@ -307,7 +312,7 @@ public class Users {
             }
         }
         if (!blocked) {
-            usersGUI.errorBlocked();
+            usersGUI.message = "User could not be blocked.";
         }
     }
 
@@ -326,31 +331,34 @@ public class Users {
             }
         }
         if (!invis) {
-            usersGUI.errorInvis();
+            usersGUI.message = "User could not become invisible.";
         }
     }
 
     public void addStores(GUI usersGUI, User user) {
         int storeCount = 0;
         String name;
-
+        
         do {
             try {
                 storeCount = usersGUI.storesAmount();
+                usersGUI.message = "";
                 if (storeCount < 0) {
-                    usersGUI.errorStoreAmt();
+                    usersGUI.message = "Store amount must be greater than 1!";
                 }
             } catch (InputMismatchException e) {
-                usersGUI.errorStoreAmt();
+                usersGUI.message = "Store amount must be an integer!";
             }
 
         } while (storeCount == 0);
 
+        
         for (int i = 1; i <= storeCount; i++) {
             do {
                 name = usersGUI.registerStore(i);
+                usersGUI.message = "";
                 if (!validCharacters(name)) {
-                   usersGUI.invalidStoreName();
+                    usersGUI.message = "Invalid characters in store name!";
                 }
             } while (!validCharacters(name));
             user.addStore(name);

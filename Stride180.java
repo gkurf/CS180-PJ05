@@ -28,17 +28,18 @@ public class Stride180 {
                 if (user == null) {
 
                 } else if (user.isCustomer()) {
-                    usersGUI.message = "";
+                
                     do {
                         input = usersGUI.customerOptions();
+                        usersGUI.message = "";
 
                         if (input == 1) {
                             // Message seller
                             User seller;
-                            usersGUI.message = "";
+                           
                             do {
-                               input = usersGUI.customerMessageOptions();
-
+                                input = usersGUI.customerMessageOptions();
+                                usersGUI.message = "";
                                 if (input == 1) {
                                     // Search seller
                                     seller = chooseSeller(usersGUI,user, users);
@@ -57,10 +58,10 @@ public class Stride180 {
                             } while (input < 1 || input > 2);
                         } else if (input == 2) {
                             // Account Settings
-                            usersGUI.message = "";
+
                             do {
                                 input = usersGUI.customerAccountOptions();
-
+                                usersGUI.message = "";
                                 if (input == 1) {
                                     // View Customer Statiscs
                                     List<String> commonSellerWords = statistics.getSellerCommonWords();
@@ -102,17 +103,17 @@ public class Stride180 {
                     } while ((input < 1 || input > 3) && userLoggedIn);
 
                 } else {
-                    usersGUI.message = "";
+                    
                     do {
                         input = usersGUI.SellerOptions();
-
+                        usersGUI.message = "";
                         if (input == 1) {
                             // Message customer
                             User customer;
-                            usersGUI.message = "";
+                            
                             do {
                                 input = usersGUI.sellerMessageOptions();
-
+                                usersGUI.message = "";
                                 if (input == 1) {
                                     // Search customers
                                     customer = chooseCustomer(user, users, usersGUI);
@@ -131,9 +132,10 @@ public class Stride180 {
                             } while (input < 1 || input > 2);
                         } else if (input == 2) {
                             // Account Settings
-                            usersGUI.message = "";
+                            
                             do {
                                 input = usersGUI.sellerAccountOptions();
+                                usersGUI.message = "";
                                 if (input == 1) {
                                     List<String> commonCustomerWords = statistics.getCustomerCommonWords();
                                     String commonWords = "";
@@ -141,7 +143,7 @@ public class Stride180 {
                                     for (String word : commonCustomerWords) {
                                         if(word.equals(null))
                                         {
-                                           usersGUI.noCommonWordsCustomer();
+                                            usersGUI.message = "No common words found.";
                                         }
                                         commonWords += "- " + word;
                                     }
@@ -153,7 +155,7 @@ public class Stride180 {
                                     for (String word : commonSellerWords) {
                                         if(word.equals(null))
                                         {
-                                            usersGUI.noCommonWordsSeller();
+                                            usersGUI.message = "No common words found.";
                                         }
                                         commonWordss = "- " + word;
                                     }
@@ -198,9 +200,10 @@ public class Stride180 {
     public static User login(GUI usersGUI, Users users) {
         int input;
         User currentUser = null;
-        usersGUI.message = "";
+
         do {
             input = usersGUI.mainEntry();
+            usersGUI.message = "";
 
             if (input == 1) {
                 currentUser = users.login(usersGUI);
@@ -222,11 +225,11 @@ public class Stride180 {
 
         int input;
         String secondInput = " ";
-        usersGUI.message = "";
         do {
             String recieverUser = "Conversation with " + reciever.getUsername();
             String history = message.messageString(sender);
             input = usersGUI.sendMessageOption(recieverUser, history);
+            usersGUI.message = "";
 
             if (input == 1) {
                 // Send new message
@@ -280,13 +283,12 @@ public class Stride180 {
             }
             size = dataSeller.size();
 
-            String message = "";
             do {
                 for (int j = 1; j <= dataSeller.size(); j++) {
                     dataStores += "Store #" + j + ": " + dataSeller.get(j - 1).getNameStore();
                 }
                 try {
-                    numberChosen = usersGUI.numberStore(size, dataStores, message);
+                    numberChosen = usersGUI.numberStore(size, dataStores);
                     if (numberChosen > size) {
                         usersGUI.message = "Invalid Option Selected!";
                     }
@@ -323,15 +325,13 @@ public class Stride180 {
                 }
             }
             size = dataCustomer.size();
-            System.out.println("Number of customers: " + size);
 
-            String message = "";
             do {
                 for (int j = 1; j <= dataCustomer.size(); j++) {
                     dataCustomers += "User #" + j + ": " + dataCustomer.get(j - 1).getUsername();
                 }
                 try {
-                    numberChosen = usersGUI.numberCustomers(size, dataCustomers, message);
+                    numberChosen = usersGUI.numberCustomers(size, dataCustomers);
                     if (numberChosen > size) {
                         usersGUI.message = "Invalid Option Selected!";
                     }
