@@ -8,7 +8,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 //import javax.swing.JOptionPane;
 
@@ -72,10 +74,16 @@ class Server {
 					BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 					PrintWriter writer = new PrintWriter(clientSocket.getOutputStream());
 					//boolean stillGoing = false;
-					String message = reader.readLine();
+					String message = "";
+					try {
+					message = reader.readLine(); 
+					} catch (SocketException e){
+						JOptionPane.showMessageDialog(null, "Client Disconnection Error"); 
+					}
 					if (message == null) {
-						System.out.println("Message is null");
+						int x = 1;
 					} else {
+						System.out.println("Message isn't null");
 						if (message.startsWith("/write/")) {
 							message = message.substring(7);
 							String[] arr = message.split(" {-/} ");
