@@ -47,7 +47,8 @@ public class User {
             this.storeList = storeList;
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not establish connection to server." +
-                                        "\nConsult the Stride180 Readme for more details.");
+                                        "\nConsult the Stride180 Readme for more details.", 
+                                        "Server Error", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
     }

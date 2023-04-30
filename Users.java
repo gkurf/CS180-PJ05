@@ -39,7 +39,10 @@ public class Users {
             this.dataFilename = dataFilename;
             this.currentUser = null;
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Could not establish connection to server.");
+            JOptionPane.showMessageDialog(null, "Could not establish connection to server." +
+                                        "\nConsult the Stride180 Readme for more details.", 
+                                        "Server Error", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
         }
         loadData(usersGUI);
     }
