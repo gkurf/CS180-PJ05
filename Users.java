@@ -90,9 +90,9 @@ public class Users {
         String[] fileContentArray = fileContent.split("\n");
         String line = "";
         String[] splitLine;
-        String username;
-        String password;
-        String userType;
+        String username = "";
+        String password = "";
+        String userType = "";
         for (int i = 1; i < fileContentArray.length; i++) {
             ArrayList<String> blockedUsers = new ArrayList<>();
             ArrayList<String> invisibleUsers = new ArrayList<>();
@@ -118,10 +118,12 @@ public class Users {
                 } catch (ArrayIndexOutOfBoundsException e) {
                     ;
                 }
+            }
 
                 GUI userGUI = null;
                 this.userList.add(
                         new User(username, password, userType, blockedUsers, invisibleUsers, storeList, userGUI));
+        }
     }
 
     public void saveData(GUI usersGUI) {
