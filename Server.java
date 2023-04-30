@@ -80,7 +80,7 @@ class Server {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-					PrintWriter newWriter = new PrintWriter(new FileOutputStream(arr[0], true))
+					PrintWriter newWriter = new PrintWriter(new FileOutputStream(arr[0], true));
 				}
 				if (message.startsWith("/read/")) {
 					message = message.substring(6);
