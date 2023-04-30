@@ -73,7 +73,7 @@ class Server {
 				if (message.startsWith("/write/")) {
 					message = message.substring(7);
 					String[] arr = message.split(" {-/} ");
-					File newFile = new File(createFile(arr[0]));
+					Fine newFile = new File(createFile(arr[0]));
 					try {
 						newFile.createNewFile();
 					} catch (IOException e) {
@@ -83,7 +83,19 @@ class Server {
 				}
 				if (message.startsWith("/read/")) {
 					message = message.substring(6);
-					String[] arr = message.split(" {-/} ");
+					BufferedReader bfr = new BufferedReader(new FileReader(message));
+
+					ArrayList<String> messageList = new ArrayList<String>();
+                    			String line = bfr.readLine();
+					while (line != null) {
+						messageList.add(line);
+						line = bfr.readLine();
+					}
+					String str = null;
+					for (String part : messageList) {
+						str += part;
+					}
+					writer.println(str);
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
