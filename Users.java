@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.net.*;
+import java.io.*;
+import javax.swing.*;
+import javax.swing.*;
 
 /**
  * A class to store a collection of User objects and apply methods to them.
@@ -22,17 +26,30 @@ public class Users {
     private String USER_DATA_COMMENT = "// Username; Password; User Type; Blocked User list (comma seperated); Invisible User list (comma seperated); Store list (comma seperated)";
     private static String BLOCK_PROMPT = "Enter Username to block: ";
     private static String INVIS_PROMPT = "Enter Username to become invisible to: ";
-    private ArrayList<User> userList = new ArrayList <User>();
+    private ArrayList<User> userList = new ArrayList<User>();
     private String dataFilename;
     private User currentUser;
     private GUI usersGUI;
-
+    private Socket socket = null;
+    private OutputStream outputStream = null;
+    private PrintWriter writer = null;
+    private InputStream inputStream = null;
+    private BufferedReader reader = null;
 
     // constructor
     public Users(String dataFilename) {
-        this.dataFilename = dataFilename;
-        this.currentUser = null;
-        loadData();
+        try {
+            socket = new Socket("localhost", 1234);
+            outputStream = socket.getOutputStream();
+            writer = new PrintWriter(outputStream, true);
+            InputStream inputStream = socket.getInputStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            this.dataFilename = dataFilename;
+            this.currentUser = null;
+            loadData();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Could not establish connection to server.");
+        }
     }
 
     // setters and getters
@@ -62,72 +79,65 @@ public class Users {
 
     // reading all the data from a file
     public void loadData() {
-        try (BufferedReader dataFile = new BufferedReader(new FileReader(dataFilename))) {
-            String line = "";
-            String[] splitLine;
-            String username;
-            String password;
-            String userType;
+        String send = "/read/" + dataFilename;
+        writer.println(send);
+        try {
+            String fileContent = reader.readLine();
+        } catch (IOException e) {
+        }
+        ;
 
-            line = dataFile.readLine(); // Ignore comment line
+        String[] fileContentArray = fileContent.split("\n");
+        String line = "";
+        String[] splitLine;
+        String username;
+        String password;
+        String userType;
+        for (int i = 1; i < fileContentArray.length; i++) {
+            ArrayList<String> blockedUsers = new ArrayList<>();
+            ArrayList<String> invisibleUsers = new ArrayList<>();
+            ArrayList<String> storeList = new ArrayList<>();
 
-            while (line != null) {
-                ArrayList<String> blockedUsers = new ArrayList<>();
-                ArrayList<String> invisibleUsers = new ArrayList<>();
-                ArrayList<String> storeList = new ArrayList<>();
-
-                line = dataFile.readLine();
-                if (line != null) {
+            line = fileContentArray[i];
+            if (line != null) {
+                try {
+                    splitLine = line.split(";");
+                    username = splitLine[0];
+                    password = splitLine[1];
+                    userType = splitLine[2];
                     try {
-                        splitLine = line.split(";");
-                        username = splitLine[0];
-                        password = splitLine[1];
-                        userType = splitLine[2];
-                        try {
-                            blockedUsers = new ArrayList<>(Arrays.asList(splitLine[3].split(",")));
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            ;
-                        }
-                        try {
-                            invisibleUsers = new ArrayList<>(Arrays.asList(splitLine[4].split(",")));
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            ;
-                        }
-                        try {
-                            storeList = new ArrayList<>(Arrays.asList(splitLine[5].split(",")));
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            ;
-                        }
-
-                        GUI userGUI = null;
-                        this.userList.add(new User(username, password, userType, blockedUsers, invisibleUsers, storeList, userGUI));
-                    } catch (StringIndexOutOfBoundsException e) {
-                        System.out.println("[ERROR] File format error. (Index out of bounds)");
+                        blockedUsers = new ArrayList<>(Arrays.asList(splitLine[3].split(",")));
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        ;
                     }
+                    try {
+                        invisibleUsers = new ArrayList<>(Arrays.asList(splitLine[4].split(",")));
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        ;
+                    }
+                    try {
+                        storeList = new ArrayList<>(Arrays.asList(splitLine[5].split(",")));
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        ;
+                    }
+
+                    GUI userGUI = null;
+                    this.userList.add(
+                            new User(username, password, userType, blockedUsers, invisibleUsers, storeList, userGUI));
+                } catch (StringIndexOutOfBoundsException e) {
+                    JOptionPane.showMessageDialog("[ERROR] File format error. (Index out of bounds)");
                 }
             }
-        } catch (FileNotFoundException e) {
-            usersGUI.FileError();
-            e.printStackTrace();
-        } catch (IOException e) {
-            usersGUI.FileError();
-            e.printStackTrace();
         }
     }
 
     public void saveData() {
-        PrintWriter dataFile;
-        try {
-            dataFile = new PrintWriter(new FileOutputStream(dataFilename, false));
-            dataFile.println(USER_DATA_COMMENT);
-            for (User user: userList) {
-                dataFile.println(user.toCSV());
-            }
-            dataFile.close();
-        } catch (FileNotFoundException e) {
-            usersGUI.FileError();
-            e.printStackTrace();
+        String total = USER_DATA_COMMENT;
+        for (User user : userList) {
+            total += user.toCSV();
         }
+        String send = "/write/" + dataFilename + "{-/}" + total;
+        writer.println(send);
     }
 
     // We could add a password attempt limit and stuff for security
@@ -136,7 +146,7 @@ public class Users {
         String password;
         do {
             username = usersGUI.logInUsername();
-            for (User user: userList) {
+            for (User user : userList) {
                 if (user.getUsername().equals(username)) {
                     currentUser = user;
                     break;
@@ -169,7 +179,7 @@ public class Users {
 
         do {
             username = usersGUI.CreateAccountUsername();
-            for (User user: userList) {
+            for (User user : userList) {
                 if (user.getUsername().equals(username)) {
                     username = "";
                     break;
@@ -186,9 +196,9 @@ public class Users {
             password = usersGUI.CreateAccountPassword();
             confirmPassword = usersGUI.confirmPassword();
             if (!password.equals(confirmPassword)) {
-               usersGUI.passwordMisMatch();
+                usersGUI.passwordMisMatch();
             } else if (!validCharacters(password)) {
-               usersGUI.invalidPasswordCharacters();
+                usersGUI.invalidPasswordCharacters();
             }
         } while (!password.equals(confirmPassword) || !validCharacters(password));
 
@@ -212,7 +222,7 @@ public class Users {
         System.out.println("\nCHANGE USERNAME");
         do {
             usersGUI.changeUserName();
-            for (User user: userList) {
+            for (User user : userList) {
                 if (user.getUsername().equals(username)) {
                     username = "";
                     break;
@@ -284,19 +294,20 @@ public class Users {
     public void printUsers() {
         String totalOutput = " ";
         int count = 0;
-        for (User user: userList) {
+        for (User user : userList) {
             String output = user.toString();
-            count ++;
+            count++;
             totalOutput = "User:" + count + output;
         }
         usersGUI.usersOutput(totalOutput);
     }
+
     public void blockUser() {
         String input;
         boolean blocked = false;
         input = usersGUI.blockUser();
 
-        for (User user: userList) {
+        for (User user : userList) {
             if (user.getUsername().equals(input)) {
                 user.addBlockedUser(currentUser);
                 saveData();
@@ -315,7 +326,7 @@ public class Users {
 
         input = usersGUI.invisUsername();
 
-        for (User user: userList) {
+        for (User user : userList) {
             if (user.getUsername().equals(input)) {
                 user.addInvisUser(currentUser);
                 saveData();
@@ -348,7 +359,7 @@ public class Users {
             do {
                 name = usersGUI.registerStore(i);
                 if (!validCharacters(name)) {
-                   usersGUI.invalidStoreName();
+                    usersGUI.invalidStoreName();
                 }
             } while (!validCharacters(name));
             user.addStore(name);
@@ -356,7 +367,7 @@ public class Users {
     }
 
     public boolean userExists(String username) {
-        for (User user: userList) {
+        for (User user : userList) {
             if (user.getUsername().equals(username)) {
                 return true;
             }
@@ -367,7 +378,7 @@ public class Users {
     public ArrayList<User> customerList() {
         ArrayList<User> customers = new ArrayList<User>();
 
-        for (User user: userList) {
+        for (User user : userList) {
             if (user.isCustomer()) {
                 customers.add(user);
             }
@@ -379,7 +390,7 @@ public class Users {
     public ArrayList<User> SellerList() {
         ArrayList<User> sellers = new ArrayList<User>();
 
-        for (User user: userList) {
+        for (User user : userList) {
             if (!user.isCustomer()) {
                 sellers.add(user);
             }
@@ -391,9 +402,9 @@ public class Users {
     public ArrayList<Store> storeList() {
         ArrayList<Store> stores = new ArrayList<Store>();
 
-        for (User user: userList) {
+        for (User user : userList) {
             if (!user.isCustomer()) {
-                for (String name: user.getStoreList()) {
+                for (String name : user.getStoreList()) {
                     stores.add(new Store(user, name));
                 }
             }
@@ -403,7 +414,7 @@ public class Users {
     }
 
     public User getUserObj(String username) {
-        for (User user: userList) {
+        for (User user : userList) {
             if (user.getUsername().equals(username)) {
                 return user;
             }
