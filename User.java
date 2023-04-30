@@ -46,7 +46,9 @@ public class User {
             this.invisibleUsers = invisibleUsers;
             this.storeList = storeList;
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Could not establish connection to server.");
+            JOptionPane.showMessageDialog(null, "Could not establish connection to server." +
+                                        "Consult the Stride180 Readme for more details.");
+            System.exit(0);
         }
     }
 
