@@ -1,5 +1,5 @@
 import java.io.*;
-import java.net.*;
+//import java.net.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -69,13 +69,14 @@ class Server {
 				try {
 					BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 					PrintWriter writer = new PrintWriter(clientSocket.getOutputStream());
-					boolean stillGoing = false;
+					//boolean stillGoing = false;
 					String message = reader.readLine();
 					if (message.startsWith("/write/")) {
 						message = message.substring(7);
 						String[] arr = message.split(" {-/} ");
 						BufferedWriter fileWriter = new BufferedWriter(new FileWriter(arr[0], true));
 						fileWriter.write(arr[1]);
+						fileWriter.close();
 					}
 					if (message.startsWith("/read/")) {
 						message = message.substring(6);
@@ -92,6 +93,7 @@ class Server {
 							str += part;
 						}
 						writer.println(str);
+						bfr.close();
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
