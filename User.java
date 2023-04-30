@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+//import java.io.File;
+//import java.io.FileReader;
 import java.io.IOException;
 import java.net.*;
 import java.io.*;
@@ -28,7 +28,6 @@ public class User {
     private Socket socket = null;
     private OutputStream outputStream = null;
     private PrintWriter writer = null;
-    private InputStream inputStream = null;
     private BufferedReader reader = null;
 
     // Constructor
@@ -38,8 +37,8 @@ public class User {
             socket = new Socket("localhost", 1234);
             outputStream = socket.getOutputStream();
             writer = new PrintWriter(outputStream, true);
-            InputStream inputStream = socket.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            //InputStream inputStream = socket.getInputStream();
+            //BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
             this.username = username;
             this.password = password;
             this.userType = userType;
@@ -87,31 +86,33 @@ public class User {
 
     // get messages between the current user and the inputted user
     public ArrayList<Message> getMessages(User user) {
+        String fileContent;
         String send = "/read/"+"messageHistory.txt";
         writer.println(send);
         try{
-           String fileContent = reader.readLine();
-        } catch (IOException e) {};
+            fileContent = reader.readLine();
+        } catch (IOException e) {
+            fileContent = "\n\n";
+        };
         ArrayList<Message> messagesWithUser = new ArrayList<Message>();
         Users users = new Users("Userdata.txt");
         ArrayList<User> arrUser = users.getUserList();
-        try {
-             ArrayList<String> fileText = new ArrayList<String>();
-             String[] fileContentArray = fileContent.split("\n");
-             Collections.addAll(fileText, fileContentArray);
-             for (String conversation: fileText) {
-                  if (conversation.contains(user.getUsername())) {
-                    conversation.replace(user.getUsername(), "");
-                    conversation.replace(",", "");
-                    for (User match: arrUser) {
-                        if (match.getUsername().equals(conversation)) {                                messagesWithUser.add(new Message(user, match));
-                            }
-                        }
+
+        ArrayList<String> fileText = new ArrayList<String>();
+        String[] fileContentArray = fileContent.split("\n");
+        Collections.addAll(fileText, fileContentArray);
+        for (String conversation: fileText) {
+            if (conversation.contains(user.getUsername())) {
+                conversation.replace(user.getUsername(), "");
+                conversation.replace(",", "");
+                for (User match: arrUser) {
+                    if (match.getUsername().equals(conversation)) {                                
+                        messagesWithUser.add(new Message(user, match));
                     }
                 }
-        } catch (IOException e) {
-            e.printStackTrace();
+            }
         }
+
         return messagesWithUser;
     }
 

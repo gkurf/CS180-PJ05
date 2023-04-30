@@ -188,7 +188,7 @@ public class Stride180 {
     }
 
     // helps the user log in or create an account
-    public User login(GUI usersGUI, Users users) {
+    public static User login(GUI usersGUI, Users users) {
         int input;
         User currentUser = null;
         do {
@@ -209,7 +209,7 @@ public class Stride180 {
     }
 
     // sends message
-    public void sendMessage(GUI usersGUI, User sender, User reciever) {
+    public static void sendMessage(GUI usersGUI, User sender, User reciever) {
         Message message = new Message(sender, reciever);
 
        int input;
@@ -249,7 +249,7 @@ public class Stride180 {
     }
 
     // displays all the potential stores
-    public User displayStores(GUI usersGUI, Users users, User user) {
+    public static User displayStores(GUI usersGUI, Users users, User user) {
         User sellerChosen;
         ArrayList<Store> dataSeller = users.storeList();
         int size = dataSeller.size();
@@ -290,7 +290,7 @@ public class Stride180 {
     }
 
     // displays list of all customers
-    public User displayCustomers(GUI usersGUI, Users users, User user) {
+    public static User displayCustomers(GUI usersGUI, Users users, User user) {
         User customerChosen;
         ArrayList <User> dataCustomer = users.customerList();
         int size = dataCustomer.size();
@@ -331,7 +331,7 @@ public class Stride180 {
         }
     }
     // for customer selection menu of sellers
-    public User chooseSeller(GUI usersGUI, User user, Users users) {
+    public static User chooseSeller(GUI usersGUI, User user, Users users) {
         String input;
 
         input = usersGUI.messageSeller();
@@ -347,7 +347,7 @@ public class Stride180 {
     }
 
     // creates the menu of customers for sellers
-    public User chooseCustomer(User user, Users users, GUI usersGUI) {
+    public static User chooseCustomer(User user, Users users, GUI usersGUI) {
         String input;
 
         input = usersGUI.messageCustomer();
