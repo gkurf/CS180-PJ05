@@ -84,7 +84,8 @@ public class Users {
         String fileContent = "";
         try {
             fileContent = reader.readLine();
-        } catch (IOException e) {
+        } catch (NullPointerException e) {
+        } catch (IOException e){
         }
 
         String[] fileContentArray = fileContent.split("\n");
