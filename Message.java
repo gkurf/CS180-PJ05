@@ -77,41 +77,37 @@ public class Message {
     public String getTimeStamp(int messageNumber, User user) {
         String message = "";
         if (user != this.customer && user != this.seller) {
-            System.out.println("User is not part of this conversation!");
+            JOptionPane.showMessageDialog(null, "User is not part of this conversation!");
         } else {
-            BufferedReader bfr = null;
-            ArrayList<String> messageList = null;
             if (user.getUserType().equals("customers")) {
                 try {
-                    bfr = new BufferedReader(new FileReader(customerFileName));
-
-                    messageList = new ArrayList<String>();
-                    String line = bfr.readLine();
-                    while (line != null) {
-                        messageList.add(line);
-                        line = bfr.readLine();
+                    String[] arrFileText = null;
+                    writer.println("/read/" + customerFileName);
+                    try {
+                        String fileText = reader.readLine();
+                        arrFileText = fileText.split("..pkjn..");
+                    } catch (NullPointerException e) {
+                    } catch (IOException e) {
                     }
-                    String readCustomerTime = "/read/" + customerFileName;
-                    writer.println(readCustomerTime);
 
-                    message = messageList.get(messageNumber + 1);
-                    bfr.close();
+                    message = arrFileText[messageNumber + 1];
+                    reader.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             } else {
                 try {
-                    bfr = new BufferedReader(new FileReader(sellerFileName));
-
-                    messageList = new ArrayList<String>();
-                    String line = bfr.readLine();
-                    while (line != null) {
-                        messageList.add(line);
-                        line = bfr.readLine();
+                    String[] arrFileText = null;
+                    writer.println("/read/" + sellerFileName);
+                    try {
+                        String fileText = reader.readLine();
+                        arrFileText = fileText.split("..pkjn..");
+                    } catch (NullPointerException e) {
+                    } catch (IOException e) {
                     }
 
-                    message = messageList.get(messageNumber + 1);
-                    bfr.close();
+                    message = arrFileText[messageNumber + 1];
+                    reader.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -127,58 +123,58 @@ public class Message {
         if (Editor != this.customer && Editor != this.seller) {
             System.out.println("User is not part of this conversation!");
         } else {
-            BufferedReader bfr = null;
+            BufferedReader reader = null;
             String lastMessage = "";
             ArrayList<String> customerMessageInfo = null;
             ArrayList<String> sellerMessageInfo = null;
             String line;
             try {
                 if (Editor.getUserType().equals("customer")) {
-                    bfr = new BufferedReader(new FileReader(customerFile));
+                    reader = new BufferedReader(new FileReader(customerFile));
 
                     customerMessageInfo = new ArrayList<String>();
-                    line = bfr.readLine();
+                    line = reader.readLine();
                     while (line != null) {
                         if (line.startsWith(Editor.getUsername())) {
                             lastMessage = line;
                         }
                         customerMessageInfo.add(line);
-                        line = bfr.readLine();
+                        line = reader.readLine();
                     }
-                    bfr.close();
+                    reader.close();
 
-                    bfr = new BufferedReader(new FileReader(sellerFile));
+                    reader = new BufferedReader(new FileReader(sellerFile));
 
                     sellerMessageInfo = new ArrayList<String>();
-                    line = bfr.readLine();
+                    line = reader.readLine();
                     while (line != null) {
                         sellerMessageInfo.add(line);
-                        line = bfr.readLine();
+                        line = reader.readLine();
                     }
-                    bfr.close();
+                    reader.close();
                 } else {
-                    bfr = new BufferedReader(new FileReader(sellerFile));
+                    reader = new BufferedReader(new FileReader(sellerFile));
 
                     sellerMessageInfo = new ArrayList<String>();
-                    line = bfr.readLine();
+                    line = reader.readLine();
                     while (line != null) {
                         if (line.startsWith(Editor.getUsername())) {
                             lastMessage = line;
                         }
                         sellerMessageInfo.add(line);
-                        line = bfr.readLine();
+                        line = reader.readLine();
                     }
-                    bfr.close();
+                    reader.close();
 
-                    bfr = new BufferedReader(new FileReader(customerFile));
+                    reader = new BufferedReader(new FileReader(customerFile));
 
                     customerMessageInfo = new ArrayList<String>();
-                    line = bfr.readLine();
+                    line = reader.readLine();
                     while (line != null) {
                         customerMessageInfo.add(line);
-                        line = bfr.readLine();
+                        line = reader.readLine();
                     }
-                    bfr.close();
+                    reader.close();
                 }
 
                 if (lastMessage.equals("")) {
@@ -229,22 +225,22 @@ public class Message {
         if (deleter != this.customer && deleter != this.seller) {
             System.out.println("User is not part of this conversation!");
         } else {
-            BufferedReader bfr = null;
+            BufferedReader reader = null;
             ArrayList<String> messageList = null;
             String lastMessage = "";
             if (deleter.getUserType().equals("customer")) {
                 File customerFile = new File(customerFileName);
                 try {
-                    bfr = new BufferedReader(new FileReader(customerFileName));
+                    reader = new BufferedReader(new FileReader(customerFileName));
 
                     messageList = new ArrayList<String>();
-                    String line = bfr.readLine();
+                    String line = reader.readLine();
                     while (line != null) {
                         if (line.startsWith(deleter.getUsername())) {
                             lastMessage = line;
                         }
                         messageList.add(line);
-                        line = bfr.readLine();
+                        line = reader.readLine();
                     }
                     System.out.println("Deleted message: " + lastMessage);
                     for (int i = 0; i < messageList.size(); i++) {
@@ -252,7 +248,7 @@ public class Message {
                             messageList.remove(i);
                         }
                     }
-                    bfr.close();
+                    reader.close();
 
                     customerFile.delete();
                     File newCustomerFile = new File(customerFileName);
@@ -268,23 +264,23 @@ public class Message {
             } else {
                 File sellerFile = new File(sellerFileName);
                 try {
-                    bfr = new BufferedReader(new FileReader(sellerFileName));
+                    reader = new BufferedReader(new FileReader(sellerFileName));
 
                     messageList = new ArrayList<String>();
-                    String line = bfr.readLine();
+                    String line = reader.readLine();
                     while (line != null) {
                         if (line.startsWith(deleter.getUsername())) {
                             lastMessage = line;
                         }
                         messageList.add(line);
-                        line = bfr.readLine();
+                        line = reader.readLine();
                     }
                     for (int i = 0; i < messageList.size(); i++) {
                         if (lastMessage.equals(messageList.get(i))) {
                             messageList.remove(i);
                         }
                     }
-                    bfr.close();
+                    reader.close();
 
                     sellerFile.delete();
                     File newSellerFile = new File(sellerFileName);
