@@ -94,7 +94,7 @@ public class User {
             fileContent = "\n\n";
         };
         ArrayList<Message> messagesWithUser = new ArrayList<Message>();
-        Users users = new Users("Userdata.txt");
+        Users users = new Users("Userdata.txt", null);
         ArrayList<User> arrUser = users.getUserList();
 
         ArrayList<String> fileText = new ArrayList<String>();

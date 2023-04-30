@@ -17,23 +17,25 @@ public class Stride180 {
         GUI usersGUI = new GUI();
         User user;
         boolean userLoggedIn;
-        //usersGUI.welcomeMessage();
-        Statistics statistics=new Statistics();
+        Statistics statistics = new Statistics();
 
         do {
             Users users = new Users("userData.txt", usersGUI);
             user = login(usersGUI, users);
             userLoggedIn = true;
+            usersGUI.message = "";
             do {
                 if (user == null) {
 
                 } else if (user.isCustomer()) {
+                    usersGUI.message = "";
                     do {
                         input = usersGUI.customerOptions();
 
                         if (input == 1) {
                             // Message seller
                             User seller;
+                            usersGUI.message = "";
                             do {
                                input = usersGUI.customerMessageOptions();
 
@@ -50,20 +52,22 @@ public class Stride180 {
                                         sendMessage(usersGUI, user, seller);
                                     }
                                 } else {
-                                    usersGUI.invalidChoice();
+                                    usersGUI.message = "Invalid Option Selected!";
                                 }
                             } while (input < 1 || input > 2);
                         } else if (input == 2) {
                             // Account Settings
+                            usersGUI.message = "";
                             do {
-                               input = usersGUI.customerAccountOptions();
+                                input = usersGUI.customerAccountOptions();
+
                                 if (input == 1) {
                                     // View Customer Statiscs
                                     List<String> commonSellerWords = statistics.getSellerCommonWords();
                                     String commonWords = " ";
                                     for (String word : commonSellerWords) {
                                         if (word.equals(null)) {
-                                            usersGUI.noCommonWordsSeller();
+                                            usersGUI.message = "No common words found!";
                                         }
                                         commonWords += "- " + word;
                                     }
@@ -87,23 +91,25 @@ public class Stride180 {
                                         userLoggedIn = false;
                                     }
                                 } else {
-                                    usersGUI.invalidChoice();
+                                    usersGUI.message = "Invalid Option Selected!";
                                 }
                             } while ((input < 1 || input > 5) && userLoggedIn);
                         } else if (input == 3) {
                             userLoggedIn = false; // Log out
                         } else {
-                            usersGUI.invalidChoice();
+                            usersGUI.message = "Invalid Option Selected!";
                         }
                     } while ((input < 1 || input > 3) && userLoggedIn);
 
                 } else {
+                    usersGUI.message = "";
                     do {
                         input = usersGUI.SellerOptions();
 
                         if (input == 1) {
                             // Message customer
                             User customer;
+                            usersGUI.message = "";
                             do {
                                 input = usersGUI.sellerMessageOptions();
 
@@ -120,11 +126,12 @@ public class Stride180 {
                                         sendMessage(usersGUI, user, customer);
                                     }
                                 } else {
-                                    usersGUI.invalidChoice();
+                                    usersGUI.message = "Invalid Option Selected!";
                                 }
                             } while (input < 1 || input > 2);
                         } else if (input == 2) {
                             // Account Settings
+                            usersGUI.message = "";
                             do {
                                 input = usersGUI.sellerAccountOptions();
                                 if (input == 1) {
@@ -172,13 +179,13 @@ public class Stride180 {
                                         userLoggedIn = false;
                                     }
                                 } else {
-                                    usersGUI.invalidChoice();
+                                    usersGUI.message = "Invalid Option Selected!";
                                 }
                             } while ((input < 1 || input > 6) && userLoggedIn);
                         } else if (input == 3) {
                             userLoggedIn = false; // Log out
                         } else {
-                            usersGUI.invalidChoice();
+                            usersGUI.message = "Invalid Option Selected!";
                         }
                     } while ((input < 1 || input > 3) && userLoggedIn);
                 }
@@ -191,6 +198,7 @@ public class Stride180 {
     public static User login(GUI usersGUI, Users users) {
         int input;
         User currentUser = null;
+        usersGUI.message = "";
         do {
             input = usersGUI.mainEntry();
 
@@ -201,7 +209,7 @@ public class Stride180 {
             } else if (input == 3) {
                 currentUser = null;
             } else {
-                usersGUI.invalidChoice();
+                usersGUI.message = "Invalid Option Selected!";
             }
         } while (input < 0 || input > 3);
 
@@ -212,9 +220,9 @@ public class Stride180 {
     public static void sendMessage(GUI usersGUI, User sender, User reciever) {
         Message message = new Message(sender, reciever);
 
-       int input;
-       String secondInput = " ";
-
+        int input;
+        String secondInput = " ";
+        usersGUI.message = "";
         do {
             String recieverUser = "Conversation with " + reciever.getUsername();
             String history = message.messageString(sender);
@@ -243,7 +251,7 @@ public class Stride180 {
                 // Exit conversation
                 break;
             } else {
-                usersGUI.invalidChoice();
+                usersGUI.message = "Invalid Option Selected!";
             }
         } while (input < 0 || input > 7);
     }
@@ -255,8 +263,10 @@ public class Stride180 {
         int size = dataSeller.size();
         int numberChosen = 0;
         String dataStores = " ";
+
+        usersGUI.message = "";
         if (size == 0) {
-            usersGUI.storeNotFound();
+            usersGUI.message = "Store not found";
             return null;
         } else {
             String invisible = " ";
@@ -270,17 +280,18 @@ public class Stride180 {
             }
             size = dataSeller.size();
 
+            String message = "";
             do {
                 for (int j = 1; j <= dataSeller.size(); j++) {
                     dataStores += "Store #" + j + ": " + dataSeller.get(j - 1).getNameStore();
                 }
                 try {
-                    numberChosen = usersGUI.numberStore(size, dataStores);
+                    numberChosen = usersGUI.numberStore(size, dataStores, message);
                     if (numberChosen > size) {
-                       usersGUI.invalidChoice();
+                        usersGUI.message = "Invalid Option Selected!";
                     }
                 } catch (InputMismatchException e) {
-                    usersGUI.invalidChoice();
+                    usersGUI.message = "Invalid Option Selected!";
                     numberChosen = size + 1;
                 }
             } while (numberChosen > size);
@@ -297,8 +308,9 @@ public class Stride180 {
         int numberChosen = 0;
         String dataCustomers = " ";
 
+        usersGUI.message = "";
         if (size == 0) {
-            usersGUI.storeNotFound();
+            usersGUI.message = "Customer not found";
             return null;
         } else {
             String invisible = " ";
@@ -312,17 +324,19 @@ public class Stride180 {
             }
             size = dataCustomer.size();
             System.out.println("Number of customers: " + size);
+
+            String message = "";
             do {
                 for (int j = 1; j <= dataCustomer.size(); j++) {
                     dataCustomers += "User #" + j + ": " + dataCustomer.get(j - 1).getUsername();
                 }
                 try {
-                    numberChosen = usersGUI.numberCustomers(size,dataCustomers);
+                    numberChosen = usersGUI.numberCustomers(size, dataCustomers, message);
                     if (numberChosen > size) {
-                        usersGUI.invalidChoice();
+                        usersGUI.message = "Invalid Option Selected!";
                     }
                 } catch (InputMismatchException e) {
-                    usersGUI.invalidChoice();
+                    usersGUI.message = "Invalid Option Selected!";
                     numberChosen = size + 1;
                 }
             } while (numberChosen > size);
@@ -342,7 +356,6 @@ public class Stride180 {
             }
         }
 
-        usersGUI.invalidSeller();
         return null;
     }
 
@@ -358,8 +371,6 @@ public class Stride180 {
             }
         }
 
-        usersGUI.invalidCustomer();
         return null;
     }
-
 }
