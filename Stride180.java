@@ -31,7 +31,6 @@ public class Stride180 {
         boolean userLoggedIn;
         System.out.println(WELCOME_PROMPT);
         Statistics statistics=new Statistics();
-        
 
         do {
             Users users = new Users("userData.txt");
@@ -403,6 +402,5 @@ public class Stride180 {
 
         System.out.println("That customer does not exist!");
         return null;
-    }
-    
+    }   
 }

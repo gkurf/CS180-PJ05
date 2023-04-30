@@ -681,11 +681,4 @@ public class GUI implements ActionListener {
         panel.add(label);
         frame.setVisible(true);
     }
-
-
-
-
 }
-
-
-
