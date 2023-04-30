@@ -82,6 +82,7 @@ public class Users {
         } catch (NullPointerException e) {
         } catch (IOException e) {
         }
+        System.out.println("File Content: " + fileContent);
         String[] fileContentArray = fileContent.split("\n");
         String line = "";
         String[] splitLine = {""};
