@@ -30,7 +30,7 @@ public class Stride180 {
         User user;
         boolean userLoggedIn;
         System.out.println(WELCOME_PROMPT);
-        Statistics statistics=new Statistics();
+        Statistics statistics = new Statistics();
 
         do {
             Users users = new Users("userData.txt");
