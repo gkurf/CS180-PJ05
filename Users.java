@@ -82,7 +82,7 @@ public class Users {
         } catch (NullPointerException e) {
         } catch (IOException e) {
         }
-        fileContent.replace("null", "");
+        //fileContent.replace("null", "");
         String[] fileContentArray = fileContent.split("..pkjm..");
         String line = "";
         String[] splitLine = {""};
@@ -95,7 +95,7 @@ public class Users {
             ArrayList<String> storeList = new ArrayList<>();
             
             line = fileContentArray[i];
-            if (line != null) {
+            if (!line.equals("null")) {
                 try {
                     splitLine = line.split(";");
                     username = splitLine[0];
@@ -106,16 +106,22 @@ public class Users {
                     } catch (ArrayIndexOutOfBoundsException e) {
                         ;
                     }
-                    invisibleUsers = new ArrayList<>(Arrays.asList(splitLine[4].split(",")));
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    ; }
-                try {
-                    storeList = new ArrayList<>(Arrays.asList(splitLine[5].split(",")));
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    ;
-                }
+                    try {
+                        invisibleUsers = new ArrayList<>(Arrays.asList(splitLine[4].split(",")));
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        ;
+                    }
+                    try {
+                        storeList = new ArrayList<>(Arrays.asList(splitLine[5].split(",")));
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        ;
+                    }
 
-                this.userList.add(new User(username, password, userType, blockedUsers, invisibleUsers, storeList, usersGUI));
+                    this.userList.add(new User(username, password, userType, 
+                            blockedUsers, invisibleUsers, storeList, usersGUI));
+                } catch (StringIndexOutOfBoundsException e) {
+                    System.out.println("[ERROR] File format error. (Index out of bounds)");
+                }
             }
 
         }
