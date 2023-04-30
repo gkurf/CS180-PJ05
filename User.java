@@ -85,11 +85,12 @@ public class User {
 
     // get messages between the current user and the inputted user
     public ArrayList<Message> getMessages(User user) {
-        String fileContent;
+        String fileContent = null;
         String send = "/read/"+"messageHistory.txt";
         writer.println(send);
         try{
-            fileContent = reader.readLine();
+            while(fileContent != null) {
+            fileContent = reader.readLine(); }
         } catch (IOException e) {
             fileContent = "\n\n";
         };

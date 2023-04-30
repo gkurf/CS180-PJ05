@@ -83,12 +83,12 @@ class Server {
 					if (message == null) {
 						int x = 1;
 					} else {
-						System.out.println("Message isn't null");
+						System.out.println(message);
 						if (message.startsWith("/write/")) {
 							message = message.substring(7);
-							String[] arr = message.split(" {-/} ");
+							String[] arr = message.split("{-/}");
 							BufferedWriter fileWriter = new BufferedWriter(new FileWriter(arr[0], true));
-							fileWriter.write(arr[1]);
+							fileWriter.write(arr[1].trim());
 							fileWriter.close();
 						}
 						if (message.startsWith("/read/")) {
@@ -105,7 +105,9 @@ class Server {
 							for (String part : messageList) {
 								str += part;
 							}
+							System.out.println(str);
 							writer.println(str);
+							writer.flush();
 							bfr.close();
 						}
 					}
