@@ -9,7 +9,7 @@ import java.io.IOException;
  * delete other users
  *
  * @author Anish Agrawal, Jack Burns, Sanya Buti, Gabe Kurfman, Shubhangi Mishra
- * @version April 19, 2023
+ * @version April 9, 2023
  */
 public class User {
 
@@ -21,10 +21,11 @@ public class User {
     private ArrayList<String> blockedUsers;
     private ArrayList<String> invisibleUsers;
     private ArrayList<String> storeList;
+    private GUI userGUI;
 
     // Constructor
     public User(String username, String password, String userType, ArrayList<String> blockedUsers,
-        ArrayList<String> invisibleUsers, ArrayList<String> storeList) {
+                ArrayList<String> invisibleUsers, ArrayList<String> storeList, GUI userGUI) {
         this.username = username;
         this.password = password;
         this.userType = userType;
@@ -76,7 +77,7 @@ public class User {
         try {
             if (history.createNewFile()) { // if the file doesn't exist
                 history.delete();
-                System.out.println("No message history");
+                userGUI.NoMessageHistory();
             } else {
                 BufferedReader bfr = null;
                 ArrayList<String> fileText = null;
@@ -161,18 +162,19 @@ public class User {
     @Override
     public String toString() {
         return "{" +
-            " username='" + getUsername() + "'" +
-            ", password='" + getPassword() + "'" +
-            ", customer='" + isCustomer() + "'" +
-            ", userType='" + getUserType() + "'" +
-            ", blockedUsers='" + getBlockedUsers() + "'" +
-            ", invisibleUsers='" + getInvisibleUsers() + "'" +
-            "}";
+                " username='" + getUsername() + "'" +
+                ", password='" + getPassword() + "'" +
+                ", customer='" + isCustomer() + "'" +
+                ", userType='" + getUserType() + "'" +
+                ", blockedUsers='" + getBlockedUsers() + "'" +
+                ", invisibleUsers='" + getInvisibleUsers() + "'" +
+                "}";
     }
 
     // Welcomes the user
     public void welcomeUser() {
         String cap = getUserType().substring(0, 1).toUpperCase() + getUserType().substring(1);
-        System.out.println("Welcome " + cap + " " + getUsername() + "!");
+        String username = getUsername();
+        userGUI.WelcomeUser(cap,username);
     }
 }
