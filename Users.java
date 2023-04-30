@@ -123,18 +123,12 @@ public class Users {
     }
 
     public void saveData(GUI usersGUI) {
-        PrintWriter dataFile;
-        try {
-            dataFile = new PrintWriter(new FileOutputStream(dataFilename, false));
-            dataFile.println(USER_DATA_COMMENT);
-            for (User user : userList) {
-                dataFile.println(user.toCSV());
-            }
-            dataFile.close();
-        } catch (FileNotFoundException e) {
-            usersGUI.message = "File error.";
-            e.printStackTrace();
+        String total = USER_DATA_COMMENT;
+        for (User u : userList) {
+            total += u.toCSV();
         }
+        String send = "/write/" + dataFilename + "{-/}" + total;
+        writer.println(send);
     }
 
     // We could add a password attempt limit and stuff for security
