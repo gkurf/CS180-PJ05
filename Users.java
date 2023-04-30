@@ -115,8 +115,8 @@ public class Users {
             }
 
                 GUI userGUI = null;
-                this.userList.add(
-                        new User(username, password, userType, blockedUsers, invisibleUsers, storeList, userGUI));
+                this.userList.add(new User(username, password, userType, 
+                            blockedUsers, invisibleUsers, storeList, userGUI));
         }
     }
 
@@ -129,10 +129,11 @@ public class Users {
         writer.println(send);
     }
 
-    // We could add a password attempt limit and stuff for security
     public User login(GUI usersGUI) {
         String username;
         String password;
+        loadData(usersGUI);
+        System.out.println(userList);
 
         do {
             username = usersGUI.logInUsername();
