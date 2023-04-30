@@ -10,7 +10,6 @@ import java.util.*;
  * @version April 19, 2023
  */
 public class Stride180 {
-
     // messages that will be sent to users
     private static String WELCOME_PROMPT = "Welcome to Stride180! We are a marketplace exclusively for the hottest kicks!";
     private static String OPTION_PROMPT = "\nType an option to continue";
