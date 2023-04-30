@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+
 public class GUI implements ActionListener {
     private static int count;
     private static String textInput;
