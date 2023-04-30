@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -25,7 +25,7 @@ public class GUI implements ActionListener {
     public void actionPerformed(ActionEvent e) {
     }
 
-    public static int mainEntry() {
+    public int mainEntry() {
         frame = new JFrame();
         label = new JLabel("Welcome!");
         panel = new JPanel();
@@ -67,7 +67,7 @@ public class GUI implements ActionListener {
         return count;
     }
 
-    public static int typeofAccount() {
+    public int typeofAccount() {
         panel.removeAll();
         label = new JLabel("What type of account do you want to create?");
         JButton button1 = new JButton("Customer Account");
@@ -92,7 +92,7 @@ public class GUI implements ActionListener {
         }
         return count;
     }
-    public static String CreateAccountUsername() {
+    public String CreateAccountUsername() {
         String Username = " ";
         panel.removeAll();
         label = new JLabel("Enter your account username");
@@ -104,7 +104,7 @@ public class GUI implements ActionListener {
         return Username;
     }
 
-    public static String CreateAccountPassword() {
+    public String CreateAccountPassword() {
         String Password = " ";
         panel.removeAll();
         label = new JLabel("Enter your account password");
@@ -116,7 +116,7 @@ public class GUI implements ActionListener {
         return Password;
     }
 
-    public static String confirmPassword() {
+    public String confirmPassword() {
         String Password = " ";
         panel.removeAll();
         label = new JLabel("Confirm password");
@@ -128,7 +128,7 @@ public class GUI implements ActionListener {
         return Password;
     }
 
-    public static String logInUsername() {
+    public String logInUsername() {
         // if type is true means user account otherwise means seller
         String Username = " ";
         panel.removeAll();
@@ -142,7 +142,7 @@ public class GUI implements ActionListener {
         return Username;
     }
 
-    public static String logInPassword() {
+    public String logInPassword() {
         String Password = " ";
         panel.removeAll();
         label = new JLabel("Enter your account Password");
@@ -155,7 +155,7 @@ public class GUI implements ActionListener {
         return Password;
     }
 
-    public static int customerOptions() {
+    public int customerOptions() {
         panel.removeAll();
         label = new JLabel("What would you like to do?");
         JButton button1 = new JButton("Message a Seller");
@@ -189,7 +189,7 @@ public class GUI implements ActionListener {
         return count;
     }
 
-    public static int customerMessageOptions() {
+    public int customerMessageOptions() {
         panel.removeAll();
         label = new JLabel("Messaging Options:");
         JButton button1 = new JButton("Search by Seller");
@@ -222,7 +222,7 @@ public class GUI implements ActionListener {
         }
         return count;
     }
-    public static int customerAccountOptions() {
+    public int customerAccountOptions() {
         panel.removeAll();
         label = new JLabel("Account Options:");
         JButton button1 = new JButton("View Statistics");
@@ -287,7 +287,7 @@ public class GUI implements ActionListener {
         }
         return count;
     }
-    public static int SellerOptions() {
+    public int SellerOptions() {
         panel.removeAll();
         label = new JLabel("What would you like to do?");
         JButton button1 = new JButton("Message a Customer");
@@ -321,7 +321,7 @@ public class GUI implements ActionListener {
         return count;
     }
 
-    public static int sellerMessageOptions() {
+    public int sellerMessageOptions() {
         panel.removeAll();
         label = new JLabel("Messaging Options:");
         JButton button1 = new JButton("Search by Customer");
@@ -353,7 +353,7 @@ public class GUI implements ActionListener {
         }
         return count;
     }
-    public static int sellerAccountOptions() {
+    public int sellerAccountOptions() {
         panel.removeAll();
         label = new JLabel("Account Options:");
         JButton button1 = new JButton("View Store Statistics");
@@ -419,79 +419,79 @@ public class GUI implements ActionListener {
         return count;
     }
 
-    public static void BothSellerCustomer() {
+    public void BothSellerCustomer() {
         panel.removeAll();
         label = new JLabel("Error: Can't both be seller and customer");
         panel.add(label);
         frame.setVisible(true);
     }
-    public static void NotPartofConvo() {
+    public void NotPartofConvo() {
         panel.removeAll();
         label = new JLabel("User is not part of this conversation!");
         panel.add(label);
         frame.setVisible(true);
     }
-    public static void NoTextToEdit() {
+    public void NoTextToEdit() {
         panel.removeAll();
         label = new JLabel("No Text to Edit");
         panel.add(label);
         frame.setVisible(true);
     }
-    public static void NoMessageHistory() {
+    public void NoMessageHistory() {
         panel.removeAll();
         label = new JLabel("No Message History");
         panel.add(label);
         frame.setVisible(true);
     }
-    public static void WelcomeUser(String cap, String Username) {
+    public void WelcomeUser(String cap, String Username) {
         panel.removeAll();
         label = new JLabel("Welcome " + cap + " " + Username + "!");
         panel.add(label);
         frame.setVisible(true);
     }
-    public static void FileError() {
+    public void FileError() {
         panel.removeAll();
         label = new JLabel(" [ERROR] File read error.");
         panel.add(label);
         frame.setVisible(true);
     }
-    public static void invalidUsername() {
+    public void invalidUsername() {
         panel.removeAll();
         label = new JLabel("Invalid username! Please try again.");
         panel.add(label);
         frame.setVisible(true);
     }
-    public static void invalidPassword() {
+    public void invalidPassword() {
         panel.removeAll();
         label = new JLabel("Invalid password! Please try again.");
         panel.add(label);
         frame.setVisible(true);
     }
-    public static void userNameTaken() {
+    public void userNameTaken() {
         panel.removeAll();
         label = new JLabel("That username is taken");
         panel.add(label);
         frame.setVisible(true);
     }
-    public static void userNameInvalid() {
+    public void userNameInvalid() {
         panel.removeAll();
         label = new JLabel("Invalid characters in username! Please try again.");
         panel.add(label);
         frame.setVisible(true);
     }
-    public static void passwordMisMatch() {
+    public void passwordMisMatch() {
         panel.removeAll();
         label = new JLabel(" Passwords do not match! Please try again.");
         panel.add(label);
         frame.setVisible(true);
     }
-    public static void invalidPasswordCharacters() {
+    public void invalidPasswordCharacters() {
         panel.removeAll();
         label = new JLabel("Invalid characters in password! Please try again.");
         panel.add(label);
         frame.setVisible(true);
     }
-    public static String changeUserName() {
+    public String changeUserName() {
         String newUsername = " ";
         panel.removeAll();
         label = new JLabel("Enter your new username");
@@ -503,7 +503,7 @@ public class GUI implements ActionListener {
         return newUsername;
     }
 
-    public static String changePassword() {
+    public String changePassword() {
         String newUsername = " ";
         panel.removeAll();
         label = new JLabel("Enter your new password");
@@ -514,7 +514,7 @@ public class GUI implements ActionListener {
         frame.setVisible(true);
         return newUsername;
     }
-    public static int deleteAccount() {
+    public int deleteAccount() {
         panel.removeAll();
         label = new JLabel("Are you sure you want to delete your account?");
         JButton button1 = new JButton("Yes");
@@ -540,19 +540,19 @@ public class GUI implements ActionListener {
         return count;
     }
 
-    public static void deletionCancelled() {
+    public void deletionCancelled() {
         panel.removeAll();
         label = new JLabel("Okay! Deletion Cancelled");
         panel.add(label);
         frame.setVisible(true);
     }
-    public static void usersOutput(String output) {
+    public void usersOutput(String output) {
         panel.removeAll();
         label = new JLabel(output);
         panel.add(label);
         frame.setVisible(true);
     }
-    public static String blockUser() {
+    public String blockUser() {
         String Username = " ";
         panel.removeAll();
         label = new JLabel("Who do you want to block?");
@@ -563,13 +563,13 @@ public class GUI implements ActionListener {
         frame.setVisible(true);
         return Username;
     }
-    public static void errorBlocked() {
+    public void errorBlocked() {
         panel.removeAll();
         label = new JLabel("That username does not exist and cannot be blocked!");
         panel.add(label);
         frame.setVisible(true);
     }
-    public static String invisUsername() {
+    public String invisUsername() {
         String Username = " ";
         panel.removeAll();
         label = new JLabel("Enter Username to become invisible to: ");
@@ -581,13 +581,13 @@ public class GUI implements ActionListener {
         return Username;
     }
 
-    public static void errorInvis() {
+    public void errorInvis() {
         panel.removeAll();
         label = new JLabel("That username does not exist");
         panel.add(label);
         frame.setVisible(true);
     }
-    public static int storesAmount() {
+    public int storesAmount() {
         int stores = 0;
         panel.removeAll();
         label = new JLabel("How many stores do you want to add? ");
@@ -598,13 +598,13 @@ public class GUI implements ActionListener {
         frame.setVisible(true);
         return stores;
     }
-    public static void errorStoreAmt() {
+    public void errorStoreAmt() {
         panel.removeAll();
         label = new JLabel("Error enter a number greater than 0 ");
         panel.add(label);
         frame.setVisible(true);
     }
-    public static String registerStore(int amount) {
+    public String registerStore(int amount) {
         String name = " ";
         panel.removeAll();
         label = new JLabel("Enter the name of store number:" + " " + amount);
@@ -615,14 +615,14 @@ public class GUI implements ActionListener {
         frame.setVisible(true);
         return name;
     }
-    public static void invalidStoreName() {
+    public void invalidStoreName() {
         panel.removeAll();
         label = new JLabel(" Invalid characters in store name, please try again.");
         panel.add(label);
         frame.setVisible(true);
     }
 
-    public static String messageCustomer() {
+    public String messageCustomer() {
         String name = " ";
         panel.removeAll();
         label = new JLabel("Enter the username of the customer you want to message");
@@ -633,14 +633,14 @@ public class GUI implements ActionListener {
         frame.setVisible(true);
         return name;
     }
-    public static void invalidCustomer() {
+    public void invalidCustomer() {
         panel.removeAll();
         label = new JLabel("That customer does not exist");
         panel.add(label);
         frame.setVisible(true);
     }
 
-    public static String messageSeller() {
+    public String messageSeller() {
         String name = " ";
         panel.removeAll();
         label = new JLabel("Enter the username of the seller you want to message");
@@ -651,19 +651,19 @@ public class GUI implements ActionListener {
         frame.setVisible(true);
         return name;
     }
-    public static void invalidSeller() {
+    public void invalidSeller() {
         panel.removeAll();
         label = new JLabel("That seller does not exist");
         panel.add(label);
         frame.setVisible(true);
     }
-    public static void storeNotFound() {
+    public void storeNotFound() {
         panel.removeAll();
         label = new JLabel("There are currently no registered stores");
         panel.add(label);
         frame.setVisible(true);
     }
-    public static int numberCustomers(int customers, String dataCustomers) {
+    public int numberCustomers(int customers, String dataCustomers) {
        int customerNumber = 0;
         panel.removeAll();
         label = new JLabel("There are " + customers + " customers");
@@ -676,13 +676,13 @@ public class GUI implements ActionListener {
         frame.setVisible(true);
         return customerNumber;
     }
-    public static void invalidChoice() {
+    public void invalidChoice() {
         panel.removeAll();
         label = new JLabel("That is an invalid option. Please try again");
         panel.add(label);
         frame.setVisible(true);
     }
-    public static int numberStore(int stores, String dataStores) {
+    public int numberStore(int stores, String dataStores) {
         int storeNumber = 0;
         panel.removeAll();
         label = new JLabel("There are " + stores + " stores");
@@ -697,7 +697,7 @@ public class GUI implements ActionListener {
         frame.setVisible(true);
         return storeNumber;
     }
-    public static int sendMessageOption(String reciever, String history) {
+    public int sendMessageOption(String reciever, String history) {
         panel.removeAll();
         label = new JLabel(reciever);
         panel.add(label);
@@ -757,7 +757,7 @@ public class GUI implements ActionListener {
         }
         return count;
     }
-    public static String optionOneMessage() {
+    public String optionOneMessage() {
         String output = " ";
         panel.removeAll();
         label = new JLabel("Type a message to send: ");
@@ -768,7 +768,7 @@ public class GUI implements ActionListener {
         frame.setVisible(true);
         return output;
     }
-    public static String optionTwoMessage() {
+    public String optionTwoMessage() {
         String output = " ";
         panel.removeAll();
         label = new JLabel("File Path: ");
@@ -779,7 +779,7 @@ public class GUI implements ActionListener {
         frame.setVisible(true);
         return output;
     }
-    public static String optionThreeMessage() {
+    public String optionThreeMessage() {
         String output = " ";
         panel.removeAll();
         label = new JLabel("Text to replace previous message: ");
@@ -790,7 +790,7 @@ public class GUI implements ActionListener {
         frame.setVisible(true);
         return output;
     }
-    public static String optionFiveMessage() {
+    public String optionFiveMessage() {
         String output = " ";
         panel.removeAll();
         label = new JLabel("File Path: ");
@@ -801,15 +801,13 @@ public class GUI implements ActionListener {
         frame.setVisible(true);
         return output;
     }
-    public static void welcomeMessage() {
-        String output = " ";
+    public void welcomeMessage() {
         panel.removeAll();
         label = new JLabel("Welcome to Stride180! We are a marketplace exclusively for the hottest kicks!");
         panel.add(label);
         frame.setVisible(true);
     }
-    public static void commonWordsSeller(String commonOnes) {
-        String output = " ";
+    public void commonWordsSeller(String commonOnes) {
         panel.removeAll();
         label = new JLabel("Most common words used by sellers:");
         panel.add(label);
@@ -817,15 +815,13 @@ public class GUI implements ActionListener {
         panel.add(label);
         frame.setVisible(true);
     }
-    public static void noCommonWordsSeller() {
-        String output = " ";
+    public void noCommonWordsSeller() {
         panel.removeAll();
         label = new JLabel("The seller has no prior messages");
         panel.add(label);
         frame.setVisible(true);
     }
-    public static void commonWordsCustomer(String commonOnes) {
-        String output = " ";
+    public void commonWordsCustomer(String commonOnes) {
         panel.removeAll();
         label = new JLabel("Most common words used by customers:");
         panel.add(label);
@@ -833,8 +829,7 @@ public class GUI implements ActionListener {
         panel.add(label);
         frame.setVisible(true);
     }
-    public static void noCommonWordsCustomer() {
-        String output = " ";
+    public void noCommonWordsCustomer() {
         panel.removeAll();
         label = new JLabel("The customer has no prior messages");
         panel.add(label);
@@ -842,6 +837,3 @@ public class GUI implements ActionListener {
     }
     
 }
-
-
-
