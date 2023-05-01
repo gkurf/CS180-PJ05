@@ -121,7 +121,7 @@ public class Users {
                     userList.add(new User(username, password, userType, 
                             blockedUsers, invisibleUsers, storeList, usersGUI));
                 } catch (StringIndexOutOfBoundsException e) {
-                    System.out.println("[ERROR] File format error. (Index out of bounds)");
+                    //System.out.println("[ERROR] File format error. (Index out of bounds)");
                 } catch (ArrayIndexOutOfBoundsException e) {
                     //System.out.println("[ERROR] File format error. (Index out of bounds)");
                 }
@@ -410,11 +410,9 @@ public class Users {
 
     public ArrayList<Store> storeList() {
         ArrayList<Store> stores = new ArrayList<Store>();
-        System.out.println("USERLIST  " + userList);
         for (User user : userList) {
             if (!user.isCustomer()) {
                 for (String name : user.getStoreList()) {
-                    System.out.println("STORE  " + user + " " + name);
                     stores.add(new Store(user, name));
                 }
             }

@@ -41,15 +41,19 @@ public class Stride180 {
                                 usersGUI.message = "";
                                 if (input == 1) {
                                     // Search seller
-                                    seller = chooseSeller(usersGUI,user, users);
+                                    seller = chooseSeller(usersGUI, user, users);
                                     if (seller != null) {
                                         sendMessage(usersGUI, user, seller);
+                                    } else {
+                                        usersGUI.message = "Seller not found!";
                                     }
                                 } else if (input == 2) {
                                     // List all stores
                                     seller = displayStores(usersGUI, users, user);
                                     if (seller != null) {
                                         sendMessage(usersGUI, user, seller);
+                                    } else {
+                                        usersGUI.message = "Store not found!";
                                     }
                                 } else {
                                     usersGUI.message = "Invalid Option Selected!";
@@ -117,12 +121,16 @@ public class Stride180 {
                                     customer = chooseCustomer(user, users, usersGUI);
                                     if (customer != null) {
                                         sendMessage(usersGUI, user, customer);
+                                    } else {
+                                        usersGUI.message = "Customer not found!";
                                     }
                                 } else if (input == 2) {
                                     // List all customers
                                     customer = displayCustomers(usersGUI, users, user);
                                     if (customer != null) {
                                         sendMessage(usersGUI, user, customer);
+                                    } else {
+                                        usersGUI.message = "Customer not found!";
                                     }
                                 } else {
                                     usersGUI.message = "Invalid Option Selected!";
@@ -148,7 +156,6 @@ public class Stride180 {
                                     usersGUI.commonWordsCustomer(commonWords);
 
                                     List<String> commonSellerWords = statistics.getSellerCommonWords();
-
 
                                     for (String word : commonSellerWords) {
                                         if(word.equals(null))
@@ -265,7 +272,7 @@ public class Stride180 {
         ArrayList<Store> dataSeller = users.storeList();
         int size = dataSeller.size();
         int numberChosen = 0;
-        String dataStores = " ";
+        String dataStores = "<html>";
 
         usersGUI.message = "";
         if (size == 0) {
@@ -284,9 +291,9 @@ public class Stride180 {
             size = dataSeller.size();
 
             for (int j = 1; j <= dataSeller.size(); j++) {
-                dataStores += "Store #" + j + ": " + dataSeller.get(j - 1).getNameStore() + "/n";
+                dataStores += "Store #" + j + ": " + dataSeller.get(j - 1).getNameStore() + "<br/>";
             }
-            numberChosen = usersGUI.numberStore(size, dataStores);
+            numberChosen = usersGUI.numberStore(size, dataStores + "</html>");
 
             sellerChosen = dataSeller.get(numberChosen - 1).getUser();
             return sellerChosen;
