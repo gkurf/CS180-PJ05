@@ -32,14 +32,14 @@ public class GUI implements ActionListener {
         frame.setVisible(false);
         frame.dispose();
     }
-    
+
     public int mainEntry() {
         panel.removeAll();
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         panel.setLayout(new GridLayout(0, 1));
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setTitle("Welcome!");
-        
+
         if (!message.equals("")) {
             JLabel m = new JLabel(message);
             panel.add(m);
@@ -57,7 +57,7 @@ public class GUI implements ActionListener {
         frame.add(panel);
         frame.pack();
         frame.setVisible(true);
-        
+
         count = 0;
         while (count == 0) {
             button1.addActionListener(new ActionListener() {
@@ -118,7 +118,7 @@ public class GUI implements ActionListener {
         }
         return count;
     }
-    
+
     public String CreateAccountUsername() {
         panel.removeAll();
         frame.setTitle("Create an Account");
@@ -145,7 +145,7 @@ public class GUI implements ActionListener {
                 }
             });
         }
-        
+
         return textInput;
     }
 
@@ -157,7 +157,7 @@ public class GUI implements ActionListener {
             JLabel m = new JLabel(message);
             panel.add(m);
         }
-        
+
         label = new JLabel("Enter your account password", SwingConstants.CENTER);
         text = new JTextField();
 
@@ -175,7 +175,7 @@ public class GUI implements ActionListener {
                 }
             });
         }
-        
+
         return textInput;
     }
 
@@ -205,7 +205,7 @@ public class GUI implements ActionListener {
                 }
             });
         }
-        
+
         return textInput;
     }
 
@@ -235,7 +235,7 @@ public class GUI implements ActionListener {
                 }
             });
         }
-        
+
         return textInput;
     }
 
@@ -265,7 +265,7 @@ public class GUI implements ActionListener {
                 }
             });
         }
-        
+
         return textInput;
     }
 
@@ -287,7 +287,7 @@ public class GUI implements ActionListener {
         panel.add(button1);
         panel.add(button2);
         panel.add(button3);
-        
+
         frame.pack();
         frame.setVisible(true);
 
@@ -360,7 +360,7 @@ public class GUI implements ActionListener {
         }
         return count;
     }
-    
+
     public int customerAccountOptions() {
         panel.removeAll();
         frame.setTitle("Account Options");
@@ -438,7 +438,7 @@ public class GUI implements ActionListener {
         }
         return count;
     }
-    
+
     public int SellerOptions() {
         panel.removeAll();
         frame.setTitle("Seller Options");
@@ -529,7 +529,7 @@ public class GUI implements ActionListener {
         }
         return count;
     }
-    
+
     public int sellerAccountOptions() {
         panel.removeAll();
         frame.setTitle("Account Options");
@@ -538,7 +538,7 @@ public class GUI implements ActionListener {
             JLabel m = new JLabel(message);
             panel.add(m);
         }
-        
+
         label = new JLabel("Account Options:");
         JButton button1 = new JButton("View Store Statistics");
         JButton button2 = new JButton("Block a user");
@@ -559,7 +559,7 @@ public class GUI implements ActionListener {
 
         frame.pack();
         frame.setVisible(true);
-        
+
         count = 0;
         while (count == 0) {
             button1.addActionListener(new ActionListener() {
@@ -609,7 +609,7 @@ public class GUI implements ActionListener {
     }
 
     public String changeUserName() {
-        frame.setTitle("Change Username");
+        frame.setTitle("Change Username"); // user is able to change their username
 
         if (!message.equals("")) {
             JLabel m = new JLabel(message);
@@ -623,7 +623,7 @@ public class GUI implements ActionListener {
         panel.add(text);
         frame.pack();
         frame.setVisible(true);
-        
+
         textInput = "";
         while (textInput.equals("")) {
             text.addActionListener(new ActionListener() {
@@ -639,7 +639,7 @@ public class GUI implements ActionListener {
 
     public String changePassword() {
         frame.setTitle("Change password");
-        
+
         if (!message.equals("")) {
             JLabel m = new JLabel(message);
             panel.add(m);
@@ -652,7 +652,7 @@ public class GUI implements ActionListener {
         panel.add(text);
         frame.pack();
         frame.setVisible(true);
-        
+
         textInput = "";
         while (textInput.equals("")) {
             text.addActionListener(new ActionListener() {
@@ -665,6 +665,7 @@ public class GUI implements ActionListener {
 
         return textInput;
     }
+
     public int deleteAccount() {
         panel.removeAll();
         frame.setTitle("Delete account");
@@ -731,7 +732,7 @@ public class GUI implements ActionListener {
         panel.add(text);
         frame.pack();
         frame.setVisible(true);
-        
+
         textInput = "";
         while (textInput.equals("")) {
             text.addActionListener(new ActionListener() {
@@ -760,7 +761,7 @@ public class GUI implements ActionListener {
         panel.add(text);
         frame.pack();
         frame.setVisible(true);
-        
+
         textInput = "";
         while (textInput.equals("")) {
             text.addActionListener(new ActionListener() {
@@ -777,19 +778,19 @@ public class GUI implements ActionListener {
     public int storesAmount() {
         panel.removeAll();
         frame.setTitle("Create Stores");
-        
+
         if (!message.equals("")) {
             JLabel m = new JLabel(message);
             panel.add(m);
         }
 
-        label = new JLabel("How many stores do you want to add? ");
+        label = new JLabel("How many stores do you want to add? "); // user is able to add a certain amount of stores 
         panel.add(label);
-        
+
         SpinnerModel spinnerModel = new SpinnerNumberModel(1, //initial value
-            1, //min
-            100, //max
-            1);//step
+                1, //min
+                100, //max
+                1);//step
         JSpinner spinner = new JSpinner(spinnerModel);
         JButton enter = new JButton("Enter Integer");
         panel.add(spinner);
@@ -807,25 +808,25 @@ public class GUI implements ActionListener {
             });
         }
 
-        return (int)spinner.getValue();
+        return (int) spinner.getValue();
     }
 
     public String registerStore(int amount) {
         panel.removeAll();
-        frame.setTitle("Search a store");
+        frame.setTitle("Search a store"); // user searches for a store
 
         if (!message.equals("")) {
             JLabel m = new JLabel(message);
             panel.add(m);
         }
 
-        label = new JLabel("Enter the name of a store:" + " " + amount);
+        label = new JLabel("Enter the name of a store:" + " " + amount); 
         panel.add(label);
         text = new JTextField();
         panel.add(text);
         frame.pack();
         frame.setVisible(true);
-        
+
         textInput = "";
         while (textInput.equals("")) {
             text.addActionListener(new ActionListener() {
@@ -848,13 +849,13 @@ public class GUI implements ActionListener {
             panel.add(m);
         }
 
-        label = new JLabel("Enter the username of the customer you want to message");
+        label = new JLabel("Enter the username of the customer you want to message"); // asking which customer they want to message
         panel.add(label);
         text = new JTextField();
         panel.add(text);
         frame.pack();
         frame.setVisible(true);
-        
+
         textInput = "";
         while (textInput.equals("")) {
             text.addActionListener(new ActionListener() {
@@ -877,13 +878,13 @@ public class GUI implements ActionListener {
             panel.add(m);
         }
 
-        label = new JLabel("Enter the username of the seller you want to message");
+        label = new JLabel("Enter the username of the seller you want to message"); // asking which seller they want to message
         panel.add(label);
         text = new JTextField();
         panel.add(text);
         frame.pack();
         frame.setVisible(true);
-        
+
         textInput = "";
         while (textInput.equals("")) {
             text.addActionListener(new ActionListener() {
@@ -914,11 +915,11 @@ public class GUI implements ActionListener {
         panel.add(label);
 
         SpinnerModel spinnerModel = new SpinnerNumberModel(1, //initial value
-            1, //min
-            customers, //max
-            1);//step
+                1, //min
+                customers, //max
+                1);//step
         JSpinner spinner = new JSpinner(spinnerModel);
-        JButton enter = new JButton("Enter Integer");
+        JButton enter = new JButton("Enter Integer"); // taking input of the customer number they want to message
         panel.add(spinner);
         panel.add(enter);
         frame.pack();
@@ -934,7 +935,7 @@ public class GUI implements ActionListener {
             });
         }
 
-        return (int)spinner.getValue();
+        return (int) spinner.getValue();
     }
 
     public int numberStore(int stores, String dataStores) {
@@ -946,17 +947,17 @@ public class GUI implements ActionListener {
             panel.add(m);
         }
 
-        label = new JLabel("There are " + stores + " stores");
+        label = new JLabel("There are " + stores + " stores"); // listing the number of stores
         panel.add(label);
-        label = new JLabel(dataStores);
+        label = new JLabel(dataStores);  // lising the stores out
         panel.add(label);
-        label = new JLabel("Which Store Number would you like to message?");
+        label = new JLabel("Which Store Number would you like to message?"); // asking the user which store they want to message
         panel.add(label);
 
         SpinnerModel spinnerModel = new SpinnerNumberModel(1, //initial value
-            1, //min
-            stores, //max
-            1);//step
+                1, //min
+                stores, //max
+                1);//step
         JSpinner spinner = new JSpinner(spinnerModel);
         JButton enter = new JButton("Enter Integer");
         panel.add(spinner);
@@ -974,7 +975,7 @@ public class GUI implements ActionListener {
             });
         }
 
-        return (int)spinner.getValue();
+        return (int) spinner.getValue();
     }
 
     public int sendMessageOption(String reciever, String history) {
@@ -990,7 +991,7 @@ public class GUI implements ActionListener {
         panel.add(label);
         label = new JLabel(history);
         panel.add(label);
-        JButton button1 = new JButton("Send New Message");
+        JButton button1 = new JButton("Send New Message"); // these 6 buttons display all the different messaging options
         JButton button2 = new JButton("Send Text File");
         JButton button3 = new JButton("Edit Previous Message");
         JButton button4 = new JButton("Delete Previous Message");
@@ -1047,7 +1048,7 @@ public class GUI implements ActionListener {
         }
         return count;
     }
-    
+
     public String optionOneMessage() {
         panel.removeAll();
         frame.setTitle("Send message");
@@ -1057,13 +1058,13 @@ public class GUI implements ActionListener {
             panel.add(m);
         }
 
-        label = new JLabel("Type a message to send: ");
+        label = new JLabel("Type a message to send: "); // asking the user what message they want to send
         panel.add(label);
         text = new JTextField();
         panel.add(text);
         frame.pack();
         frame.setVisible(true);
-        
+
         textInput = "";
         while (textInput.equals("")) {
             text.addActionListener(new ActionListener() {
@@ -1079,7 +1080,7 @@ public class GUI implements ActionListener {
 
     public String optionTwoMessage() {
         panel.removeAll();
-        frame.setTitle("Send text file");
+        frame.setTitle("Send text file"); // displaying the option the user chose
 
         if (!message.equals("")) {
             JLabel m = new JLabel(message);
@@ -1092,7 +1093,7 @@ public class GUI implements ActionListener {
         panel.add(text);
         frame.pack();
         frame.setVisible(true);
-        
+
         textInput = "";
         while (textInput.equals("")) {
             text.addActionListener(new ActionListener() {
@@ -1115,19 +1116,19 @@ public class GUI implements ActionListener {
             panel.add(m);
         }
 
-        label = new JLabel("Text to replace previous message: ");
+        label = new JLabel("Text to replace previous message: "); // asking the user for the text they want to replace the message
         panel.add(label);
         text = new JTextField();
         panel.add(text);
         frame.pack();
         frame.setVisible(true);
-        
+
         textInput = "";
         while (textInput.equals("")) {
             text.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    textInput = text.getText();
+                    textInput = text.getText(); // taking user input through text box 
                 }
             });
         }
@@ -1137,7 +1138,7 @@ public class GUI implements ActionListener {
 
     public String optionFiveMessage() {
         panel.removeAll();
-        frame.setTitle("Export to CSV");
+        frame.setTitle("Export to CSV"); // displaying title of the option user chose
 
         if (!message.equals("")) {
             JLabel m = new JLabel(message);
@@ -1150,13 +1151,13 @@ public class GUI implements ActionListener {
         panel.add(text);
         frame.pack();
         frame.setVisible(true);
-        
+
         textInput = "";
         while (textInput.equals("")) {
             text.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    textInput = text.getText();
+                    textInput = text.getText(); // getting input from user through textbox
                 }
             });
         }
@@ -1169,11 +1170,11 @@ public class GUI implements ActionListener {
         frame.setTitle("Statistics");
 
         if (!message.equals("")) {
-            JLabel m = new JLabel(message);
+            JLabel m = new JLabel(message); // deciding whether the user needs a warning statement
             panel.add(m);
         }
 
-        label = new JLabel("Most common words used by sellers:");
+        label = new JLabel("Most common words used by sellers:"); // the most common words used by a seller
         panel.add(label);
         label = new JLabel("commonOnes");
         panel.add(label);
@@ -1185,11 +1186,11 @@ public class GUI implements ActionListener {
         frame.setTitle("Statistics");
 
         if (!message.equals("")) {
-            JLabel m = new JLabel(message);
+            JLabel m = new JLabel(message); // deciding whether the user needs a warning statement
             panel.add(m);
         }
 
-        label = new JLabel("Most common words used by customers:");
+        label = new JLabel("Most common words used by customers:"); // the most common words used by a customer
         panel.add(label);
         label = new JLabel("commonOnes");
         panel.add(label);
