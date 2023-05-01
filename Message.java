@@ -23,7 +23,7 @@ public class Message {
     private PrintWriter writer = null;
     private InputStream inputStream = null;
     private BufferedReader reader = null;
-
+    
     // setting constructor
     public Message(User user1, User user2) {
         if (user1.getUserType().equals(user2.getUserType())) { // if they are both customers or both sellers
@@ -43,15 +43,14 @@ public class Message {
                     this.customer = user2;
                     this.seller = user1;
                 }
-                String sendCustomer = "/write/" + customer.getUsername() + " messages to " + seller.getUsername()
-                        + ".txt ,mv.. ";
-                writer.println(sendCustomer);
-                String sendSeller = "/write/" + seller.getUsername() + " messages to " + customer.getUsername()
-                        + ".txt ,mv.. ";
-                writer.println(sendSeller);
-                String sendHistory = "/write/ messageHistory ,mv.. " + user1.getUsername() + "," + user2.getUsername();
-                writer.println(sendHistory);
 
+                String sendCustomer = "/writeAppend/" + customer.getUsername() + " messages to " + seller.getUsername() + "..pkjm..";
+                writer.println(sendCustomer);
+                String sendSeller = "/writeAppend/" + seller.getUsername() + " messages to " + customer.getUsername() + "..pkjm..";
+                writer.println(sendSeller);
+                String sendHistory = "/writeAppend/ messageHistory..pkjm.." + user1.getUsername() + "," + user2.getUsername();
+                writer.println(sendHistory);
+    
                 this.customerFileName = customer.getUsername() + " messages to " + seller.getUsername();
                 this.sellerFileName = seller.getUsername() + " messages to " + customer.getUsername();
             } catch (IOException e) {
@@ -62,17 +61,11 @@ public class Message {
 
     // this creates a message between the sender and a customer
     public void createMessage(User sender, String message) {
-        if (sender != this.customer && sender != this.seller) {
-            System.out.println("User is not part of this conversation!");
-        } else {
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            String sendCustomerMessage = "/write/" + customerFileName + " {-/} " + sender.getUsername() + ": " + message
-                    + " (sent at " + timestamp + ")";
-            writer.println(sendCustomerMessage);
-            String sendSellerMessage = "/write/" + sellerFileName + " {-/} " + sender.getUsername() + ": " + message
-                    + " (sent at " + timestamp + ")";
-            writer.println(sendSellerMessage);
-        }
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String sendCustomerMessage = "/writeAppend/" + customerFileName + "..pkjm.." + sender.getUsername() + ": " + message + " (sent at " + timestamp + ")";
+        writer.println(sendCustomerMessage);
+        String sendSellerMessage = "/writeAppend/" + sellerFileName + "..pkjm.." + sender.getUsername() + ": " + message + " (sent at " + timestamp + ")";
+        writer.println(sendSellerMessage);
     }
 
     // This method is used for documentation and finds out the timestamp of latest
@@ -121,101 +114,101 @@ public class Message {
 
     // this edits a message in the conversation
     public void editMessage(User Editor, String newMessage) {
-        File customerFile = new File(customerFileName);
-        File sellerFile = new File(sellerFileName);
         if (Editor != this.customer && Editor != this.seller) {
-            System.out.println("User is not part of this conversation!");
+            JOptionPane.showMessageDialog(null, "User is not part of this conversation!");
         } else {
-            BufferedReader reader = null;
             String lastMessage = "";
             ArrayList<String> customerMessageInfo = null;
             ArrayList<String> sellerMessageInfo = null;
-            String line;
             try {
                 if (Editor.getUserType().equals("customer")) {
-                    reader = new BufferedReader(new FileReader(customerFile));
-
-                    customerMessageInfo = new ArrayList<String>();
-                    line = reader.readLine();
-                    while (line != null) {
+                    String[] arrFileText = null;
+                    writer.println("/read/" + customerFileName);
+                    try {
+                        String fileText = reader.readLine();
+                        arrFileText = fileText.split("..pkjn..");
+                    } catch (NullPointerException e) {
+                    } catch (IOException e) {
+                    }
+                    for (String line : arrFileText) {
                         if (line.startsWith(Editor.getUsername())) {
                             lastMessage = line;
                         }
                         customerMessageInfo.add(line);
-                        line = reader.readLine();
                     }
-                    reader.close();
 
-                    reader = new BufferedReader(new FileReader(sellerFile));
-
-                    sellerMessageInfo = new ArrayList<String>();
-                    line = reader.readLine();
-                    while (line != null) {
+                    arrFileText = null;
+                    writer.println("/read/" + sellerFileName);
+                    try {
+                        String fileText = reader.readLine();
+                        arrFileText = fileText.split("..pkjn..");
+                    } catch (NullPointerException e) {
+                    } catch (IOException e) {
+                    }
+                    for (String line : arrFileText) {
                         sellerMessageInfo.add(line);
-                        line = reader.readLine();
                     }
-                    reader.close();
                 } else {
-                    reader = new BufferedReader(new FileReader(sellerFile));
-
-                    sellerMessageInfo = new ArrayList<String>();
-                    line = reader.readLine();
-                    while (line != null) {
+                    String[] arrFileText = null;
+                    writer.println("/read/" + sellerFileName);
+                    try {
+                        String fileText = reader.readLine();
+                        arrFileText = fileText.split("..pkjn..");
+                    } catch (NullPointerException e) {
+                    } catch (IOException e) {
+                    }
+                    for (String line : arrFileText) {
                         if (line.startsWith(Editor.getUsername())) {
                             lastMessage = line;
                         }
                         sellerMessageInfo.add(line);
-                        line = reader.readLine();
                     }
-                    reader.close();
 
-                    reader = new BufferedReader(new FileReader(customerFile));
-
-                    customerMessageInfo = new ArrayList<String>();
-                    line = reader.readLine();
-                    while (line != null) {
+                    arrFileText = null;
+                    writer.println("/read/" + customerFileName);
+                    try {
+                        String fileText = reader.readLine();
+                        arrFileText = fileText.split("..pkjn..");
+                    } catch (NullPointerException e) {
+                    } catch (IOException e) {
+                    }
+                    for (String line : arrFileText) {
                         customerMessageInfo.add(line);
-                        line = reader.readLine();
                     }
-                    reader.close();
                 }
 
                 if (lastMessage.equals("")) {
                     System.out.println("No text to edit");
                 } else {
-                    customerFile.delete();
-                    File editedCustomerMessages = new File(customerFileName);
-                    editedCustomerMessages.createNewFile();
-                    PrintWriter customerWriter = new PrintWriter(new FileOutputStream(editedCustomerMessages, true));
-
-                    for (int i = 0; i < customerMessageInfo.size(); i++) {
-                        if (customerMessageInfo.get(i).substring(0, customerMessageInfo.get(i).lastIndexOf('(') -
-                                1)
-                                .equals(lastMessage.substring(0, customerMessageInfo.get(i).lastIndexOf('(') - 1))) {
-                            customerWriter.println(customer.getUsername() + ": " + newMessage +
-                                    customerMessageInfo.get(i)
-                                            .substring(customerMessageInfo.get(i).lastIndexOf('(') - 1));
+                    String convo = "";
+                    writer.println("/read/" + customerFileName);
+                    String[] arrFileText = null;
+                    String fileText = reader.readLine();
+                    arrFileText = fileText.split("..pkjn..");
+                    for (String line : arrFileText) {
+                        if (line.substring(0, line.lastIndexOf('(') - 1)
+                        .equals(lastMessage.substring(0, line.lastIndexOf('(') - 1))) {
+                            convo += customer.getUsername() + ": " + newMessage +
+                            line.substring(line.lastIndexOf('(') - 1);
                         } else {
-                            customerWriter.println(customerMessageInfo.get(i));
+                            convo += line;
                         }
                     }
-                    customerWriter.close();
 
-                    sellerFile.delete();
-                    File editedSellerMessages = new File(sellerFileName);
-                    editedSellerMessages.createNewFile();
-                    PrintWriter sellerWriter = new PrintWriter(new FileOutputStream(editedSellerMessages, true));
-
-                    for (int i = 0; i < sellerMessageInfo.size(); i++) {
-                        if (sellerMessageInfo.get(i).substring(0, sellerMessageInfo.get(i).lastIndexOf('(') -
-                                1).equals(lastMessage.substring(0, sellerMessageInfo.get(i).lastIndexOf('(') - 1))) {
-                            sellerWriter.println(customer.getUsername() + ": " + newMessage +
-                                    sellerMessageInfo.get(i).substring(sellerMessageInfo.get(i).lastIndexOf('(') - 1));
+                    convo = "";
+                    writer.println("/read/" + sellerFileName);
+                    arrFileText = null;
+                    fileText = reader.readLine();
+                    arrFileText = fileText.split("..pkjn..");
+                    for (String line : arrFileText) {
+                        if (line.substring(0, line.lastIndexOf('(') - 1)
+                        .equals(lastMessage.substring(0, line.lastIndexOf('(') - 1))) {
+                            convo += seller.getUsername() + ": " + newMessage +
+                            line.substring(line.lastIndexOf('(') - 1);
                         } else {
-                            sellerWriter.println(sellerMessageInfo.get(i));
+                            convo += line;
                         }
                     }
-                    sellerWriter.close();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -232,57 +225,70 @@ public class Message {
             ArrayList<String> messageList = null;
             String lastMessage = "";
             if (deleter.getUserType().equals("customer")) {
-
-                String send = "/read/" + sellerFileName;
-                writer.println(send);
-                String fileContent = "";
+                File customerFile = new File(customerFileName);
                 try {
-                    fileContent = reader.readLine();
-                } catch (NullPointerException e) {
-                } catch (IOException e) {
-                }
-                // fileContent.replace("null", "");
-                String[] fileContentArray = fileContent.split("..pkjm..");
-                messageList = new ArrayList<String>();
-                for (String x : fileContentArray) {
-                    if (x.startsWith(deleter.getUsername())) {
-                        lastMessage = x;
-                    }
-                    messageList.add(x);
-                }
-                messageList.remove(lastMessage);
-                String total = "";
-                for (String u : messageList) {
-                    total += u + "..pkjm..";
-                }
-                String newWrite = "/write/" + sellerFileName + " ,mv.. " + total;
-                writer.println(newWrite);
+                    reader = new BufferedReader(new FileReader(customerFileName));
 
+                    messageList = new ArrayList<String>();
+                    String line = reader.readLine();
+                    while (line != null) {
+                        if (line.startsWith(deleter.getUsername())) {
+                            lastMessage = line;
+                        }
+                        messageList.add(line);
+                        line = reader.readLine();
+                    }
+                    System.out.println("Deleted message: " + lastMessage);
+                    for (int i = 0; i < messageList.size(); i++) {
+                        if (lastMessage.equals(messageList.get(i))) {
+                            messageList.remove(i);
+                        }
+                    }
+                    reader.close();
+
+                    customerFile.delete();
+                    File newCustomerFile = new File(customerFileName);
+                    newCustomerFile.createNewFile();
+                    PrintWriter pw = new PrintWriter(new FileOutputStream(customerFileName, true));
+                    for (String message: messageList) {
+                        pw.println(message);
+                    }
+                    pw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
-                String send = "/read/" + sellerFileName;
-                writer.println(send);
-                String fileContent = "";
+                File sellerFile = new File(sellerFileName);
                 try {
-                    fileContent = reader.readLine();
-                } catch (NullPointerException e) {
-                } catch (IOException e) {
-                }
-                // fileContent.replace("null", "");
-                String[] fileContentArray = fileContent.split("..pkjm..");
-                messageList = new ArrayList<String>();
-                for (String x : fileContentArray) {
-                    if (x.startsWith(deleter.getUsername())) {
-                        lastMessage = x;
+                    reader = new BufferedReader(new FileReader(sellerFileName));
+
+                    messageList = new ArrayList<String>();
+                    String line = reader.readLine();
+                    while (line != null) {
+                        if (line.startsWith(deleter.getUsername())) {
+                            lastMessage = line;
+                        }
+                        messageList.add(line);
+                        line = reader.readLine();
                     }
-                    messageList.add(x);
+                    for (int i = 0; i < messageList.size(); i++) {
+                        if (lastMessage.equals(messageList.get(i))) {
+                            messageList.remove(i);
+                        }
+                    }
+                    reader.close();
+
+                    sellerFile.delete();
+                    File newSellerFile = new File(sellerFileName);
+                    newSellerFile.createNewFile();
+                    PrintWriter pw = new PrintWriter(new FileOutputStream(sellerFileName, true));
+                    for (String message: messageList) {
+                        pw.println(message);
+                    }
+                    pw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                messageList.remove(lastMessage);
-                String total = "";
-                for (String u : messageList) {
-                    total += u + "..pkjm..";
-                }
-                String newWrite = "/write/" + sellerFileName + " ,mv.. " + total;
-                writer.println(newWrite);
             }
         }
     }
@@ -296,7 +302,7 @@ public class Message {
             csvWriter.append("Timestamp,Recipient,Sender,Content\n");
 
             // Write each message as a row in the CSV
-            for (Message message : user.getMessages(user)) {
+            for (Message message: user.getMessages(user)) {
                 csvWriter.append(message.getParticipants() + ",");
                 csvWriter.append(message.getCustomer() + ",");
                 csvWriter.append(message.getSeller() + ",");
@@ -401,11 +407,11 @@ public class Message {
             sellerReader.close();
 
             conversation = "Customer:";
-            for (String customerMessage : customerMessages) {
+            for (String customerMessage: customerMessages) {
                 conversation += "\n" + customerMessage;
             }
             conversation += "\nSeller:";
-            for (String sellerMessage : sellerMessages) {
+            for (String sellerMessage: sellerMessages) {
                 conversation += "\n" + sellerMessage;
             }
 
@@ -422,52 +428,35 @@ public class Message {
     public String messageString(User user) {
         String conversation = "";
         String line;
-        String total = "";
-            
-            if (user.getUserType().equals("customer")) {
 
-                String send = "/read/" + customerFileName;
-                writer.println(send);
-                String fileContent = "";
-                try {
-                    fileContent = reader.readLine();
-                } catch (NullPointerException e) {
-                } catch (IOException e) {
+        try {
+            if (user.equals(customer)) {
+                BufferedReader customerReader = new BufferedReader(new FileReader(customerFileName));
+                line = customerReader.readLine();
+                while (line != null) {
+                    conversation += line + "\n";
+                    line = customerReader.readLine();
                 }
-                // fileContent.replace("null", "");
-                String[] fileContentArray = fileContent.split("..pkjm..");
-                ArrayList<String> messageList = new ArrayList<String>();
-                for (String x : fileContentArray) {
-                    messageList.add(x);
-                }
-                total = "<html>";
-                for (String u : messageList) {
-                    total += u + "<br/>";
-                }
-                total += "</html>";
+                customerReader.close();
             } else if (user.equals(seller)) {
-                String send = "/read/" + sellerFileName;
-                writer.println(send);
-                String fileContent = "";
-                try {
-                    fileContent = reader.readLine();
-                } catch (NullPointerException e) {
-                } catch (IOException e) {
+                BufferedReader sellerReader = new BufferedReader(new FileReader(customerFileName));
+                line = sellerReader.readLine();
+                while (line != null) {
+                    conversation += line + "\n";
+                    line = sellerReader.readLine();
                 }
-                // fileContent.replace("null", "");
-                String[] fileContentArray = fileContent.split("..pkjm..");
-                ArrayList<String> messageList = new ArrayList<String>();
-                for (String x : fileContentArray) {
-                    messageList.add(x);
-                }
+                sellerReader.close();
+            } else {
+                System.out.println("Well this is awkward, the code should never get here.");
+            }
 
-                total = "<html>";
-                for (String u : messageList) {
-                    total += u + "<br/>";
-                }
-                total += "</html>";
-            } 
-
-            return total;
+            return conversation;
+        } catch (FileNotFoundException e) {
+            System.out.println("This conversation does not exist.");
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "An error occurred";
     }
 }
