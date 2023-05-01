@@ -96,7 +96,7 @@ class Server {
 						if (message.startsWith("/read/")) {
 							message = message.substring(6);
 							BufferedReader bfr = new BufferedReader(new FileReader(message));
-
+							
 							ArrayList<String> messageList = new ArrayList<String>();
 							String line = bfr.readLine();
 							while (line != null) {
