@@ -899,7 +899,7 @@ public class GUI implements ActionListener {
 
     public int numberCustomers(int customers, String dataCustomers) {
         panel.removeAll();
-        frame.setTitle("Search Customers");
+        frame.setTitle("Search Stores");
 
         if (!message.equals("")) {
             JLabel m = new JLabel(message);
@@ -909,11 +909,13 @@ public class GUI implements ActionListener {
         label = new JLabel("There are " + customers + " customers");
         panel.add(label);
         label = new JLabel(dataCustomers);
-        label = new JLabel("Which Customer Number would you like to message?");
-        
+        panel.add(label);
+        label = new JLabel("Which Customer would you like to message?");
+        panel.add(label);
+
         SpinnerModel spinnerModel = new SpinnerNumberModel(1, //initial value
             1, //min
-            100, //max
+            customers, //max
             1);//step
         JSpinner spinner = new JSpinner(spinnerModel);
         JButton enter = new JButton("Enter Integer");
