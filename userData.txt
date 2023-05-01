@@ -1,4 +1,4 @@
-e;e;customer;;;
-t;t;customer;;;
-poo;poo;seller;;;Poo Store
-pee;pee;seller;;;Pee Store
+Customer Jill;password;customer;;;
+Customer Jenny;password;customer;;;
+Seller Bill;password;seller;;;Bill's Shoe Store
+Seller Joe;password;seller;;;Joe's Loafer Lobby,Big Boot Bargins
