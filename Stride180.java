@@ -11,7 +11,7 @@ import java.util.*;
 public class Stride180 {
 
     // messages that will be sent to users
-   
+
     public static void main(String[] args) {
         int input = 0;
         GUI usersGUI = new GUI();
@@ -23,7 +23,7 @@ public class Stride180 {
             Users users = new Users("userData.txt", usersGUI);
             user = login(usersGUI, users);
             userLoggedIn = true;
-        
+
             do {
                 if (user != null && user.isCustomer()) {
                     user.welcomeUser(usersGUI);
@@ -35,7 +35,7 @@ public class Stride180 {
                         if (input == 1) {
                             // Message seller
                             User seller;
-                           
+
                             do {
                                 input = usersGUI.customerMessageOptions();
                                 usersGUI.message = "";
@@ -114,7 +114,7 @@ public class Stride180 {
                         if (input == 1) {
                             // Message customer
                             User customer;
-                            
+
                             do {
                                 input = usersGUI.sellerMessageOptions();
                                 usersGUI.message = "";
@@ -140,7 +140,7 @@ public class Stride180 {
                             } while (input < 1 || input > 2);
                         } else if (input == 2) {
                             // Account Settings
-                            
+
                             do {
                                 input = usersGUI.sellerAccountOptions();
                                 usersGUI.message = "";
@@ -149,8 +149,7 @@ public class Stride180 {
                                     String commonWords = "";
                                     String commonWordss = " ";
                                     for (String word : commonCustomerWords) {
-                                        if(word.equals(null))
-                                        {
+                                        if (word.equals(null)) {
                                             usersGUI.message = "No common words found.";
                                         }
                                         commonWords += word + " ";
@@ -160,8 +159,7 @@ public class Stride180 {
                                     List<String> commonSellerWords = statistics.getSellerCommonWords();
 
                                     for (String word : commonSellerWords) {
-                                        if(word.equals(null))
-                                        {
+                                        if (word.equals(null)) {
                                             usersGUI.message = "No common words found.";
                                         }
                                         commonWordss = word + "";
@@ -199,7 +197,7 @@ public class Stride180 {
                     } while ((input < 1 || input > 3) && userLoggedIn);
                 }
             } while (userLoggedIn && user != null);
-            
+
         } while (user != null);
 
         usersGUI.closeWindow();
@@ -304,7 +302,7 @@ public class Stride180 {
     // displays list of all customers
     public static User displayCustomers(GUI usersGUI, Users users, User user) {
         User customerChosen;
-        ArrayList <User> dataCustomer = users.customerList();
+        ArrayList<User> dataCustomer = users.customerList();
         int size = dataCustomer.size();
         int numberChosen = 0;
         String dataCustomers = "<html>";
@@ -334,12 +332,13 @@ public class Stride180 {
             return customerChosen;
         }
     }
+
     // for customer selection menu of sellers
     public static User chooseSeller(GUI usersGUI, User user, Users users) {
         String input;
 
         input = usersGUI.messageSeller();
-        for (User currentUser: users.SellerList()) {
+        for (User currentUser : users.SellerList()) {
             if (currentUser.getUsername().equals(input) &&
                     !user.getInvisibleUsers().contains(currentUser.getUsername())) {
                 return currentUser;
@@ -354,7 +353,7 @@ public class Stride180 {
         String input;
 
         input = usersGUI.messageCustomer();
-        for (User currentUser: users.customerList()) {
+        for (User currentUser : users.customerList()) {
             if (currentUser.getUsername().equals(input) &&
                     !user.getInvisibleUsers().contains(currentUser.getUsername())) {
                 return currentUser;
