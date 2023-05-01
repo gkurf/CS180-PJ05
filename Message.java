@@ -43,14 +43,13 @@ public class Message {
                     this.customer = user2;
                     this.seller = user1;
                 }
-
                 String sendCustomer = "/write/" + customer.getUsername() + " messages to " + seller.getUsername()
-                        + " {-/} ";
+                        + ".txt ,mv.. ";
                 writer.println(sendCustomer);
                 String sendSeller = "/write/" + seller.getUsername() + " messages to " + customer.getUsername()
-                        + " {-/} ";
+                        + ".txt ,mv.. ";
                 writer.println(sendSeller);
-                String sendHistory = "/write/ messageHistory {-/} " + user1.getUsername() + "," + user2.getUsername();
+                String sendHistory = "/write/ messageHistory ,mv.. " + user1.getUsername() + "," + user2.getUsername();
                 writer.println(sendHistory);
 
                 this.customerFileName = customer.getUsername() + " messages to " + seller.getUsername();
