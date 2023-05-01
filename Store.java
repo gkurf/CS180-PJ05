@@ -1,5 +1,6 @@
 //import java.io.FileNotFoundException;
 //import java.io.FileOutputStream;
+
 import java.io.PrintWriter;
 import java.net.*;
 import java.io.*;
@@ -36,11 +37,11 @@ public class Store {
             this.nameStore = nameStore;
             String fileName = "sellerData.txt";
             String sellerData = nameStore + ", " + user.getUsername();
-            String send = "/write/"+fileName + " ,mv.. "+ sellerData;
+            String send = "/write/" + fileName + " ,mv.. " + sellerData;
             writer.println(send);
-    } catch (IOException e) {
-        JOptionPane.showMessageDialog(null, "Could not establish connection to server.");
-    }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Could not establish connection to server.");
+        }
     }
 
     // setters and getters
@@ -78,9 +79,6 @@ public class Store {
 
     @Override
     public String toString() {
-        return "Store{" +
-            "user=" + user +
-            ", nameStore='" + nameStore + '\'' +
-            '}';
+        return "Store{" + "user=" + user + ", nameStore='" + nameStore + '\'' + '}';
     }
 }
