@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.*;
 import java.io.*;
 import javax.swing.*;
+
 /**
  * This class allows for Statistics of relevent data to be displayed on request by users
  *
@@ -21,22 +22,23 @@ public class Statistics {
     private OutputStream outputStream = null;
     private PrintWriter writer = null;
     private BufferedReader reader = null;
-    
+
     public Statistics() {
-         try{
+        try {
             socket = new Socket("localhost", 1234);
             outputStream = socket.getOutputStream();
             writer = new PrintWriter(outputStream, true);
             customers = new ArrayList<>();
-            sellers=new ArrayList<>();
+            sellers = new ArrayList<>();
             commonWords = new ArrayList<>();
-         } catch (IOException e) {
+        } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not establish connection to server." +
-                                        "\nConsult the Stride180 Readme for more details.", 
-                                        "Server Error", JOptionPane.ERROR_MESSAGE);
+                            "\nConsult the Stride180 Readme for more details.",
+                    "Server Error", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
     }
+
     private String sendMessage(String message) {
         String response = "";
         try {
@@ -51,23 +53,27 @@ public class Statistics {
     public void addCustomer(Message customer) {
         customers.add(customer);
     }
-    public void addseller(Message seller){
+
+    public void addseller(Message seller) {
         sellers.add(seller);
     }
 
     public void sortCustomers(Comparator<Message> comparator) {
         Collections.sort(customers, comparator);
     }
-    public void sortSellers(Comparator<Message> comparator){
+
+    public void sortSellers(Comparator<Message> comparator) {
         Collections.sort(sellers, comparator);
     }
 
     public List<Message> getCustomers() {
         return customers;
     }
-    public List<Message> getSellers(){
+
+    public List<Message> getSellers() {
         return sellers;
     }
+
     // get most common words in messages used by the Customer
     public List<String> getCustomerCommonWords() {
         List<String> allWords = new ArrayList<>();
@@ -77,8 +83,8 @@ public class Statistics {
                 String[] words = message.split("\\s+");
                 for (String word : words) {
                     if (!word.equalsIgnoreCase("the seller") || !word.equalsIgnoreCase("the customer") || !word.contains("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}")) {
-                    allWords.add(word.toLowerCase());
-                }
+                        allWords.add(word.toLowerCase());
+                    }
                 }
             }
         }
@@ -102,6 +108,7 @@ public class Statistics {
 
         return commonWords;
     }
+
     // get most common words in messages used by the seller
     public List<String> getSellerCommonWords() {
         List<String> allWords = new ArrayList<>();
@@ -110,10 +117,10 @@ public class Statistics {
             for (String message : seller.getSeller()) {
                 String[] words = message.split("\\s+");
                 for (String word : words) {
-                    if (!word.equalsIgnoreCase("seller") || !word.equalsIgnoreCase("customer") ||!word.equalsIgnoreCase("the")|| !word.contains("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}"))  {
-                    allWords.add(word.toLowerCase());
-                }
-                    
+                    if (!word.equalsIgnoreCase("seller") || !word.equalsIgnoreCase("customer") || !word.equalsIgnoreCase("the") || !word.contains("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}")) {
+                        allWords.add(word.toLowerCase());
+                    }
+
                 }
             }
         }
