@@ -5,6 +5,7 @@ Stride 180 is an online shoe shopping system where customers and sellers can int
 ## Submission information
 While everyone split up and completed the work, only two people are submitting the deliverables:
 - Project 5 Report: Submitted by Sanya Buti on Brightspace
+- Project 5 Presentation: Submitted by Jack Burns on Bongo
 - All classes and README: Submitted by Gabe Kurfman on Vocareum
 
 ## Compilation information
