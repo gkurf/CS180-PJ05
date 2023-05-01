@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.*;
 import java.io.*;
 import javax.swing.*;
+
 /**
  * This class simulates a User in the marketplace and helps create, interact, or
  * delete other users
@@ -32,7 +33,7 @@ public class User {
     // Constructor
     public User(String username, String password, String userType, ArrayList<String> blockedUsers,
                 ArrayList<String> invisibleUsers, ArrayList<String> storeList, GUI userGUI) {
-        try{
+        try {
             socket = new Socket("localhost", 1234);
             outputStream = socket.getOutputStream();
             writer = new PrintWriter(outputStream, true);
@@ -47,8 +48,8 @@ public class User {
             this.storeList = storeList;
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not establish connection to server." +
-                                        "\nConsult the Stride180 Readme for more details.", 
-                                        "Server Error", JOptionPane.ERROR_MESSAGE);
+                            "\nConsult the Stride180 Readme for more details.",
+                    "Server Error", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
     }
@@ -89,14 +90,16 @@ public class User {
     // get messages between the current user and the inputted user
     public ArrayList<Message> getMessages(User user) {
         String fileContent = null;
-        String send = "/read/"+"messageHistory.txt";
+        String send = "/read/" + "messageHistory.txt";
         writer.println(send);
-        try{
-            while(fileContent != null) {
-            fileContent = reader.readLine(); }
+        try {
+            while (fileContent != null) {
+                fileContent = reader.readLine();
+            }
         } catch (IOException e) {
             fileContent = "\n\n";
-        };
+        }
+        ;
         ArrayList<Message> messagesWithUser = new ArrayList<Message>();
         Users users = new Users("Userdata.txt", null);
         ArrayList<User> arrUser = users.getUserList();
@@ -104,12 +107,12 @@ public class User {
         ArrayList<String> fileText = new ArrayList<String>();
         String[] fileContentArray = fileContent.split("\n");
         Collections.addAll(fileText, fileContentArray);
-        for (String conversation: fileText) {
+        for (String conversation : fileText) {
             if (conversation.contains(user.getUsername())) {
                 conversation.replace(user.getUsername(), "");
                 conversation.replace(",", "");
-                for (User match: arrUser) {
-                    if (match.getUsername().equals(conversation)) {                                
+                for (User match : arrUser) {
+                    if (match.getUsername().equals(conversation)) {
                         messagesWithUser.add(new Message(user, match));
                     }
                 }
