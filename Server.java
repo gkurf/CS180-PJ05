@@ -33,7 +33,7 @@ class Server {
 
 				// Displaying that new client is connected
 				// to server
-				System.out.println("New client connected" + client.getInetAddress().getHostAddress());
+				// System.out.println("New client connected" + client.getInetAddress().getHostAddress());
 
 				// create a new thread object
 				ClientHandler clientSock = new ClientHandler(client);
@@ -107,10 +107,8 @@ class Server {
 							for (String part : messageList) {
 								str += "..pkjm.." + part + "..pkjm..";
 							}
-							System.out.println(str);
 							writer.println(str);
 							writer.flush(); 
-							System.out.println("str");
 							bfr.close();
 						}
 					}
