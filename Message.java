@@ -432,7 +432,7 @@ public class Message {
 
     public String messageString(User user) {
         String conversation = "";
-        String line;
+        String line; // output 
         String total = "";
         if (user.getUserType().equals("customer")) {
             String send = "/read/" + customerFileName;
