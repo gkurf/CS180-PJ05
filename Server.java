@@ -87,7 +87,12 @@ class Server {
 							BufferedWriter fileWriter = new BufferedWriter(new FileWriter(arr[0], false));
 							//fileWriter.newLine();
 							//arr[1] = arr[1].replaceAll("null", "");
-							String[] lines = arr[1].split("..pkjm..");
+							String[] lines = {""};
+							if(arr[1].length()<=1){
+								lines[0] = "";
+							} else {
+							lines = arr[1].split("..pkjm..");
+						}
 							for(String l: lines){
 								fileWriter.write(l+"\n");
 							}
