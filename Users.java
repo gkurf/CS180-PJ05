@@ -40,8 +40,8 @@ public class Users {
             this.currentUser = null;
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not establish connection to server." +
-                                        "\nConsult the Stride180 Readme for more details.", 
-                                        "Server Error", JOptionPane.ERROR_MESSAGE);
+                            "\nConsult the Stride180 Readme for more details.",
+                    "Server Error", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
         loadData(usersGUI);
@@ -94,7 +94,7 @@ public class Users {
             ArrayList<String> blockedUsers = new ArrayList<>();
             ArrayList<String> invisibleUsers = new ArrayList<>();
             ArrayList<String> storeList = new ArrayList<>();
-            
+
             line = fileContentArray[i];
             if (!line.equals("null")) {
                 try {
@@ -117,8 +117,8 @@ public class Users {
                     } catch (ArrayIndexOutOfBoundsException e) {
                         ;
                     }
-                    
-                    userList.add(new User(username, password, userType, 
+
+                    userList.add(new User(username, password, userType,
                             blockedUsers, invisibleUsers, storeList, usersGUI));
                 } catch (StringIndexOutOfBoundsException e) {
                     //System.out.println("[ERROR] File format error. (Index out of bounds)");
@@ -417,7 +417,7 @@ public class Users {
                 }
             }
         }
-    
+
         return stores;
     }
 
