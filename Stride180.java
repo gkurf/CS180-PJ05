@@ -106,6 +106,8 @@ public class Stride180 {
                     } while ((input < 1 || input > 3) && userLoggedIn);
 
                 } else if (user != null) {
+                    user.welcomeUser(usersGUI);
+                    usersGUI.message = "";
                     do {
                         input = usersGUI.SellerOptions();
                         usersGUI.message = "";
@@ -229,7 +231,6 @@ public class Stride180 {
     // sends message
     public static void sendMessage(GUI usersGUI, User sender, User reciever) {
         Message message = new Message(sender, reciever);
-        System.out.println("HERE");
         int input;
         String secondInput = " ";
         do {
