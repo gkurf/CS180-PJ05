@@ -423,35 +423,52 @@ public class Message {
     public String messageString(User user) {
         String conversation = "";
         String line;
+        String total = "";
+            
+            if (user.getUserType().equals("customer")) {
 
-        try {
-            if (user.equals(customer)) {
-                BufferedReader customerReader = new BufferedReader(new FileReader(customerFileName));
-                line = customerReader.readLine();
-                while (line != null) {
-                    conversation += line + "\n";
-                    line = customerReader.readLine();
+                String send = "/read/" + customerFileName;
+                writer.println(send);
+                String fileContent = "";
+                try {
+                    fileContent = reader.readLine();
+                } catch (NullPointerException e) {
+                } catch (IOException e) {
                 }
-                customerReader.close();
+                // fileContent.replace("null", "");
+                String[] fileContentArray = fileContent.split("..pkjm..");
+                ArrayList<String> messageList = new ArrayList<String>();
+                for (String x : fileContentArray) {
+                    messageList.add(x);
+                }
+                total = "<html>";
+                for (String u : messageList) {
+                    total += u + "<br/>";
+                }
+                total += "</html>";
             } else if (user.equals(seller)) {
-                BufferedReader sellerReader = new BufferedReader(new FileReader(customerFileName));
-                line = sellerReader.readLine();
-                while (line != null) {
-                    conversation += line + "\n";
-                    line = sellerReader.readLine();
+                String send = "/read/" + sellerFileName;
+                writer.println(send);
+                String fileContent = "";
+                try {
+                    fileContent = reader.readLine();
+                } catch (NullPointerException e) {
+                } catch (IOException e) {
                 }
-                sellerReader.close();
-            } else {
-                System.out.println("Well this is awkward, the code should never get here.");
-            }
+                // fileContent.replace("null", "");
+                String[] fileContentArray = fileContent.split("..pkjm..");
+                ArrayList<String> messageList = new ArrayList<String>();
+                for (String x : fileContentArray) {
+                    messageList.add(x);
+                }
 
-            return conversation;
-        } catch (FileNotFoundException e) {
-            System.out.println("This conversation does not exist.");
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "An error occurred";
+                total = "<html>";
+                for (String u : messageList) {
+                    total += u + "<br/>";
+                }
+                total += "</html>";
+            } 
+
+            return total;
     }
 }
