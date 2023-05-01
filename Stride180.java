@@ -229,7 +229,7 @@ public class Stride180 {
     // sends message
     public static void sendMessage(GUI usersGUI, User sender, User reciever) {
         Message message = new Message(sender, reciever);
-
+        System.out.println("HERE");
         int input;
         String secondInput = " ";
         do {
@@ -306,7 +306,7 @@ public class Stride180 {
         ArrayList <User> dataCustomer = users.customerList();
         int size = dataCustomer.size();
         int numberChosen = 0;
-        String dataCustomers = " ";
+        String dataCustomers = "<html>";
 
         usersGUI.message = "";
         if (size == 0) {
@@ -324,20 +324,11 @@ public class Stride180 {
             }
             size = dataCustomer.size();
 
-            do {
-                for (int j = 1; j <= dataCustomer.size(); j++) {
-                    dataCustomers += "User #" + j + ": " + dataCustomer.get(j - 1).getUsername();
-                }
-                try {
-                    numberChosen = usersGUI.numberCustomers(size, dataCustomers);
-                    if (numberChosen > size) {
-                        usersGUI.message = "Invalid Option Selected!";
-                    }
-                } catch (InputMismatchException e) {
-                    usersGUI.message = "Invalid Option Selected!";
-                    numberChosen = size + 1;
-                }
-            } while (numberChosen > size);
+            for (int j = 1; j <= dataCustomer.size(); j++) {
+                dataCustomers += "User #" + j + ": " + dataCustomer.get(j - 1).getUsername() + "<br/>";
+            }
+            numberChosen = usersGUI.numberCustomers(size, dataCustomers + "</html>");
+
             customerChosen = dataCustomer.get(numberChosen - 1);
             return customerChosen;
         }
